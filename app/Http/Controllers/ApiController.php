@@ -22,10 +22,16 @@ class ApiController extends Controller {
      * Returns JSON with all ticket information
      * @return mixed
      */
-    public function fetchTicketJson(){
-        $carbon = new Carbon('first day of February 2015', 'Europe/London');
-        $tickets = Ticket::where('created_at', '>=', $carbon )->where('state','=','open')->get();
+    public function fetchTicketJson($startTime, $endTime){
+        //TODO server validation
+        $tickets = Ticket::where('created_at', '>=', $startTime )->where('created_at', '<=', $endTime )->where('state','=','open')->get();
         return $tickets->toJson();
+    }
+
+    public function fetchTicketJsonDefault(){
+        $start = new Carbon('first day of February 2015', 'Europe/London');
+        $end = new Carbon('last day of February 2015', 'Europe/London');
+        return $this->fetchTicketJson($start,$end);
     }
 
 }

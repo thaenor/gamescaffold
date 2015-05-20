@@ -41,6 +41,7 @@ Route::group(array('prefix' => 'secretRoute'), function()
 //API routes, suitable to be called through ajax
 Route::group(array('prefix' => 'api/v1'), function()
 {
+    Route::get('tickets/{start}&{end}', 'ApiController@fetchTicketJson');
     Route::get('groups', 'ApiController@fetchGroupJson');
-    Route::get('tickets', 'ApiController@fetchTicketJson');
+    Route::get('tickets', 'ApiController@fetchTicketJsonDefault');
 });

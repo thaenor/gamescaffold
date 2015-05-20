@@ -69,10 +69,15 @@ $(document)
                         $( "#endDatepicker" )
                             .datepicker();
                       });
-                    //renewing all ajax calls (TODO)
+                    //renewing all ajax calls
                     $("#timeTravelTrigger")
                         .click(function() {
-                            console.log($("#startDatepicker").val()+' '+$("#endDatepicker").val())
+                            //validate data inserted by user
+                            _ticketsJson = null;
+                            var ticketCall = new ticketsAjaxCall();
+                            ticketCall.onready = function () {
+                                //ajax call is made here
+                            }
                         });
             }
         };
