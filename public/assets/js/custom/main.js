@@ -7,6 +7,8 @@
 var _barGraphDesignJson = [];
 var _globalpage = 1;
 var _recPerPage = 10;
+var _groupJson;
+var _ticketsJson;
 /**
  * ------------------------------------------------------------------------
  * This contains
@@ -20,96 +22,119 @@ var _recPerPage = 10;
  */
 $(document)
     .ready(function() {
-        var _groupJson;
-        var _ticketsJson;
-        //get group json
-        $.ajax({
-            url: '/api/v1/groups',
-            dataType: 'json',
-            success: function(json) {
-                // get the `groups` array
-                _groupJson = json;
-                //sort groups by points. So highest scoring comes first
-                _groupJson.sort(function(a, b) {
-                    return parseFloat(b.points) -
-                        parseFloat(a.points)
-                });
 
-                _globalpage = 1;
-                leaderboardPaginator(_groupJson);
-                drawMorrisBarGraph();
-            },
-            error: function() {
+        var ticketCall = new ticketsAjaxCall();
+        ticketCall.onready = function () {
+            var groupCall = new groupsAjaxCall();
+            groupCall.onready = function () {
+                /**
+                 * bellow here there's only event handling
+                 * -> Pagination functions
+                 * -> search bar for tickets
+                 * -> Date pickers for advanced search (time travel)
+                 * */
+                $(".next")
+                    .click(function() {
+                        _globalpage++;
+                        leaderboardPaginator(_groupJson);
+                        ticketPaginator(_ticketsJson);
+                        drawMorrisBarGraph();
+                    });
+                $(".previous")
+                    .click(function() {
+                        _globalpage--;
+                        leaderboardPaginator(_groupJson);
+                        ticketPaginator(_ticketsJson);
+                        drawMorrisBarGraph();
+                    });
+
+                    //search event handling
+                    $("#ticketSearchField")
+                        .change(function() {
+                            var searchResults = searchTickets($("#ticketSearchField").val());
+                            if(searchResults[0] == 'no results'){
+                                $('#ticketList').empty();
+                                $('#ticketList').append('<p class="well">Sorry, these aren\'t the tickets you are looking for</p>');    
+                            }else {
+                                ticketPaginator(searchResults);
+                            }
+                        });
+
+                    //Date pickers for advanced search
+                    $(function() {
+                        $( "#startDatepicker" )
+                            .datepicker();
+                      });
+                    $(function() {
+                        $( "#endDatepicker" )
+                            .datepicker();
+                      });
+                    //renewing all ajax calls (TODO)
+                    $("#timeTravelTrigger")
+                        .click(function() {
+                            console.log($("#startDatepicker").val()+' '+$("#endDatepicker").val())
+                        });
+            }
+        };
+
+    });
+
+
+function groupsAjaxCall() {
+    this.onready = function () {}; // Our onready function
+    this.response = {}; // The response Variable
+    var self = this; // "References" this scope and all the "this" variables
+
+     $.ajax({
+        url: '/api/v1/groups',
+        dataType: 'json',
+        success: function(json) {
+            self.response = json; // Sets the response
+            self.onready.apply(self); // Calls the callback
+            
+            // get the `groups` array
+            _groupJson = json;
+            //sort groups by points. So highest scoring comes first
+            _groupJson.sort(function(a, b) {
+                return parseFloat(b.points) -
+                    parseFloat(a.points)
+            });
+
+            _globalpage = 1;
+            leaderboardPaginator(_groupJson);
+            drawMorrisBarGraph();
+        },
+        error: function() {
                 console.error(
                     'error while making ajax request to retrieve groups json file. If you are a dev I\'m from main.js'
                 );
             }
-        });
-
-
-        /**
-         * Pagination functions
-         * */
-        $(".next")
-            .click(function() {
-                _globalpage++;
-                leaderboardPaginator(_groupJson);
-                ticketPaginator(_ticketsJson);
-                drawMorrisBarGraph();
-            });
-        $(".previous")
-            .click(function() {
-                _globalpage--;
-                leaderboardPaginator(_groupJson);
-                ticketPaginator(_ticketsJson);
-                drawMorrisBarGraph();
-            });
-
-
-        /**
-         * get ticket json
-         * */
-        $.ajax({
-            url: '/api/v1/tickets',
-            dataType: 'json',
-            success: function(json) {
-                _ticketsJson = json;
-                ticketPaginator(_ticketsJson);
-            },
-            error: function() {
-                console.error(
-                    'error while making ajax request to retrieve tickets json file. If you are a dev I\'m from main.js'
-                );
-            }
-        });
-
-        /**
-         * search event handling
-         * */
-        $("#ticketSearchField")
-            .change(function() {
-                var searchResults = searchTickets(_ticketsJson, $("#ticketSearchField").val());
-                ticketPaginator(searchResults);
-            });
-
-        /**
-         * Date pickers for advanced search
-         * */
-        $(function() {
-            $( "#startDatepicker" )
-                .datepicker();
-          });
-        $(function() {
-            $( "#endDatepicker" )
-                .datepicker();
-          });
-        $("#timeTravelTrigger")
-            .click(function() {
-                console.log($("#startDatepicker").val()+' '+$("#endDatepicker").val())
-            });
     });
+}
 
 
+function ticketsAjaxCall () {
+    this.onready = function () {}; // Our onready function
+    this.response = {}; // The response Variable
+    var self = this; // "References" this scope and all the "this" variables
+
+    $.ajax({
+        url: '/api/v1/tickets',
+        dataType: 'json',
+        success: function(json) {
+            self.response = json; // Sets the response
+            self.onready.apply(self); // Calls the callback
+
+            _ticketsJson = json;
+            ticketPaginator(_ticketsJson);
+        },
+        error: function() {
+            console.error(
+                'error while making ajax request to retrieve tickets json file. If you are a dev I\'m from main.js'
+            );
+        }
+    });
+}
 
 
 /**
@@ -221,9 +246,9 @@ function fillBarGraphData(title, points) {
  * if no results are found the single element 
  * "no results" is returned
  */
-function searchTickets(searchBase ,searchString){
+function searchTickets(searchString){
     var searchResults = [];
-    $.each(searchBase, function(index, currentTicket) {
+    $.each(_ticketsJson, function(index, currentTicket) {
         if(currentTicket.title.includes(searchString)){
             searchResults.push(currentTicket);
         }
