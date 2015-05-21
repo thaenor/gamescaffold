@@ -23,15 +23,21 @@ class ApiController extends Controller {
      * @return mixed
      */
     public function fetchTicketJson($startTime, $endTime){
-        //TODO server validation
-        $tickets = Ticket::where('created_at', '>=', $startTime )->where('created_at', '<=', $endTime )->where('state','=','open')->get();
+        $carbonStart = $this->validateTime($startTime);
+        $carbonEnd = $this->validateTime($endTime);
+        $tickets = Ticket::where('created_at', '>=', $carbonStart )->where('created_at', '<=', $carbonEnd )->where('state','=','open')->get();
         return $tickets->toJson();
     }
 
     public function fetchTicketJsonDefault(){
         $start = new Carbon('first day of February 2015', 'Europe/London');
         $end = new Carbon('last day of February 2015', 'Europe/London');
-        return $this->fetchTicketJson($start,$end);
+        $tickets = Ticket::where('created_at', '>=', $start )->where('created_at', '<=', $end )->where('state','=','open')->get();
+        return $tickets->toJson();
+    }
+
+    public function validateTime($date){
+        return $ValidDate = Carbon::createFromFormat('m-d-Y', $date);
     }
 
 }

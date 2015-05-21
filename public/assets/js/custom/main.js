@@ -54,7 +54,7 @@ $(document)
                             var searchResults = searchTickets($("#ticketSearchField").val());
                             if(searchResults[0] == 'no results'){
                                 $('#ticketList').empty();
-                                $('#ticketList').append('<p class="well">Sorry, these aren\'t the tickets you are looking for</p>');    
+                                $('#ticketList').append('<p class="well">Sorry, these aren\'t the tickets you are looking for</p>');
                             }else {
                                 ticketPaginator(searchResults);
                             }
@@ -72,17 +72,23 @@ $(document)
                     //renewing all ajax calls
                     $("#timeTravelTrigger")
                         .click(function() {
-                            //validate data inserted by user
-                            _ticketsJson = null;
-                            var ticketCall = new ticketsAjaxCall();
-                            ticketCall.onready = function () {
-                                //ajax call is made here
-                            }
+                          var start = replaceAll('/','-',$('#startDatepicker').val());
+                          var end = replaceAll('/','-',$('#endDatepicker').val());
+                              var ticketCall = new ticketsAjaxCall(start, end);
+                              ticketCall.onready = function () {
+                                  //ajax call is made here
+                                  alert('ajax call is made');
+                              }
                         });
             }
         };
 
     });
+
+
+function replaceAll(find, replace, str) {
+  return str.replace(new RegExp(find, 'g'), replace);
+}
 
 
 function groupsAjaxCall() {
@@ -96,7 +102,7 @@ function groupsAjaxCall() {
         success: function(json) {
             self.response = json; // Sets the response
             self.onready.apply(self); // Calls the callback
-            
+
             // get the `groups` array
             _groupJson = json;
             //sort groups by points. So highest scoring comes first
@@ -118,13 +124,17 @@ function groupsAjaxCall() {
 }
 
 
-function ticketsAjaxCall () {
+function ticketsAjaxCall (start, end) {
     this.onready = function () {}; // Our onready function
     this.response = {}; // The response Variable
     var self = this; // "References" this scope and all the "this" variables
 
+    var link;
+    if(start && end){ link ='/api/v1/tickets/'+start+'&'+end;}
+    else { link = '/api/v1/tickets/'; }
+
     $.ajax({
-        url: '/api/v1/tickets',
+        url: link,
         dataType: 'json',
         success: function(json) {
             self.response = json; // Sets the response
@@ -248,7 +258,7 @@ function fillBarGraphData(title, points) {
 /**
  * Searches the ticket array for the contents of
  * the string received as parameter.
- * if no results are found the single element 
+ * if no results are found the single element
  * "no results" is returned
  */
 function searchTickets(searchString){

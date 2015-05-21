@@ -240,28 +240,31 @@
     <!-- END Morris chart -->
 
 
-    <div class="ui-widget col-md-12 col-md-offset-5 gap">
-        DevDiv...
+<!-- red div for alerts
+    <div id="alertDiv" class="pull-right alert alert-danger alert-dismissible fade in pulse " style="position: fixed; top: 30px; right: 5px;">
+      <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span id="dangerlabel" aria-hidden="true">&times;</span>
+      </button>
     </div>
-
+-->
 
     <footer class="col-md-12 col-sm-6 col-lg-12">
         Copyright by Francisco Santos. Gamification page. All rights reserved.
     </footer>
     <!-- js includes before closing body -->
-    <script src="assets/js/jquery-2.1.4.min.js"></script> <script src="assets/bootstrap-3.3.4/js/bootstrap.min.js"></script> 
+    <script src="assets/js/jquery-2.1.4.min.js"></script> <script src="assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
     <!-- not needed if jquery 2 works fine <script src="assets/js/jquery-1.10.2.js"></script> -->
-     
+
     <!-- JQuerry currently not being used but may come in handy in the future-->
      <script src="assets/jquery-ui-1.11.4/jquery-ui.js"></script> <!-- <script src="assets/videojs/dist/video-js/video.js"></script>-->
      <!-- <script src="assets/BigVideo/lib/bigvideo.js"></script>-->
-     <script src="assets/js/morris/raphael-2.1.0.min.js"></script> <script src="assets/js/morris/morris.js"></script> <!-- Extra js for Object Oriented implementation 
+     <script src="assets/js/morris/raphael-2.1.0.min.js"></script> <script src="assets/js/morris/morris.js"></script> <!-- Extra js for Object Oriented implementation
     <script src="assets/js/custom/groupObj.js" type="text/javascript"></script>
     <script src="assets/js/custom/playerObj.js" type="text/javascript"></script>
     <script src="assets/js/custom/ticketObj.js" type="text/javascript"></script> -->
      <script src="assets/js/custom/main.js" type="text/javascript"></script> <script src="assets/js/outdatedbrowser.min.js"></script> <script>
     /**
-    *   OutdatedBrowser function. Displays 
+    *   OutdatedBrowser function. Displays
     *   warning message is the user is in an outdated browser
     */
         $( document ).ready(function() {
