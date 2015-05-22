@@ -124,8 +124,8 @@
                             <div class="collapse" id="collapseExample">
                               <div class="well">
                                     <p>Time travel the dashboard for this interval&hellip;</p>
-                                    <p>Start Date: <input type="text" id="startDatepicker"></p>
-                                    <p>End Date: <input type="text" id="endDatepicker"></p>
+                                    <p>Start Date: <input type="date" id="startDatepicker"></p>
+                                    <p>End Date: <input type="date" id="endDatepicker"></p>
                                     <button id="timeTravelTrigger" type="button" class="btn btn-danger">Go!</button>
                               </div>
                             </div>

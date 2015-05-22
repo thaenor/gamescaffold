@@ -22,7 +22,7 @@ var _ticketsJson;
  */
 $(document)
     .ready(function() {
-
+$('#timeTravelTrigger').prop('disabled', true);
         var ticketCall = new ticketsAjaxCall();
         ticketCall.onready = function () {
             var groupCall = new groupsAjaxCall();
@@ -62,12 +62,14 @@ $(document)
 
                     //Date pickers for advanced search
                     $(function() {
-                        $( "#startDatepicker" )
-                            .datepicker();
+                        $( "#startDatepicker" ).datepicker();
+                        $( "#endDatepicker" ).datepicker();
                       });
-                    $(function() {
-                        $( "#endDatepicker" )
-                            .datepicker();
+                    //simple validation (if dates are inserted)
+                      $("#startDatepicker, #endDatepicker").change(function(field){
+                        if($("#startDatepicker").val() && $('#endDatepicker').val()){
+                            $('#timeTravelTrigger').removeAttr('disabled');
+                        }
                       });
                     //renewing all ajax calls
                     $("#timeTravelTrigger")
@@ -139,14 +141,19 @@ function ticketsAjaxCall (start, end) {
         success: function(json) {
             self.response = json; // Sets the response
             self.onready.apply(self); // Calls the callback
-
-            _ticketsJson = json;
-            ticketPaginator(_ticketsJson);
+            if(json.length != 0){
+                _ticketsJson = json;
+                ticketPaginator(_ticketsJson);
+            }else{
+                $('#ticketList').empty().append('<div class="alert alert-danger" role="alert">Sorry, these aren\'t the tickets you are looking for...</div>');
+            }
+            
         },
         error: function() {
             console.error(
                 'error while making ajax request to retrieve tickets json file. If you are a dev I\'m from main.js'
             );
+            $('#ticketList').empty().append('Sorry, these aren\'t the tickets you are looking for...');
         }
     });
 }
