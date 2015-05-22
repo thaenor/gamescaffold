@@ -79,7 +79,7 @@ $('#timeTravelTrigger').prop('disabled', true);
                               var ticketCall = new ticketsAjaxCall(start, end);
                               ticketCall.onready = function () {
                                   //ajax call is made here
-                                  alert('ajax call is made');
+                                  $('#timeTravelTrigger').prop('disabled', true);
                               }
                         });
             }
@@ -132,7 +132,7 @@ function ticketsAjaxCall (start, end) {
     var self = this; // "References" this scope and all the "this" variables
 
     var link;
-    if(start && end){ link ='/api/v1/tickets/'+start+'&'+end;}
+    if(start && end){ link ='/api/v1/tickets/'+start+'&'+end; console.log(link);}
     else { link = '/api/v1/tickets/'; }
 
     $.ajax({
@@ -145,19 +145,25 @@ function ticketsAjaxCall (start, end) {
                 _ticketsJson = json;
                 ticketPaginator(_ticketsJson);
             }else{
-                $('#ticketList').empty().append('<div class="alert alert-danger" role="alert">Sorry, these aren\'t the tickets you are looking for...</div>');
+                showTicketErrorMessage();
             }
             
         },
-        error: function() {
-            console.error(
-                'error while making ajax request to retrieve tickets json file. If you are a dev I\'m from main.js'
-            );
-            $('#ticketList').empty().append('Sorry, these aren\'t the tickets you are looking for...');
+        error: function (xhr, ajaxOptions, thrownError){
+            if(xhr.status==404) {
+                console.error('404 Error - the date referenced a future time or was incorrect ' + thrownError);
+            } else if(xhr.status==400) {
+                console.error('400 Error - the dates supplied were poorly formated. Input valid dates (let jQueryUI do it\'s work) ' + thrownError);
+            } else { console.error('unknown error: '+thrownError); }
+            showTicketErrorMessage();
         }
     });
 }
 
+
+function showTicketErrorMessage(){
+    $('#ticketList').empty().append('<div class="alert alert-danger" role="alert">Sorry, these aren\'t the tickets you are looking for...</div>');
+}
 
 /**
  * Draws a page in the leaderboard. Currently this displays _recPerPage records per page
