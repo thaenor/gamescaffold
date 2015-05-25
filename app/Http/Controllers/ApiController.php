@@ -1,9 +1,11 @@
 <?php namespace App\Http\Controllers;
 
+use App\Article;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
 use App\Ticket;
+use App\User;
 use App\Group;
 use Illuminate\Http\Request;
 use PhpSpec\Exception\Exception;
@@ -16,12 +18,13 @@ class ApiController extends Controller {
      */
     public function fetchGroupJson(){
         $groups = Group::all();
-        return $groups->toJson();
+        return $groups;
     }
 
 
     /**
      * Queries the database for tickets between a start and an end date.
+     * Replaces the user id with actual user full name
      * Returns the data in Json format.
      * @param $startTime
      * @param $endTime
@@ -29,7 +32,11 @@ class ApiController extends Controller {
      */
     public function fetchTicketJson($startTime, $endTime){
         $tickets = Ticket::where('created_at', '>=', $startTime )->where('created_at', '<=', $endTime )->where('state','=','open')->get();
-        return $tickets->toJson();
+        foreach($tickets as $ti){
+            $user = User::find($ti->user_id);
+            $ti->user_id = $user->full_name;
+        }
+        return $tickets;
     }
 
     /**
@@ -44,6 +51,11 @@ class ApiController extends Controller {
         return $this->fetchTicketJson($start,$end);
     }
 
+    public function fetchArticles(){
+        $articles = Article::all();
+        return $articles;
+    }
+    
     /**
      * A wrapper for Carbon's CreateFromFormat function. The dates are received
      * as month-day-year. We need Carbon instance's time that matches.
@@ -78,7 +90,6 @@ class ApiController extends Controller {
         } catch(Exception $e){
             abort(400,$e);
         }
-
     }
 
 }

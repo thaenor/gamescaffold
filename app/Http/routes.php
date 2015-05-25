@@ -44,4 +44,5 @@ Route::group(array('prefix' => 'api/v1'), function()
     Route::get('tickets/{start}&{end}', 'ApiController@validateInputs');
     Route::get('groups', 'ApiController@fetchGroupJson');
     Route::get('tickets', 'ApiController@fetchTicketJsonDefault');
+    Route::get('articles', 'ApiController@fetchArticles');
 });
