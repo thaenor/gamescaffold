@@ -96,28 +96,20 @@
               </ul>
             </nav>
 
-
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 bounce">
-                <ul class="list-group pullUp" id="ticketList">
-                  <!-- LIST WITH TICKETS -->
-                </ul>
-              </div>
-
-              <!-- search bar -->
-              <div class="col-md-6 col-sm-12 col-lg-6">
+            <!-- search bar -->
+            <div class="col-md-6 col-sm-12 col-lg-6">
+              <div class="input-group">
                 <div class="input-group">
-                  <div class="input-group">
-                    <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
-                    <input class="form-control" id="ticketSearchField" placeholder="Search for..." type="text">
-                  </div>
+                  <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
+                  <input class="form-control" id="ticketSearchField" placeholder="Search for..." type="text">
                 </div>
-                <!-- /input-group -->
               </div>
-              <!-- /.col-lg-6 -->
+              <!-- /input-group -->
             </div>
+            <!-- /.col-lg-6 -->
             <!-- /.row -->
             <!-- END search bar -->
+            <!-- time travel -->
             <button class="btn btn-primary btn-danger" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               Time travel
             </button>
@@ -131,6 +123,16 @@
                   <input type="text" id="endDatepicker">
                 </p>
                 <button id="timeTravelTrigger" type="button" class="btn btn-danger">Go!</button>
+              </div>
+            </div>
+            <!-- END time travel -->
+            <hr/>
+
+            <div class="row">
+              <div class="col-lg-12 col-md-12 col-sm-12 bounce">
+                <ul class="list-group pullUp" id="ticketList">
+                  <!-- LIST WITH TICKETS -->
+                </ul>
               </div>
             </div>
           </div>
