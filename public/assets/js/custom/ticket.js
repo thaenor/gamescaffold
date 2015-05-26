@@ -74,11 +74,11 @@ function ticketPaginator(tickets) {
   recordsToShow = tickets.slice(startRec, endRec);
   $.each(recordsToShow, function(i, currentTicket) {
     if (currentTicket.priority == "2 High") {
-      $('#ticketList').append('<li class="list-group-item list-group-item-danger"> <a href="#">' + currentTicket.title + '</a> </li>');
+      $('#ticketList').append('<li class="list-group-item list-group-item-danger"> <a href="#">' + currentTicket.title  + '<span class="pull-right">'+currentTicket.created_at+'</span> </a></li>');
     } else if (currentTicket.priority == "3 Medium") {
-      $('#ticketList').append('<li class="list-group-item list-group-item-warning"> <a href="#">' + currentTicket.title + '</a> </li>');
+      $('#ticketList').append('<li class="list-group-item list-group-item-warning"> <a href="#">' + currentTicket.title + '<span class="pull-right">'+currentTicket.created_at+'</span> </a></li>');
     } else {
-      $('#ticketList').append('<li class="list-group-item list-group-item-info"> <a href="#">' + currentTicket.title + '</a> </li>');
+      $('#ticketList').append('<li class="list-group-item list-group-item-info"> <a href="#">' + currentTicket.title + '<span class="pull-right">'+currentTicket.created_at+'</span> </a></li>');
     }
   });
 }

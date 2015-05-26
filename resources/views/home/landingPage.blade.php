@@ -40,9 +40,9 @@
 
 
   <h1>Celfocus Gamification front end</h1>
+<hr/>
 
-
-  <div class="col-md-12 col-sm-6 col-lg-12 slideRight">
+  <div class="well col-md-12 col-sm-6 col-lg-12 slideRight">
     <div class="panel panel-default">
       <div class="panel-heading">
         panel-heading
@@ -57,23 +57,24 @@
 
 
           <li class="">
-            <a data-toggle="tab" href="#profile">Bounty list</a>
+            <a data-toggle="tab" href="#rewards">Rewards</a>
           </li>
 
 
           <li class="">
-            <a data-toggle="tab" href="#messages">Add me something</a>
+            <a data-toggle="tab" href="#newsfeed">Newsfeed</a>
           </li>
 
 
           <li class="">
-            <a data-toggle="tab" href="#settings">Leaderboard</a>
+            <a data-toggle="tab" href="#leaderboard">Leaderboard</a>
           </li>
         </ul>
 
+        <hr/>
 
         <div class="tab-content">
-          <div class="tab-pane fade active in col-md-6 col-sm-3 col-lg-6" id="home">
+          <div class="tab-pane fade active in col-md-6 col-sm-3 col-lg-6 well" id="home">
             <h4>Tickets</h4>
 
 
@@ -138,41 +139,19 @@
           </div>
 
 
-          <div class="tab-pane fade" id="profile">
-            <h4>Profile Tab</h4>
-            <!-- REWARDS -->
-
-
-            <p class="bigEntrance">this will show a tab with rewards available</p>
+          <div class="tab-pane fade well" id="rewards">
+            <h4>Rewards</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
 
 
-          <div class="tab-pane fade" id="messages">
-            <h4>Some chart(ToDo)</h4>
-
-
-            <div class="col-md-6 col-lg-12 col-xs-12 well bigEntrance">
-              <a class="twitter-timeline" data-widget-id="598535731947122688" href="https://twitter.com/Celfocus">Tweets by @Celfocus</a>
-              <script>
-                ! function(d, s, id) {
-                  var js, fjs = d.getElementsByTagName(s)[0],
-                    p = /^http:/.test(d.location) ? 'http' : 'https';
-                  if (!d.getElementById(id)) {
-                    js = d.createElement(s);
-                    js.id = id;
-                    js.src = p + "://platform.twitter.com/widgets.js";
-                    fjs.parentNode.insertBefore(js, fjs);
-                  }
-                }(document, "script", "twitter-wjs");
-              </script>
-            </div>
-
-
-            <p class="bounce">this will show a tab with graphs</p>
+          <div class="tab-pane fade well" id="newsfeed">
+            <h4>Newsfeed</h4>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
 
 
-          <div class="tab-pane fade" id="settings">
+          <div class="tab-pane fade well" id="leaderboard">
             <h4>Leaderboard</h4>
             <!-- group leaderboard -->
 
