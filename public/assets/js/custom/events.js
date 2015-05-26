@@ -1,0 +1,62 @@
+function events(){
+
+
+  /**
+   * bellow here there's only event handling
+   * -> Pagination functions
+   * -> search bar for tickets
+   * -> Date pickers for advanced search (time travel)
+   * -> Button click triggers time travel (new ajax call)
+   * */
+  $(".next").click(function() {
+    _globalpage++;
+    updatePageNumber();
+    leaderboardPaginator(_groupJson);
+    ticketPaginator(_ticketsJson);
+    drawMorrisBarGraph();
+  });
+  $(".previous").click(function() {
+    _globalpage--;
+    updatePageNumber();
+    leaderboardPaginator(_groupJson);
+    ticketPaginator(_ticketsJson);
+    drawMorrisBarGraph();
+  });
+
+  //search event handling
+  $("#ticketSearchField").change(function() {
+    var searchResults = searchTickets($("#ticketSearchField").val());
+    if (searchResults[0] == 'no results') {
+      $('#ticketList').empty();
+      $('#ticketList').append('<p class="well">Sorry, these aren\'t the tickets you are looking for</p>');
+    } else {
+      ticketPaginator(searchResults);
+    }
+  });
+
+  //Date pickers for advanced search
+  $(function() {
+    $("#startDatepicker").datepicker();
+    $("#endDatepicker").datepicker();
+  });
+
+  //simple validation (if dates are inserted)
+  $("#startDatepicker, #endDatepicker").change(function(field) {
+    if ($("#startDatepicker").val() && $('#endDatepicker').val()) {
+      $('#timeTravelTrigger').removeAttr('disabled');
+    }
+  });
+
+  //renewing all ajax calls
+  $("#timeTravelTrigger").click(function() {
+    var start = replaceAll('/', '-', $('#startDatepicker').val());
+    var end = replaceAll('/', '-', $('#endDatepicker').val());
+    var ticketCall = new ticketsAjaxCall(start, end);
+    ticketCall.onready = function() {
+      //ajax call is made here
+      $('#timeTravelTrigger').prop('disabled', true);
+    }
+  });
+
+
+}

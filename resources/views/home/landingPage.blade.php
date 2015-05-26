@@ -84,6 +84,11 @@
                     <span>&larr;</span> Previous</a>
                 </li>
 
+                <li>
+                  <a id="pageNumber" href="#">
+                    <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
+                </li>
+
 
                 <li class="next">
                   <a href="#">Next <span>&rarr;</span></a>
@@ -120,10 +125,10 @@
               <div class="well">
                 <p>Time travel the dashboard for this interval&hellip;</p>
                 <p>Start Date:
-                  <input type="date" id="startDatepicker">
+                  <input type="text" id="startDatepicker">
                 </p>
                 <p>End Date:
-                  <input type="date" id="endDatepicker">
+                  <input type="text" id="endDatepicker">
                 </p>
                 <button id="timeTravelTrigger" type="button" class="btn btn-danger">Go!</button>
               </div>
@@ -261,10 +266,11 @@
   <!-- <script src="assets/BigVideo/lib/bigvideo.js"></script>-->
   <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
   <script src="assets/js/morris/morris.js"></script>
-  <!-- Extra js for Object Oriented implementation
-    <script src="assets/js/custom/groupObj.js" type="text/javascript"></script>
-    <script src="assets/js/custom/playerObj.js" type="text/javascript"></script>
-    <script src="assets/js/custom/ticketObj.js" type="text/javascript"></script> -->
+  <!-- Extra js for Object Oriented implementation -->
+  <script src="assets/js/custom/group.js" type="text/javascript"></script>
+  <script src="assets/js/custom/ticket.js" type="text/javascript"></script>
+  <script src="assets/js/custom/events.js" type="text/javascript"></script>
+  <script src="assets/js/custom/extras.js" type="text/javascript"></script>
   <script src="assets/js/custom/main.js" type="text/javascript"></script>
   <script src="assets/js/outdatedbrowser.min.js"></script>
   <script>
