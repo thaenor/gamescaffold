@@ -104,18 +104,20 @@
                   <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
                   <input class="form-control" id="ticketSearchField" placeholder="Search for..." type="text">
                 </div>
-              </div>
-              <!-- /input-group -->
+              </div> <!-- /input-group -->
             </div>
-            <!-- /.col-lg-6 -->
-            <!-- /.row -->
             <!-- END search bar -->
             <!-- time travel -->
-            <button class="btn btn-primary btn-danger" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+            <button class="btn btn-primary btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               Time travel
             </button>
-            <div class="collapse" id="collapseExample">
-              <div class="well">
+            <div class="collapse pull-right" id="collapseExample">
+                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+                  <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
+                  <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
+                  <button type='button' class='btn btn-lg btn-default' data-toggle="collapse" data-target="#subTTCollapsable" aria-expanded="false" aria-controls="collapseExample">let me choose</button>
+                </div>
+              <div id="subTTCollapsable" class="collapse well">
                 <p>Time travel the dashboard for this interval&hellip;</p>
                 <p>Start Date:
                   <input type="text" id="startDatepicker">
@@ -123,7 +125,7 @@
                 <p>End Date:
                   <input type="text" id="endDatepicker">
                 </p>
-                <button id="timeTravelTrigger" type="button" class="btn btn-danger">Go!</button>
+                <button id="timeTravelTrigger" type="button" class="btn btn-warning">GOooo!</button>
               </div>
             </div>
             <!-- END time travel -->
