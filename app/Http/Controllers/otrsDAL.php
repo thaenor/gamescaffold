@@ -132,6 +132,35 @@ function addTicketsTable(){
     closeDB($dal);
 }
 
+function getTicketsFromLastId($last){
+    $query = "select ti.id, ti.title, ti.user_id, us.first_name, us.last_name, sl.name AS sla_name, tp.name AS priority, tp.id AS priority_id, ts.name AS ticket_state, ti.timeout, ti.create_time AS cretime, ti.change_time AS chgtime
+from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts
+where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id AND ti.id>$last";
+
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    return json_encode(array_values(pg_fetch_all($result)));
+}
+
+function syncDBs($lastId){
+    $dal = connect();
+    $jsonData = getTicketsFromLastId($lastId);
+    foreach ($jsonData as $ti) {
+        $ticket = new App\Ticket();
+        $ticket->id = $ti['id'];
+        $ticket->title = $ti['title'];
+        $ticket->user_id = $ti['user_id'];
+        $ticket->priority = $ti['priority'];
+        $ticket->state = $ti['ticket_state'];
+        $ticket->points = $ti['priority_id'] * rand(5, 15);
+        $ticket->sla = $ti['sla_name'];
+        $ticket->created_at = $ti['cretime'];
+        $ticket->updated_at = $ti['chgtime'];
+        $ticket->timeout = $ti['timeout'];
+        $ticket->save();
+    }
+    closeDB($dal);
+}
+
 /*IDEA ON HOLD TO USE TICKET TIME SPENT
  * $ticket->timeout = $ti['changetime'] - $ti['createtime'];
 $start = strtotime($ti['createtime']);

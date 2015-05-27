@@ -10,6 +10,7 @@ use App\Ticket;
 //use App\Group;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller {
 
@@ -46,6 +47,13 @@ class TicketController extends Controller {
     public function firstMigrate(){
         require('otrsDAL.php');
         addTicketsTable();
+        return redirect('tickets/');
+    }
+
+    public function sync(){
+        $lastId = Ticket::take(1)->orderBy('id','desc')->first()->id;
+        require('otrsDAL.php');
+        syncDBs($lastId);
         return redirect('tickets/');
     }
     

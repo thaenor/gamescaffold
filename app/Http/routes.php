@@ -36,6 +36,7 @@ Route::group(array('prefix' => 'secretRoute'), function()
     Route::get('migrateTicket','TicketController@firstMigrate');
     Route::get('CalculatePoints','TicketController@CalculatePoints');
     Route::get('CalculatePenalties','TicketController@CalculatePenalties');
+    Route::get('sync','TicketController@sync');
 });
 
 //API routes, suitable to be called through ajax
