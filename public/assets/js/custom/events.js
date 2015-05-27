@@ -15,6 +15,7 @@ function events(){
     ticketPaginator(_ticketsJson);
     drawMorrisBarGraph();
   });
+
   $(".previous").click(function() {
     _globalpage--;
     updatePageNumber();
@@ -22,6 +23,7 @@ function events(){
     ticketPaginator(_ticketsJson);
     drawMorrisBarGraph();
   });
+
 
   //search event handling
   $("#ticketSearchField").change(function() {
@@ -33,6 +35,7 @@ function events(){
       ticketPaginator(searchResults);
     }
   });
+
 
   //Date pickers for advanced search
   $(function() {
@@ -56,6 +59,19 @@ function events(){
       //ajax call is made here
       $('#timeTravelTrigger').prop('disabled', true);
     }
+  });
+
+
+  $("#setTimeWeek").click(function() {
+    $("#startDatepicker").val(moment().weekday(-7).format('M[/]D[/]YYYY')); // last Monday
+    $('#endDatepicker').val(moment().weekday(-2).format('M[/]D[/]YYYY')); //Last Friday
+    $('#timeTravelTrigger').prop('disabled', false);
+  });
+
+  $("#setTimeMonth").click(function() {
+    $("#startDatepicker").val(moment().subtract(1,'months').startOf('month').format('M[/]D[/]YYYY')); // last Monday
+    $('#endDatepicker').val(moment().subtract(1,'months').endOf('month').format('M[/]D[/]YYYY')); //Last Friday
+    $('#timeTravelTrigger').prop('disabled', false);
   });
 
 

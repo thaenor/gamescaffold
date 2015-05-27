@@ -111,22 +111,21 @@
             <button class="btn btn-primary btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
               Time travel
             </button>
-            <div class="collapse pull-right" id="collapseExample">
-                <div class="btn-group btn-group-sm" role="group" aria-label="...">
+            <div class="collapse" id="collapseExample">
+            <p/>
+                <div class="btn-group btn-group-sm" role="group">
                   <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
                   <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
-                  <button type='button' class='btn btn-lg btn-default' data-toggle="collapse" data-target="#subTTCollapsable" aria-expanded="false" aria-controls="collapseExample">let me choose</button>
                 </div>
-              <div id="subTTCollapsable" class="collapse well">
-                <p>Time travel the dashboard for this interval&hellip;</p>
-                <p>Start Date:
+                <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
+                <p class="text-primary">Start Date:
                   <input type="text" id="startDatepicker">
                 </p>
-                <p>End Date:
+                <p class="text-primary">End Date:
                   <input type="text" id="endDatepicker">
                 </p>
                 <button id="timeTravelTrigger" type="button" class="btn btn-warning">GOooo!</button>
-              </div>
+
             </div>
             <!-- END time travel -->
             <hr/>
@@ -143,13 +142,13 @@
 
           <div class="tab-pane fade well" id="rewards">
             <h4>Rewards</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
 
 
           <div class="tab-pane fade well" id="newsfeed">
             <h4>Newsfeed</h4>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
 
 
@@ -249,6 +248,7 @@
   <!-- <script src="assets/BigVideo/lib/bigvideo.js"></script>-->
   <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
   <script src="assets/js/morris/morris.js"></script>
+  <script src="assets/js/moment-with-locales.js" charset="utf-8"></script>
   <!-- Extra js for Object Oriented implementation -->
   <script src="assets/js/custom/group.js" type="text/javascript"></script>
   <script src="assets/js/custom/ticket.js" type="text/javascript"></script>
