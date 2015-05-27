@@ -42,7 +42,7 @@
   <h1>Celfocus Gamification front end</h1>
 <hr/>
 
-  <div class="well col-md-12 col-sm-6 col-lg-12 slideRight">
+  <div class="col-md-6 col-sm-6 col-lg-6 slideRight">
     <div class="panel panel-default">
       <div class="panel-heading">
         panel-heading
@@ -52,7 +52,7 @@
       <div class="panel-body">
         <ul class="nav nav-tabs">
           <li class="active">
-            <a data-toggle="tab" href="#home">Tickets</a>
+            <a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a>
           </li>
 
 
@@ -74,7 +74,7 @@
         <hr/>
 
         <div class="tab-content">
-          <div class="tab-pane fade active in col-md-6 col-sm-3 col-lg-6 well" id="home">
+          <div class="tab-pane fade active in" id="ticketDisplayScreen">
             <h4>Tickets</h4>
 
 
@@ -86,7 +86,7 @@
                 </li>
 
                 <li>
-                  <a id="pageNumber" href="#">
+                  <a class="pageNumber" href="#">
                     <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
                 </li>
 
@@ -107,27 +107,7 @@
               </div> <!-- /input-group -->
             </div>
             <!-- END search bar -->
-            <!-- time travel -->
-            <button class="btn btn-primary btn-info" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-              Time travel
-            </button>
-            <div class="collapse" id="collapseExample">
-            <p/>
-                <div class="btn-group btn-group-sm" role="group">
-                  <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
-                  <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
-                </div>
-                <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
-                <p class="text-primary">Start Date:
-                  <input type="text" id="startDatepicker">
-                </p>
-                <p class="text-primary">End Date:
-                  <input type="text" id="endDatepicker">
-                </p>
-                <button id="timeTravelTrigger" type="button" class="btn btn-warning">GOooo!</button>
 
-            </div>
-            <!-- END time travel -->
             <hr/>
 
             <div class="row">
@@ -152,7 +132,7 @@
           </div>
 
 
-          <div class="tab-pane fade well" id="leaderboard">
+          <div class="tab-pane fade" id="leaderboard">
             <h4>Leaderboard</h4>
             <!-- group leaderboard -->
 
@@ -174,6 +154,10 @@
                         Previous</a>
                     </li>
 
+                    <li>
+                      <a class="pageNumber" href="#">
+                        <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
+                    </li>
 
                     <li class="next">
                       <a href="#">Next <span>&rarr;</span></a>
@@ -207,9 +191,10 @@
       </div>
     </div>
   </div>
+
+
+
   <!-- Morris chart -->
-
-
   <div class="col-md-6 col-sm-12 col-xs-12 slideUp">
     <div class="panel panel-default">
       <div class="panel-heading">
@@ -224,6 +209,33 @@
     </div>
   </div>
   <!-- END Morris chart -->
+
+
+
+  <div class="well col-md-6 col-sm-6 col-lg-6 slideRight">
+      <!-- time travel -->
+      <button class="btn btn-primary btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+        Time travel
+      </button>
+      <div class="collapse pull-right" id="collapseExample">
+      <p/>
+          <div class="btn-group btn-group-sm" role="group">
+            <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
+            <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
+          </div>
+          <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
+          <p class="text-primary">Start Date:
+            <input type="text" id="startDatepicker">
+          </p>
+          <p class="text-primary">End Date:
+            <input type="text" id="endDatepicker">
+          </p>
+          <button id="timeTravelTrigger" type="button" class="btn btn-warning">GOooo!</button>
+
+      </div>
+      <!-- END time travel -->
+  </div>
+
 
 
   <!-- red div for alerts
