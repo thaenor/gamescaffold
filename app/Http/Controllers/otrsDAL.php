@@ -20,7 +20,13 @@ use App\DB;
  * return $dbconn; }
  * @return resource
  */
-require 'connString.php';
+function connect(){
+    $dbconn = pg_connect("host=10.200.10.54 port=5432 dbname=otrs user=otrsro password=otrs-ro123.")
+    //$dbconn = pg_connect("host=localhost port=5432 dbname=postgres user=otrspg password=root")
+    or die('Could not connect: ' . pg_last_error());
+
+    return $dbconn;
+}
 
 
 /**
@@ -87,6 +93,50 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
 }
 
 
+/**
+ * Same as getTicketsFromLastWeek() but only fetches tickets whose id is greater than the last one of localDB
+ * In other words it syncs OTRS and localDB ensuring both have the same tickets.
+ *
+ * @param $last
+ * @return string
+ */
+function getTicketsFromLastId($last){
+    $query = "select ti.id, ti.title, ti.user_id, us.first_name, us.last_name, sl.name AS sla_name, tp.name AS priority, tp.id AS priority_id, ts.name AS ticket_state, ti.timeout, ti.create_time AS cretime, ti.change_time AS chgtime
+from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts
+where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id AND ti.id>$last";
+    return $query;
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    return json_encode(array_values(pg_fetch_all($result)));
+}
+
+/**
+ * Inserts data retrieved from OTRS into localDB
+ * @param $lastId
+ * @return string
+ */
+function syncDBs($lastId){
+    $dal = connect();
+    $jsonData = getTicketsFromLastId($lastId);
+    echo $jsonData;
+    return '';
+    foreach ($jsonData as $ti) {
+        $ticket = new App\Ticket();
+        $ticket->id = $ti['id'];
+        $ticket->title = $ti['title'];
+        $ticket->user_id = $ti['user_id'];
+        $ticket->priority = $ti['priority'];
+        $ticket->state = $ti['ticket_state'];
+        $ticket->points = $ti['priority_id'] * rand(5, 15);
+        $ticket->sla = $ti['sla_name'];
+        $ticket->created_at = $ti['cretime'];
+        $ticket->updated_at = $ti['chgtime'];
+        $ticket->timeout = $ti['timeout'];
+        $ticket->save();
+    }
+    closeDB($dal);
+}
+
+
 /***********************************************************************************************************************
  *
  *                              Separator - functions bellow are "virtually ran only one"
@@ -111,6 +161,9 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
 | connects to the mysql DB and adds the table information.
 */
 
+/**
+ * Copy the tickets relation table from OTRS to localDB
+ */
 function addTicketsTable(){
     $dal = connect();
     $jsonData = json_decode(getTicketsFromLastWeek(),true);
@@ -132,34 +185,105 @@ function addTicketsTable(){
     closeDB($dal);
 }
 
-function getTicketsFromLastId($last){
-    $query = "select ti.id, ti.title, ti.user_id, us.first_name, us.last_name, sl.name AS sla_name, tp.name AS priority, tp.id AS priority_id, ts.name AS ticket_state, ti.timeout, ti.create_time AS cretime, ti.change_time AS chgtime
-from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts
-where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id AND ti.id>$last";
 
+/**
+ * Retrieves all of the users from OTRS and compiles into a JSON string.
+ * Based on getTicketsFromLastWeek()
+ * @return array
+ */
+function fillUserTables(){
+    $query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u";
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    return json_encode(array_values(pg_fetch_all($result)));
+    $jsonData = array_values(pg_fetch_all($result));
+    return $jsonData;
 }
 
-function syncDBs($lastId){
+
+/**
+ * Copy the user relation table from OTRS to localDB
+ */
+function addUsers(){
     $dal = connect();
-    $jsonData = getTicketsFromLastId($lastId);
-    foreach ($jsonData as $ti) {
-        $ticket = new App\Ticket();
-        $ticket->id = $ti['id'];
-        $ticket->title = $ti['title'];
-        $ticket->user_id = $ti['user_id'];
-        $ticket->priority = $ti['priority'];
-        $ticket->state = $ti['ticket_state'];
-        $ticket->points = $ti['priority_id'] * rand(5, 15);
-        $ticket->sla = $ti['sla_name'];
-        $ticket->created_at = $ti['cretime'];
-        $ticket->updated_at = $ti['chgtime'];
-        $ticket->timeout = $ti['timeout'];
-        $ticket->save();
+    $jsonData = fillUserTables();
+
+    foreach ($jsonData as $us) {
+        $user = new App\User;
+        $user->id = $us['id'];
+        $user->name = $us['login'];
+        $user->email= $us['login'] . "@novabase.com";
+        $user->league_id = 1;
+        $user->password = bcrypt('password');
+        if($us['title']){ $user->title = $us['title']; }
+        else { $user->title = "novice"; }
+        $user->full_name = $us['first_name'] . " " . $us['last_name'];
+        $user->points = 0;
+        $user->health_points = 100;
+        $user->experience = 0;
+        $user->level = 1;
+        $user->save();
     }
     closeDB($dal);
 }
+
+
+/**
+ * Fetch group relation table from OTRS
+ * @return array
+ */
+function fillGroupTables(){
+    $query = "SELECT id ,name, comments  FROM groups";
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $jsonData = array_values(pg_fetch_all($result));
+    return $jsonData;
+}
+
+
+/**
+ * Copy the Group relation table from OTRS to localDB
+ */
+function addGroups(){
+    $dal = connect();
+    $jsonData = fillGroupTables();
+
+    foreach ($jsonData as $grp) {
+        $group = new App\Group;
+        $group->id = $grp['id'];
+        $group->title = $grp['name'];
+        $group->variant_name = $grp['comments'];
+        $group->points = 0;
+        $group->save();
+    }
+    closeDB($dal);
+}
+
+
+/**
+ * Fetch user-group relation table from OTRS
+ * @return array
+ */
+function fillGroupUserRelationTables(){
+    $query = "SELECT user_id, group_id  FROM group_user";
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $jsonData = array_values(pg_fetch_all($result));
+    return $jsonData;
+}
+
+
+/**
+ * Copy the User-Group relation table from OTRS to localDB
+ */
+function addUserGroups(){
+    $dal = connect();
+    $jsonData = fillGroupUserRelationTables();
+
+    foreach ($jsonData as $rel) {
+        DB::table('group_user')->insert(array(
+            array('user_id' => $rel['user_id'], 'group_id' => $rel['group_id']),
+        ));
+    }
+    closeDB($dal);
+}
+
 
 /*IDEA ON HOLD TO USE TICKET TIME SPENT
  * $ticket->timeout = $ti['changetime'] - $ti['createtime'];
@@ -191,89 +315,3 @@ function analyseTicketHistory($ticketid){
     return 0;
 }
 */
-
-/**
- * Retrieves all of the users from OTRS and compiles into a JSON string.
- * Based on getTicketsFromLastWeek()
- * @return array
- */
-function fillUserTables(){
-    $query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u";
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $jsonData = array_values(pg_fetch_all($result));
-    return $jsonData;
-}
-
-
-
-function addUsers(){
-    $dal = connect();
-    $jsonData = fillUserTables();
-
-    foreach ($jsonData as $us) {
-        $user = new App\User;
-        $user->id = $us['id'];
-        $user->name = $us['login'];
-        $user->email= $us['login'] . "@novabase.com";
-        $user->league_id = 1;
-        $user->password = bcrypt('password');
-        if($us['title']){ $user->title = $us['title']; }
-        else { $user->title = "novice"; }
-        $user->full_name = $us['first_name'] . " " . $us['last_name'];
-        $user->points = 0;
-        $user->health_points = 100;
-        $user->experience = 0;
-        $user->level = 1;
-        $user->save();
-    }
-    closeDB($dal);
-}
-
-
-
-function fillGroupTables(){
-    $query = "SELECT id ,name, comments  FROM groups";
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $jsonData = array_values(pg_fetch_all($result));
-    return $jsonData;
-}
-
-
-
-function addGroups(){
-    $dal = connect();
-    $jsonData = fillGroupTables();
-
-    foreach ($jsonData as $grp) {
-        $group = new App\Group;
-        $group->id = $grp['id'];
-        $group->title = $grp['name'];
-        $group->variant_name = $grp['comments'];
-        $group->points = 0;
-        $group->save();
-    }
-    closeDB($dal);
-}
-
-
-
-function fillGroupUserRelationTables(){
-    $query = "SELECT user_id, group_id  FROM group_user";
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $jsonData = array_values(pg_fetch_all($result));
-    return $jsonData;
-}
-
-
-
-function addUserGroups(){
-    $dal = connect();
-    $jsonData = fillGroupUserRelationTables();
-
-    foreach ($jsonData as $rel) {
-        DB::table('group_user')->insert(array(
-            array('user_id' => $rel['user_id'], 'group_id' => $rel['group_id']),
-        ));
-    }
-    closeDB($dal);
-}
