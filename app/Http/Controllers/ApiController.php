@@ -33,8 +33,10 @@ class ApiController extends Controller {
     public function fetchTicketJson($startTime, $endTime){
         $tickets = Ticket::where('created_at', '>=', $startTime )->where('created_at', '<=', $endTime )->where('state','=','open')->get();
         foreach($tickets as $ti){
-            $user = User::find($ti->user_id);
+            $user = User::findOrFail($ti->user_id);
             $ti->user_id = $user->full_name;
+            $team = Group::findOrFail($ti->assignedGroup_id);
+            $ti->assignedGroup_id = $team->title;
         }
         return $tickets;
     }
@@ -55,7 +57,7 @@ class ApiController extends Controller {
         $articles = Article::all();
         return $articles;
     }
-    
+
     /**
      * A wrapper for Carbon's CreateFromFormat function. The dates are received
      * as month-day-year. We need Carbon instance's time that matches.
