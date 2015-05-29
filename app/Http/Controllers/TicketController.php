@@ -14,46 +14,28 @@ use Illuminate\Support\Facades\DB;
 
 class TicketController extends Controller {
 
-    public function CalculatePoints(){
+    public function calculatePoints(){
         $ticket = new Ticket();
-        return $ticket->setTicketPoints();
-    }
-
-    public function CalculatePenalties(){
-
-
-        /* !! WWHAT IS THIS: this snipped of code is experimental and left for latter referal.
-            I'm fetching 1 ticket from last month that's resolved, then grabbing the assigned user
-            Eloquent model, and THEN the respective team. For some reason the team comes as null
-         */
-        /*test area
-        $carbon = new Carbon('first day of February 2015', 'Europe/London');
-        $t = Ticket::where('created_at', '>=', $carbon )->where('state','=','Resolved')->get()->take(1);
-        $player = new User();
-
-        $player->find($t[0]->user_id);
-        $teams = $player->groups;
-        return var_dump($teams);
-        test area*/
-
-        //$ticket = new Ticket();
-        //return $ticket->setTicketPenalties();
+        $ticket->setTicketPoints();
+        $ticket->setTicketPenalties();
     }
 
     /**
      * This is a migration function that gets some tickets from OTRS
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-     */
+
     public function firstMigrate(){
         require('otrsDAL.php');
         addTicketsTable();
         return redirect('tickets/');
     }
+     * */
 
     public function sync(){
         $lastId = Ticket::take(1)->orderBy('id','desc')->first()->id;
         require('otrsDAL.php');
         syncDBs($lastId);
+        $this->calculatePoints();
         return redirect('tickets/');
     }
     

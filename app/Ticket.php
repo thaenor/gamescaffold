@@ -19,16 +19,12 @@ class Ticket extends Model {
     public function setTicketPoints(){
         $message = 'success';
         $player = new User();
+        $team = new Group();
         $tickets = Ticket::getResolvedTicketsFromLastMonth();
         if($tickets){
             foreach($tickets as $t){
                 $player->updateUser($t->user_id, $t->points);
-
-                //$teams = $user->groups;
-                //foreach($teams as $team){
-                //    $team->points += $t->points;
-                //    $team->save();
-                //}
+                $team->updateTeam($t->assignedGroup_id, $t->points);
             }
         } else {
             return $message = 'no tickets returned';
@@ -39,18 +35,12 @@ class Ticket extends Model {
     public function setTicketPenalties(){
         $message = 'success';
         $player = new User();
+        $team = new Group();
         $tickets = Ticket::getCanceledTicketsFromLastMonth();
         if($tickets){
             foreach($tickets as $t){
                 $player->updateUser($t->user_id, (-10));
-
-                //get all the teams the user belongs to
-                //TODO: review this bit of code. Please refer to the Todoist.com bug https://todoist.com/showTask?id=69626704
-                //$teams = $user->groups;
-                //foreach($teams as $team){
-                //    $team->points -= $t->points;
-                //    $team->save();
-                //}
+                $team->updateTeam($t->assignedGroup_id, $t->points);
             }
         } else {
             return $message = 'no tickets returned';
