@@ -67,7 +67,11 @@
 
 
           <li class="">
-            <a data-toggle="tab" href="#leaderboard">Leaderboard</a>
+            <a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a>
+          </li>
+
+          <li class="">
+            <a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a>
           </li>
         </ul>
 
@@ -132,7 +136,7 @@
           </div>
 
 
-          <div class="tab-pane fade" id="leaderboard">
+          <div class="tab-pane fade" id="Gleaderboard">
             <h4>Leaderboard</h4>
             <!-- group leaderboard -->
 
@@ -187,6 +191,14 @@
             </div>
             <!-- END group leaderboard -->
           </div>
+
+          <div class="tab-pane fade" id="Pleaderboard">
+            <div class="panel-heading">
+              Player leaderboard
+            </div>
+            <div id="playerLeaderboard" class="table-responsive"></div>
+          </div>
+
         </div>
       </div>
     </div>
@@ -266,6 +278,7 @@
   <script src="assets/js/custom/ticket.js" type="text/javascript"></script>
   <script src="assets/js/custom/events.js" type="text/javascript"></script>
   <script src="assets/js/custom/extras.js" type="text/javascript"></script>
+  <script src="assets/js/custom/player.js" type="text/javascript" charset="utf-8"></script>
   <script src="assets/js/custom/main.js" type="text/javascript"></script>
   <script src="assets/js/outdatedbrowser.min.js"></script>
   <script>

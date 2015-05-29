@@ -102,3 +102,15 @@ function fillBarGraphData(title, points) {
   tmp.a = points;
   _barGraphDesignJson.push(tmp);
 }
+
+//TODO: test this function. I'm not 100% sure it works
+function calculateGroupPoints(){
+  $.each(_ticketsJson, function(i, currentTicket) {
+    $.each(_groupJson, function(index, currentGroup) {
+      if(currentTicket.assignedGroup_id === currentGroup.title){
+        currentGroup.points = currentTicket.points;
+      }
+    });
+  });
+  leaderboardPaginator(_groupJson);
+}
