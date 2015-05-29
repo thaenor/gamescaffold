@@ -6,3 +6,4 @@
 .env.php
 .env
 .idea/workspace.xml
+DB_backups/
