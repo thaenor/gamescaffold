@@ -230,7 +230,7 @@
         Time travel
       </button>
       <div class="collapse pull-right" id="collapseExample">
-      <p/>
+      <p><p/>
           <div class="btn-group btn-group-sm" role="group">
             <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
             <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
@@ -248,6 +248,9 @@
       <!-- END time travel -->
   </div>
 
+  <div class="col-sm-6 col-md-3 text-center">
+    <img src="assets/img.png"></img>
+  </div>
 
 
   <!-- red div for alerts
