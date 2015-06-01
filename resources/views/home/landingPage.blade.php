@@ -248,9 +248,14 @@
       <!-- END time travel -->
   </div>
 
-  <div class="col-sm-6 col-md-3 text-center">
-    <img src="assets/img.png"></img>
+  <div class="col-md-12 col-lg-12 col-sm-12">
+    <hr/>
+    <div class="col-sm-6 col-md-3 text-center col-md-offset-3 col-lg-offset-3 col-sm-offset-3">
+      <img src="assets/img.png"></img>
+    </div>
   </div>
+
+  
 
 
   <!-- red div for alerts
