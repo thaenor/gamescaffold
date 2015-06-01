@@ -38,8 +38,11 @@
   <div id="outdated">
   </div>
 
+<div class="col-sm-12 col-md-12 col-lg-12">
+  <img src="assets/logo.png" class=""></img>
+  <h1>Gamification front end</h1>
+</div>
 
-  <h1>Celfocus Gamification front end</h1>
 <hr/>
 
   <div class="col-md-6 col-sm-6 col-lg-6 slideRight">
