@@ -245,7 +245,7 @@
        <div class="col-md-3 col-sm-6 col-xs-6">
             <div class="panel panel-back noti-box">
                  <span class="icon-box bg-color-red set-icon">
-                   <i class="fa fa-user-plus"></i>
+                   <i class="glyphicon glyphicon-user"></i>
                  </span>
                  <div class="text-box">
                      <p id="playersInLeague" class="main-text">10</p>
