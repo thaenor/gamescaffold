@@ -21,11 +21,9 @@ function ticketsAjaxCall(start, end) {
   this.response = {}; // The response Variable
   var self = this; // "References" this scope and all the "this" variables
 
-  var link;
+  var link = '/api/v1/tickets/';
   if (start && end) {
-    link = '/api/v1/tickets/' + start + '&' + end;
-  } else {
-    link = '/api/v1/tickets/';
+    link = link + start + '&' + end;
   }
 
   $.ajax({
@@ -38,6 +36,7 @@ function ticketsAjaxCall(start, end) {
         _ticketsJson = json;
         ticketPaginator(_ticketsJson);
         calculateGroupPoints();
+        $('#ticketNumber').empty().append(_ticketsJson.length);
       } else {
         showTicketErrorMessage();
       }
