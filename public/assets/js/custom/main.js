@@ -29,4 +29,12 @@ $(document).ready(function() {
   var groupCall = new groupsAjaxCall();
   groupCall.onready = function() {  }
 
+  Morris.Donut({
+    element: 'donut-example',
+    data: [
+      {label: "Open tickets", value: 12},
+      {label: "Resolved tickets", value: 30},
+      {label: "In progress", value: 20}
+    ]
+  });
 });
