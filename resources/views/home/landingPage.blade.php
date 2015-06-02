@@ -48,7 +48,7 @@
   <div class="col-md-6 col-sm-6 col-lg-6 slideRight">
     <div class="panel panel-default">
       <div class="panel-heading">
-        panel-heading
+
       </div>
 
 
@@ -268,7 +268,21 @@
     </section>
 
     <hr/>
-    <a href=""><i class="glyphicon glyphicon-user"></i> My stats</a>
+    <ul class="list-inline">
+      <li>
+        <a href="http://localhost/users"><i class="glyphicon glyphicon-user"></i> My stats</a>
+      </li>
+      <li>
+        <a href="http://localhost/tickets"><i class="glyphicon glyphicon-th-list"></i> all tickets</a>
+      </li>
+      <li>
+        <a href="http://localhost/articles"><i class="glyphicon glyphicon-tasks"></i> all articles</a>
+      </li>
+      <li>
+        <a href="http://localhost/groups"><i class="glyphicon glyphicon-eye-open"></i> all teams</a>
+      </li>
+    </ul>
+
     <!-- time travel -->
     <button class="btn btn-primary btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       Time travel
@@ -298,7 +312,7 @@
   <div class="col-md-6 col-sm-12 col-xs-12 slideUp">
     <div class="panel panel-default">
       <div class="panel-heading">
-        Bar Chart
+        Team's point score
       </div>
 
 
@@ -316,7 +330,7 @@
     <div class="col-md-6 col-sm-12 col-xs-12 slideUp">
       <div class="panel panel-default">
         <div class="panel-heading">
-          Bar Chart
+          Tickets per status
         </div>
         <div class="panel-body">
             <div id="donut-example"></div>
