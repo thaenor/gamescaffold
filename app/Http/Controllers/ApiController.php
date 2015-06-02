@@ -3,6 +3,7 @@
 use App\Article;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
+use App\Reward;
 use Carbon\Carbon;
 use App\Ticket;
 use App\User;
@@ -94,4 +95,16 @@ class ApiController extends Controller {
         }
     }
 
+    public function getPlayerCount(){
+        return $count = User::all()->count();
+    }
+
+    public function getRewards(){
+        return $count = Reward::all()->count();
+    }
+
+    public function getTicketStatusCount(){
+        $open = Ticket::where('state', '==', 'open')->count();
+        $inProg = Ticket::where('state', '==', 'Work in Progress')->count();
+    }
 }
