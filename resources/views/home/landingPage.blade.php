@@ -135,7 +135,27 @@
 
           <div class="tab-pane fade well" id="newsfeed">
             <h4>Newsfeed</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+
+            <section>
+                  <div class='form-group'>
+                    <div class="col-md-12 col-sm-12 col-lg-12">
+                      <ul class="list-group">
+                        <li class="list-group-item">Jason: Cras justo odio</li>
+                        <li class="list-group-item">Mark: Dapibus ac facilisis in</li>
+                        <li class="list-group-item">Tony: Morbi leo risus</li>
+                        <li class="list-group-item">Martha: Porta ac consectetur ac</li>
+                        <li class="list-group-item">Xana: Vestibulum at eros</li>
+                      </ul>
+                    </div>
+                    <input type="text" class="form-control" id="writtenFeed" placeholder="What's on your mind...">
+
+                  </div>
+                  <button type="submit" id="postFeed" class="btn btn-info">Post</button>
+
+            </section>
+
+
+
           </div>
 
 
@@ -207,8 +227,73 @@
     </div>
   </div>
 
+  <div class="well col-md-6 col-sm-6 col-lg-6 slideRight">
 
+    <section class="col-md-12 col-sm-12 col-xs-12">
+      <div class="col-md-3 col-sm-6 col-xs-6">
+			     <div class="panel panel-back noti-box">
+                <span class="icon-box bg-color-red set-icon">
+                    <i class="fa fa-envelope-o"></i>
+                </span>
+                <div class="text-box">
+                    <p id="ticketNumber" class="main-text">120</p>
+                    <p class="text-muted">tickets are open and waiting</p>
+                </div>
+           </div>
+	     </div>
 
+       <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="panel panel-back noti-box">
+                 <span class="icon-box bg-color-red set-icon">
+                   <i class="fa fa-user-plus"></i>
+                 </span>
+                 <div class="text-box">
+                     <p id="playersInLeague" class="main-text">10</p>
+                     <p class="text-muted">Players in your league</p>
+                 </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-6">
+           <div class="panel panel-back noti-box">
+                <span class="icon-box bg-color-brown set-icon">
+                    <i class="fa fa-rocket"></i>
+                </span>
+                <div class="text-box">
+                    <p id="challengeCount" class="main-text">3</p>
+                    <p class="text-muted">Challenges open Solve them now!</p>
+                </div>
+             </div>
+		     </div>
+    </section>
+
+    <hr/>
+    <a href=""><i class="glyphicon glyphicon-user"></i> My stats</a>
+    <!-- time travel -->
+    <button class="btn btn-primary btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Time travel
+    </button>
+
+    <div class="collapse pull-right" id="collapseExample">
+    <p><p/>
+        <div class="btn-group btn-group-sm" role="group">
+          <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
+          <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
+        </div>
+        <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
+        <p class="text-primary">Start Date:
+          <input type="text" id="startDatepicker">
+        </p>
+        <p class="text-primary">End Date:
+          <input type="text" id="endDatepicker">
+        </p>
+        <button id="timeTravelTrigger" type="button" class="btn btn-warning">GOooo!</button>
+
+    </div>
+    <!-- END time travel -->
+  </div>
+
+<section>
   <!-- Morris chart -->
   <div class="col-md-6 col-sm-12 col-xs-12 slideUp">
     <div class="panel panel-default">
@@ -224,32 +309,26 @@
     </div>
   </div>
   <!-- END Morris chart -->
+  </section>
 
-
-
-  <div class="well col-md-6 col-sm-6 col-lg-6 slideRight">
-      <!-- time travel -->
-      <button class="btn btn-primary btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-        Time travel
-      </button>
-      <div class="collapse pull-right" id="collapseExample">
-      <p><p/>
-          <div class="btn-group btn-group-sm" role="group">
-            <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
-            <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
-          </div>
-          <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
-          <p class="text-primary">Start Date:
-            <input type="text" id="startDatepicker">
-          </p>
-          <p class="text-primary">End Date:
-            <input type="text" id="endDatepicker">
-          </p>
-          <button id="timeTravelTrigger" type="button" class="btn btn-warning">GOooo!</button>
-
+  <!-- Morris chart -->
+  <section>
+    <div class="col-md-6 col-sm-12 col-xs-12 slideUp">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          Bar Chart
+        </div>
+        <div class="panel-body">
+            <div id="donut-example"></div>
+        </div>
+        </div>
       </div>
-      <!-- END time travel -->
-  </div>
+    </div>
+  </section>
+  <!-- END Morris chart -->
+
+
+
 
   <div class="col-md-12 col-lg-12 col-sm-12">
     <hr/>
@@ -258,7 +337,7 @@
     </div>
   </div>
 
-  
+
 
 
   <!-- red div for alerts
