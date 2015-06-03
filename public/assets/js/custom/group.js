@@ -22,25 +22,24 @@ function renderGroupLeaderboard() {
   teamsArray ? redisplayGroupLeaderboard(teamsArray) : showGroupLeaderBoardError();
 }
 
-/*function renderPlayerLeaderboard() {
-  var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
+function renderPlayerLeaderboard() {
+  var playerArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
   $.each(_ticketsJson, function(index, currentTicket) {
-    if(teamsArray[currentTicket.user_id] == null){
-      teamsArray[currentTicket.user_id] = 0;
+    if(playerArray[currentTicket.user_id] == null){
+      playerArray[currentTicket.user_id] = 0;
     }
 
-    teamsArray[currentTicket.user_id] += currentTicket.points;
+    playerArray[currentTicket.user_id] += currentTicket.points;
   });
-  teamsArray ? DrawplayerLeaderboard(teamsArray) : showGroupLeaderBoardError();
+  playerArray ? DrawplayerLeaderboard(playerArray) : alert('no players exists');
 }
 function DrawplayerLeaderboard(array) {
   $('#playerLeaderboard').empty();
   $.each(array, function(index, el) {
-    console.log(index+' '+el);
-    //$('#playerLeaderboard').append('<tr> <td class="success">' + index + '</td>' + '<td class="info">' + el + '</td> </tr>');
+    $('#playerLeaderboard').append(index + ' ' + el + '<hr/>');
     //fillBarGraphData(index, el);
   });
-}*/
+}
 
 function redisplayGroupLeaderboard(array){
   $('#grouplist').empty();

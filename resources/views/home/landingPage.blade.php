@@ -219,7 +219,7 @@
             <div class="panel-heading">
               Player leaderboard
             </div>
-            <div id="playerLeaderboard" class="table-responsive"></div>
+            <div id="playerLeaderboard"></div>
           </div>
 
         </div>
