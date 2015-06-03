@@ -35,7 +35,7 @@ function ticketsAjaxCall(start, end) {
       if (json.length != 0) {
         _ticketsJson = json;
         ticketPaginator(_ticketsJson);
-        calculateGroupPoints();
+
         $('#ticketNumber').empty().append(_ticketsJson.length);
       } else {
         showTicketErrorMessage();

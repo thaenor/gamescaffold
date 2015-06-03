@@ -194,7 +194,7 @@
 
 
                 <div class="panel-body">
-                  <div class="table-responsive">
+                  <div id="table-resp" class="table-responsive">
                     <table class="table">
                       <thead>
                         <tr>
@@ -301,7 +301,7 @@
         <p class="text-primary">End Date:
           <input type="text" id="endDatepicker">
         </p>
-        <button id="timeTravelTrigger" type="button" class="btn btn-warning">GOooo!</button>
+        <button id="timeTravelTrigger" type="button" class="btn btn-warning">GO!</button>
 
     </div>
     <!-- END time travel -->
@@ -363,7 +363,7 @@
 -->
 
   <footer class="col-md-12 col-sm-6 col-lg-12">
-    Copyright by Francisco Santos. Gamification page. All rights reserved.
+    Copyright by Celfocus. Gamification page. All rights reserved.
   </footer>
   <!-- js includes before closing body -->
   <script src="assets/js/jquery-2.1.4.min.js"></script>

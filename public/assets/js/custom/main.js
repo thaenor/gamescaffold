@@ -21,13 +21,13 @@ var _ticketsJson;
  * -> **Future** Ajax calls
  */
 $(document).ready(function() {
+  var now = new Date();
+  var greeting = "Good" + ((now.getHours() > 17) ? " evening." : " day.");
+  $('h1').append(' - '+greeting);
   $('#timeTravelTrigger').prop('disabled', true);
   var ticketCall = new ticketsAjaxCall();
-  ticketCall.onready = function() {
-    events();
-  };
+  events();
   var groupCall = new groupsAjaxCall();
-  groupCall.onready = function() {  }
 
   Morris.Donut({
     element: 'donut-example',

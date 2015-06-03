@@ -1,11 +1,59 @@
 // group class representation in Javascript
-function group(id, title, variant_name, points) {
-    this.id = id;
-    this.title = title;
+function Team(name, variant_name, points) {
+    this.name = name;
+    this.poinst = points;
     this.variant_name = variant_name;
     this.points = points;
+    this.getName = function() {
+      return this.name;
+    };
+
 }
 
+function renderGroupLeaderboard() {
+  var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
+  $.each(_ticketsJson, function(index, currentTicket) {
+    if(teamsArray[currentTicket.assignedGroup_id] == null){
+      teamsArray[currentTicket.assignedGroup_id] = 0;
+    }
+
+    teamsArray[currentTicket.assignedGroup_id] += currentTicket.points;
+  });
+  teamsArray ? redisplayGroupLeaderboard(teamsArray) : showGroupLeaderBoardError();
+}
+
+/*function renderPlayerLeaderboard() {
+  var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
+  $.each(_ticketsJson, function(index, currentTicket) {
+    if(teamsArray[currentTicket.user_id] == null){
+      teamsArray[currentTicket.user_id] = 0;
+    }
+
+    teamsArray[currentTicket.user_id] += currentTicket.points;
+  });
+  teamsArray ? DrawplayerLeaderboard(teamsArray) : showGroupLeaderBoardError();
+}
+function DrawplayerLeaderboard(array) {
+  $('#playerLeaderboard').empty();
+  $.each(array, function(index, el) {
+    console.log(index+' '+el);
+    //$('#playerLeaderboard').append('<tr> <td class="success">' + index + '</td>' + '<td class="info">' + el + '</td> </tr>');
+    //fillBarGraphData(index, el);
+  });
+}*/
+
+function redisplayGroupLeaderboard(array){
+  $('#grouplist').empty();
+  $('.hidden-sm').remove();
+  $.each(array, function(index, el) {
+    $('#grouplist').append('<tr> <td class="success">' + index + '</td>' + '<td class="info">' + el + '</td> </tr>');
+    fillBarGraphData(index, el);
+  });
+}
+
+function showGroupLeaderBoardError(){
+  $("#table-resp").empty().append('No data was returned from the server. Our front-end dev deserves a woopin!');
+}
 
 function groupsAjaxCall() {
   this.onready = function() {}; // Our onready function
@@ -44,19 +92,7 @@ function groupsAjaxCall() {
  * Draws a page in the leaderboard. Currently this displays _recPerPage records per page
  */
 function leaderboardPaginator(groups) {
-
-  /**
-   * This should work.
-   * The children() function returns a JQuery object that contains the children.
-   * So you just need to check the size and see if it has at least one child.
-   * #grouplist > * makes it slightly faster - I think...
-   */
-  if ($('#grouplist > *').length > 0) {
-    $.each($('#grouplist').children(), function(i, current) {
-      current.remove();
-    });
-  }
-  /*Or you could just do $('#grouplist').empty()*/
+  $('#grouplist').empty();
 
   var page = _globalpage,
     startRec = Math.max(page - 1, 0) * _recPerPage,
@@ -101,16 +137,4 @@ function fillBarGraphData(title, points) {
   tmp.y = title;
   tmp.a = points;
   _barGraphDesignJson.push(tmp);
-}
-
-//TODO: test this function. I'm not 100% sure it works
-function calculateGroupPoints(){
-  $.each(_ticketsJson, function(i, currentTicket) {
-    $.each(_groupJson, function(index, currentGroup) {
-      if(currentTicket.assignedGroup_id === currentGroup.title){
-        currentGroup.points = currentTicket.points;
-      }
-    });
-  });
-  leaderboardPaginator(_groupJson);
 }

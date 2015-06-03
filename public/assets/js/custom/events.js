@@ -58,6 +58,8 @@ function events(){
     ticketCall.onready = function() {
       //ajax call is made here
       $('#timeTravelTrigger').prop('disabled', true);
+      renderGroupLeaderboard();
+      //renderPlayerLeaderboard();
     }
   });
 
