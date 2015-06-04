@@ -12,8 +12,8 @@ class Ticket extends Model {
 
     public static function getCanceledTicketsFromLastMonth (){
         $carbon = new Carbon('first day of February 2015', 'Europe/London');
-        //$tickets = Ticket::where('created_at', '>=', $carbon )->where('state','=','ReOpened')->get();
-        return Ticket::where('created_at', '>=', $carbon )->where('state','=','Canceled')->get();
+        //Ticket::where('created_at', '>=', $carbon )->where('state','=','Canceled')->get();
+        return $tickets = Ticket::where('created_at', '>=', $carbon )->where('state','=','ReOpened')->get();
     }
 
     public function setTicketPoints(){

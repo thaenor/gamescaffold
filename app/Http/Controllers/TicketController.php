@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Group;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 //use Illuminate\Support\Facades\App;
@@ -32,10 +33,10 @@ class TicketController extends Controller {
      * */
 
     public function sync(){
-        $lastId = Ticket::take(1)->orderBy('id','desc')->first()->id;
+        $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
         require('otrsDAL.php');
-        syncDBs($lastId);
-        $this->calculatePoints();
+        syncDBs($lastTicketId);
+        //$this->calculatePoints();
         return redirect('tickets/');
     }
     

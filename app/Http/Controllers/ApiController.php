@@ -95,16 +95,8 @@ class ApiController extends Controller {
         }
     }
 
-    public function getPlayerCount(){
-        return $count = User::all()->count();
-    }
-
-    public function getRewards(){
+    public function getchallengescount(){
         return $count = Reward::all()->count();
     }
 
-    public function getTicketStatusCount(){
-        $open = Ticket::where('state', '==', 'open')->count();
-        $inProg = Ticket::where('state', '==', 'Work in Progress')->count();
-    }
 }
