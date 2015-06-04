@@ -25,7 +25,7 @@ $(document).ready(function () {
     };
     var groupCall = new GroupsAjaxCall();
     groupCall.onReady = function () {
-        console.log("group ajax call completed.");
+        //console.log("group ajax call completed.");
     };
 
     Morris.Donut({

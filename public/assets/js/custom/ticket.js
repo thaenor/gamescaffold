@@ -16,11 +16,11 @@ function TicketsAjaxCall(start, end) {
             self.response = json; // Sets the response
             self.onReady.apply(self); // Calls the callback
             if (json.length != 0) {
-                console.log("ajax call complete"+Date.now());
+                console.log("ajax call complete "+Date.now());
                 _ticketsJson = json;
                 ticketPagination(_ticketsJson);
                 renderPlayerLeaderBoard();
-                $('#ticketNumber').empty().append(_ticketsJson.length);
+                countOpenTickets();
             } else {
                 showTicketErrorMessage();
             }
@@ -37,6 +37,10 @@ function TicketsAjaxCall(start, end) {
             showTicketErrorMessage();
         }
     });
+}
+
+function countOpenTickets(){
+    $('#ticketNumber').empty().append(_ticketsJson.length);
 }
 
 function replaceAll(find, replace, str) {

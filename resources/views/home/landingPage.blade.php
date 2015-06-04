@@ -236,7 +236,7 @@
                     <i class="fa fa-envelope-o"></i>
                 </span>
                 <div class="text-box">
-                    <p id="ticketNumber" class="main-text">120</p>
+                    <p id="ticketNumber" class="main-text"></p>
                     <p class="text-muted">tickets are open and waiting</p>
                 </div>
            </div>
@@ -248,7 +248,7 @@
                    <i class="glyphicon glyphicon-user"></i>
                  </span>
                  <div class="text-box">
-                     <p id="playersInLeague" class="main-text">10</p>
+                     <p id="playersInLeague" class="main-text"></p>
                      <p class="text-muted">Players in your league</p>
                  </div>
             </div>
