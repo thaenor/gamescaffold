@@ -296,10 +296,10 @@
         </div>
         <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
         <p class="text-primary">Start Date:
-          <input type="text" id="startDatepicker">
+          <input type="text" id="startDatePicker">
         </p>
         <p class="text-primary">End Date:
-          <input type="text" id="endDatepicker">
+          <input type="text" id="endDatePicker">
         </p>
         <button id="timeTravelTrigger" type="button" class="btn btn-warning">GO!</button>
 

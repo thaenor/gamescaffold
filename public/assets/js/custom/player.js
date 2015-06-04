@@ -1,21 +1,21 @@
-// player (user) class representation in Javascript
-function player(id, title, name, health_points, experience, level, league) {
-    this.id = id;
-    this.title = title;
-    this.name = name;
-    this.health_points = health_points;
-    this.experience = experience;
-    this.level = level;
-    this.league = league;
+function renderPlayerLeaderBoard() {
+    var playerArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
+    $.each(_ticketsJson, function(index, currentTicket) {
+        if(playerArray[currentTicket.user_id] == null){
+            playerArray[currentTicket.user_id] = 0;
+        }
+        playerArray[currentTicket.user_id] += currentTicket.points;
+    });
+    playerArray ? showPlayerLeaderBoard(playerArray) : alert('no players exists');
 }
 
-/*function drawPlayerLeaderboard(){
-  var insertedPlayers = [];
-  $('#playerLeaderboard').empty();
-  $('#playerLeaderboard').append('<table class="table">');
-  $.each(_ticketsJson, function(i, currentPlayer) {
-    if()
-    $('#playerLeaderboard').append('<tr> <td>' + currentPlayer.user_id + '</td><td>' +currentPlayer.points + '</tr>')
-  });
-  $('#playerLeaderboard').append('</table>')
-}*/
+
+function showPlayerLeaderBoard(array) {
+    $('#playerLeaderboard').empty();
+    //TODO sort player array
+    $.each(array, function(index, el) {
+        $('#playerLeaderboard').append(index + ' ' + el + '<hr/>');
+        //TODO: fill some graph here
+        //fillBarGraphData(index, el);
+    });
+}

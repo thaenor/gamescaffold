@@ -1,6 +1,4 @@
-function updatePageNumber(){
-  $('.pageNumber').empty().append('<i class="glyphicon glyphicon-th-list"></i> Page: '+_pagination[_pageTab]);
-}
+
 
 /**
  * The var_dump(variable) equivalent in Javascript

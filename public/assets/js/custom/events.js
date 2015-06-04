@@ -1,96 +1,111 @@
-function events(){
+/**
+ * bellow here there's only event handling
+ * */
+function events() {
+    /**
+     * Click event on next button in pagination
+     * This code handles all "next" buttons
+     * Please refer to the global variables to
+     * see what each one holds
+     */
+    $(".next").click(function () {
+        _pagination[_pageTab]++;
+        updatePageNumber();
+        switch (_pageTab) {
+            case 'ticket':
+                ticketPagination(_ticketsJson);
+                break;
+            case 'groupLeaderBoard':
+                leaderBoardPagination(_groupJson);
+                drawMorrisBarGraph();
+                break;
+            default:
+                console.error('invalid key in pagination');
+
+        }
+    });
+
+    /**
+     * Click event on next button in pagination
+     *
+     */
+    $(".previous").click(function () {
+        _pagination[_pageTab]--;
+        updatePageNumber();
+        switch (_pageTab) {
+            case 'ticket':
+                ticketPagination(_ticketsJson);
+                break;
+            case 'groupLeaderBoard':
+                leaderBoardPagination(_groupJson);
+                drawMorrisBarGraph();
+                break;
+            default:
+                console.error('invalid key in pagination');
+
+        }
+    });
+
+    $('#ticket-tab').click(function () {
+        _pageTab = "ticket";
+        updatePageNumber();
+    });
+    $('#groupLeaderboard-tab').click(function () {
+        _pageTab = "groupLeaderBoard";
+        updatePageNumber();
+    });
+
+    //search event handling
+    $("#ticketSearchField").change(function () {
+        var searchResults = searchTickets($("#ticketSearchField").val());
+        if (searchResults[0] == 'no results') {
+            $('#ticketList').empty().append("<p class=\"well\">Sorry, these aren't the tickets you are looking for</p>");
+        } else {
+            ticketPagination(searchResults);
+        }
+    });
 
 
-  /**
-   * bellow here there's only event handling
-   * -> Pagination functions
-   * -> search bar for tickets
-   * -> Date pickers for advanced search (time travel)
-   * -> Button click triggers time travel (new ajax call)
-   * */
-  $(".next").click(function() {
-    _pagination[_pageTab]++;
-    updatePageNumber();
-    switch (_pageTab) {
-      case 'ticket':
-        ticketPaginator(_ticketsJson);
-        break;
-      case 'groupLeaderboard':
-        leaderboardPaginator(_groupJson);
-        break;
-      default: console.error('invalid key in pagination');
+    //Date pickers for advanced search
+    $(function () {
+        $("#startDatePicker").datepicker();
+        $("#endDatePicker").datepicker();
+    });
 
-    }
-    drawMorrisBarGraph();
-  });
+    //simple validation (if dates are inserted)
+    $("#startDatePicker, #endDatePicker").change(function () {
+        if ($("#startDatePicker").val() && $('#endDatePicker').val()) {
+            $('#timeTravelTrigger').removeAttr('disabled');
+        }
+    });
 
-  $(".previous").click(function() {
-    _pagination[_pageTab]--;
-    updatePageNumber();
-    leaderboardPaginator(_groupJson);
-    ticketPaginator(_ticketsJson);
-    drawMorrisBarGraph();
-  });
+    //renewing all ajax calls
+    $("#timeTravelTrigger").click(function () {
+        var start = replaceAll('/', '-', $('#startDatePicker').val());
+        var end = replaceAll('/', '-', $('#endDatePicker').val());
+        var ticketCall = new TicketsAjaxCall(start, end);
 
-  $('#ticket-tab').click(function(event) {
-    _pageTab = "ticket";
-    updatePageNumber();
-  });
-  $('#groupLeaderboard-tab').click(function(event) {
-    _pageTab = "groupLeaderboard";
-    updatePageNumber();
-  });
-
-  //search event handling
-  $("#ticketSearchField").change(function() {
-    var searchResults = searchTickets($("#ticketSearchField").val());
-    if (searchResults[0] == 'no results') {
-      $('#ticketList').empty();
-      $('#ticketList').append('<p class="well">Sorry, these aren\'t the tickets you are looking for</p>');
-    } else {
-      ticketPaginator(searchResults);
-    }
-  });
+        //TODO: make sure this piece of code is run only once ajax call is finished
+        ticketCall.onReady = function () {
+            //ajax call is made here
+            $('#timeTravelTrigger').prop('disabled', true);
+            renderGroupLeaderBoard();
+            renderPlayerLeaderBoard();
+        }
+    });
 
 
-  //Date pickers for advanced search
-  $(function() {
-    $("#startDatepicker").datepicker();
-    $("#endDatepicker").datepicker();
-  });
+    $("#setTimeWeek").click(function () {
+        $("#startDatePicker").val(moment().weekday(-7).format('M[/]D[/]YYYY')); // last Monday
+        $('#endDatePicker').val(moment().weekday(-2).format('M[/]D[/]YYYY')); //Last Friday
+        $('#timeTravelTrigger').prop('disabled', false);
+    });
 
-  //simple validation (if dates are inserted)
-  $("#startDatepicker, #endDatepicker").change(function(field) {
-    if ($("#startDatepicker").val() && $('#endDatepicker').val()) {
-      $('#timeTravelTrigger').removeAttr('disabled');
-    }
-  });
-
-  //renewing all ajax calls
-  $("#timeTravelTrigger").click(function() {
-    var start = replaceAll('/', '-', $('#startDatepicker').val());
-    var end = replaceAll('/', '-', $('#endDatepicker').val());
-    var ticketCall = new ticketsAjaxCall(start, end);
-    ticketCall.onready = function() {
-      //ajax call is made here
-      $('#timeTravelTrigger').prop('disabled', true);
-      renderGroupLeaderboard();
-      renderPlayerLeaderboard();
-    }
-  });
-
-
-  $("#setTimeWeek").click(function() {
-    $("#startDatepicker").val(moment().weekday(-7).format('M[/]D[/]YYYY')); // last Monday
-    $('#endDatepicker').val(moment().weekday(-2).format('M[/]D[/]YYYY')); //Last Friday
-    $('#timeTravelTrigger').prop('disabled', false);
-  });
-
-  $("#setTimeMonth").click(function() {
-    $("#startDatepicker").val(moment().subtract(1,'months').startOf('month').format('M[/]D[/]YYYY')); // last Monday
-    $('#endDatepicker').val(moment().subtract(1,'months').endOf('month').format('M[/]D[/]YYYY')); //Last Friday
-    $('#timeTravelTrigger').prop('disabled', false);
-  });
+    $("#setTimeMonth").click(function () {
+        $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('M[/]D[/]YYYY')); // last Monday
+        $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('M[/]D[/]YYYY')); //Last Friday
+        $('#timeTravelTrigger').prop('disabled', false);
+    });
 
 
 }
