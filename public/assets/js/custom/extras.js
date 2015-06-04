@@ -1,5 +1,5 @@
 function updatePageNumber(){
-  $('.pageNumber').empty().append('<i class="glyphicon glyphicon-th-list"></i> Page: '+_globalpage);
+  $('.pageNumber').empty().append('<i class="glyphicon glyphicon-th-list"></i> Page: '+_pagination[_pageTab]);
 }
 
 /**

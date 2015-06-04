@@ -22,6 +22,7 @@ function renderGroupLeaderboard() {
   teamsArray ? redisplayGroupLeaderboard(teamsArray) : showGroupLeaderBoardError();
 }
 
+
 function renderPlayerLeaderboard() {
   var playerArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
   $.each(_ticketsJson, function(index, currentTicket) {
@@ -40,6 +41,8 @@ function DrawplayerLeaderboard(array) {
     //fillBarGraphData(index, el);
   });
 }
+
+
 
 function redisplayGroupLeaderboard(array){
   $('#grouplist').empty();
@@ -93,7 +96,7 @@ function groupsAjaxCall() {
 function leaderboardPaginator(groups) {
   $('#grouplist').empty();
 
-  var page = _globalpage,
+  var page = _pagination[_pageTab],
     startRec = Math.max(page - 1, 0) * _recPerPage,
     endRec = Math.min(startRec + _recPerPage, groups.length)
   recordsToShow = groups.slice(startRec, endRec);

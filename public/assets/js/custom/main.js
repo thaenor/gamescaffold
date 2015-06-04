@@ -5,7 +5,11 @@
  * _recPerPage amount of records to display per page (currently static)
  */
 var _barGraphDesignJson = [];
-var _globalpage = 1;
+var _pageTab = "ticket";
+var _pagination = [];
+_pagination["ticket"] = 1;
+_pagination["groupLeaderboard"] = 1;
+
 var _recPerPage = 10;
 var _groupJson;
 var _ticketsJson;

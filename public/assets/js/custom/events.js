@@ -9,21 +9,37 @@ function events(){
    * -> Button click triggers time travel (new ajax call)
    * */
   $(".next").click(function() {
-    _globalpage++;
+    _pagination[_pageTab]++;
     updatePageNumber();
-    leaderboardPaginator(_groupJson);
-    ticketPaginator(_ticketsJson);
+    switch (_pageTab) {
+      case 'ticket':
+        ticketPaginator(_ticketsJson);
+        break;
+      case 'groupLeaderboard':
+        leaderboardPaginator(_groupJson);
+        break;
+      default: console.error('invalid key in pagination');
+
+    }
     drawMorrisBarGraph();
   });
 
   $(".previous").click(function() {
-    _globalpage--;
+    _pagination[_pageTab]--;
     updatePageNumber();
     leaderboardPaginator(_groupJson);
     ticketPaginator(_ticketsJson);
     drawMorrisBarGraph();
   });
 
+  $('#ticket-tab').click(function(event) {
+    _pageTab = "ticket";
+    updatePageNumber();
+  });
+  $('#groupLeaderboard-tab').click(function(event) {
+    _pageTab = "groupLeaderboard";
+    updatePageNumber();
+  });
 
   //search event handling
   $("#ticketSearchField").change(function() {
@@ -59,7 +75,7 @@ function events(){
       //ajax call is made here
       $('#timeTravelTrigger').prop('disabled', true);
       renderGroupLeaderboard();
-      //renderPlayerLeaderboard();
+      renderPlayerLeaderboard();
     }
   });
 

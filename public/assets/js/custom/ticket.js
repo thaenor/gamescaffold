@@ -68,7 +68,7 @@ function showTicketErrorMessage() {
  */
 function ticketPaginator(tickets) {
   $('#ticketList').empty();
-  var page = _globalpage,
+  var page = _pagination[_pageTab],
     startRec = Math.max(page - 1, 0) * _recPerPage,
     endRec = Math.min(startRec + _recPerPage, tickets.length)
   recordsToShow = tickets.slice(startRec, endRec);

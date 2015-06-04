@@ -43,7 +43,7 @@
   <h1>Gamification front end</h1>
 </div>
 
-<hr/>
+<div class="col-md-12 col-sm-12 col-lg-12"><label><p></p></label></div>
 
   <div class="col-md-6 col-sm-6 col-lg-6">
     <div class="panel panel-default">
@@ -54,7 +54,7 @@
 
       <div class="panel-body">
         <ul class="nav nav-tabs">
-          <li class="active">
+          <li id="ticket-tab" class="active">
             <a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a>
           </li>
 
@@ -69,7 +69,7 @@
           </li>
 
 
-          <li class="">
+          <li id="groupLeaderboard-tab" class="">
             <a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a>
           </li>
 
