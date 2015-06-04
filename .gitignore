@@ -5,5 +5,5 @@
 .env.*.php
 .env.php
 .env
-.idea/workspace.xml
+.idea
 DB_backups/
