@@ -45,7 +45,7 @@
 
 <hr/>
 
-  <div class="col-md-6 col-sm-6 col-lg-6 slideRight">
+  <div class="col-md-6 col-sm-6 col-lg-6">
     <div class="panel panel-default">
       <div class="panel-heading">
 
@@ -118,7 +118,7 @@
             <hr/>
 
             <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 bounce">
+              <div class="col-lg-12 col-md-12 col-sm-12 hatch">
                 <ul class="list-group pullUp" id="ticketList">
                   <!-- LIST WITH TICKETS -->
                 </ul>
@@ -163,7 +163,7 @@
             <h4>Leaderboard</h4>
             <!-- group leaderboard -->
 
-            <div class="col-md-12 slideLeft">
+            <div class="col-md-12">
               <!--    Context Classes  -->
 
 
@@ -227,9 +227,9 @@
     </div>
   </div>
 
-  <div class="well col-md-6 col-sm-6 col-lg-6 slideRight">
+  <div class="well col-md-6 col-sm-6 col-lg-6 ">
 
-    <section class="col-md-12 col-sm-12 col-xs-12">
+    <section class="col-md-12 col-sm-12 col-xs-12 hatch">
       <div class="col-md-3 col-sm-6 col-xs-6">
 			     <div class="panel panel-back noti-box">
                 <span class="icon-box bg-color-red set-icon">
@@ -284,7 +284,7 @@
     </ul>
 
     <!-- time travel -->
-    <button class="btn btn-primary btn-info pull-right" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary btn-info pull-right hatch" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       Time travel
     </button>
 
@@ -309,7 +309,7 @@
 
 <section>
   <!-- Morris chart -->
-  <div class="col-md-6 col-sm-12 col-xs-12 slideUp">
+  <div class="col-md-6 col-sm-12 col-xs-12 ">
     <div class="panel panel-default">
       <div class="panel-heading">
         Team's point score
@@ -327,7 +327,7 @@
 
   <!-- Morris chart -->
   <section>
-    <div class="col-md-6 col-sm-12 col-xs-12 slideUp">
+    <div class="col-md-6 col-sm-12 col-xs-12 ">
       <div class="panel panel-default">
         <div class="panel-heading">
           Tickets per status
