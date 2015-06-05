@@ -1,4 +1,11 @@
-function GroupsAjaxCall() {
+function getGroupMaintData() {
+    return $.ajax({
+        url : '/api/v1/groups',
+        dataType: 'json'
+    });
+}
+
+/*function GroupsAjaxCall() {
     this.onReady = function () {
     }; // Our onReady function
     this.response = {}; // The response Variable
@@ -28,7 +35,7 @@ function GroupsAjaxCall() {
             );
         }
     });
-}
+}*/
 
 function renderGroupLeaderBoard() {
     var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc

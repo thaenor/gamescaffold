@@ -1,4 +1,20 @@
-function TicketsAjaxCall(start, end) {
+function parseLink(start, end){
+    var link = '/api/v1/tickets/';
+    if (start && end) {
+        link = link + start + '&' + end;
+    }
+    return link;
+}
+
+function getTicketData(start, end) {
+    var link = parseLink(start,end);
+    return $.ajax({
+        url : link,
+        dataType: 'json'
+    });
+}
+
+/*function TicketsAjaxCall(start, end) {
     this.onReady = function () {
     }; // Our onReady function
     this.response = {}; // The response Variable
@@ -37,7 +53,7 @@ function TicketsAjaxCall(start, end) {
             showTicketErrorMessage();
         }
     });
-}
+}*/
 
 function countOpenTickets(){
     $('#ticketNumber').empty().append(_ticketsJson.length);
@@ -49,7 +65,7 @@ function replaceAll(find, replace, str) {
 
 
 function showTicketErrorMessage() {
-    $('#ticketList').empty().append('<div class="alert alert-danger" role="alert">Sorry, these aren\'t the tickets you are looking for...</div>');
+    $('#ticketList').empty().append('<div class="alert alert-danger" role="alert">Something went wrong... these aren\'t the tickets you are looking for...</div>');
 }
 
 
