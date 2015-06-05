@@ -8,6 +8,7 @@ use Carbon\Carbon;
 use App\Ticket;
 use App\User;
 use App\Group;
+use DateTime;
 use Illuminate\Http\Request;
 use PhpSpec\Exception\Exception;
 
@@ -31,8 +32,14 @@ class ApiController extends Controller {
      * @param $endTime
      * @return mixed
      */
-    public function fetchTicketJson($startTime, $endTime){
-        $tickets = Ticket::where('created_at', '>=', $startTime )->where('created_at', '<=', $endTime )->where('state','=','open')->get();
+    public function fetchOpenTicketJson($startTime, $endTime){
+        $tickets = Ticket::where('created_at', '>=', $startTime )->where('created_at', '<=', $endTime )->get();
+        $this->filterTickets($tickets);
+        return $tickets;
+    }
+
+
+    public function filterTickets($tickets){
         foreach($tickets as $ti){
             $user = User::findOrFail($ti->user_id);
             $ti->user_id = $user->full_name;
@@ -42,6 +49,7 @@ class ApiController extends Controller {
         return $tickets;
     }
 
+
     /**
      * Default route with no parameters.
      * By default we assume the first and last day of February of 2015
@@ -49,9 +57,9 @@ class ApiController extends Controller {
      * Once deployed the interval can be changed to the last month
      */
     public function fetchTicketJsonDefault(){
-        $start = new Carbon('first day of February 2015', 'Europe/London');
-        $end = new Carbon('last day of February 2015', 'Europe/London');
-        return $this->fetchTicketJson($start,$end);
+        $start = new DateTime('first day of this month');
+        $end = Carbon::now();
+        return $this->fetchOpenTicketJson($start,$end);
     }
 
     public function fetchArticles(){

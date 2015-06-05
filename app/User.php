@@ -44,7 +44,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function updateUser($userid, $pts){
         $user = User::findOrFail($userid);
         $user->points += $pts;
-        $user->experience += ($pts)/2;
+        $user->experience += ($pts)/100;
         $user->checkLvlUp($user);
         $user->checkDeath($user);
         $user->save();

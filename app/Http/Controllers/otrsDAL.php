@@ -7,11 +7,11 @@
  */
 //ini_set('memory_limit', '-1');
 ini_set('max_execution_time', 0);
-use App\User;
+
 use App\Group;
-use App\Ticket;
-use App\DB;
+use App\User;
 use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Simple connectivity function to Postgres database. Returns connectivity variable.
@@ -55,6 +55,15 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
     return json_encode(array_values(pg_fetch_all($result)));
 }
 
+
+function getLastIDFromTickets(){
+    $query = "select id from ticket order by id desc limit 1";
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $data = (array_values(pg_fetch_all($result)));
+    return intval($data[0]['id']);
+}
+
+
 /**
  * Inserts data retrieved from OTRS into localDB
  * Lynked to insertChunkToDB
@@ -63,6 +72,12 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
  */
 function syncDBs($lastId){
     $dal = connect();
+
+    $otrsTicketLastId = getLastIDFromTickets();
+
+    if($lastId === $otrsTicketLastId){
+        return;
+    }
 
     $query = "select ti.id,
 	ti.title,
@@ -107,11 +122,18 @@ function insertChunkToDB($chunk){
             $ticket->id = $element['id'];
             $ticket->title = $element['title'];
             $ticket->user_id = $element['user_id'];
-            User::firstOrCreate(array('id' => $element['user_id']));
-            importUser($element['user_id']);
+            $user = User::find($element['user_id']);
+            var_dump($user);
+            if(!$user){
+                var_dump($user);
+                importUser($element['user_id']);
+            }
+            $group = Group::find($element['group_id']);
+            if(!$group){
+                importGroup($element['group_id']);
+            }
+
             $ticket->assignedGroup_id = $element['group_id'];
-            Group::firstOrCreate(array('id' => $element['group_id']));
-            importGroup($element['group_id']);
             $ticket->sla = $element['sla_name'];
             $ticket->sla_time = $element['solution_time'];
             $ticket->priority = $element['priority'];
@@ -120,7 +142,6 @@ function insertChunkToDB($chunk){
             $ticket->created_at = $element['cretime'];
             $ticket->updated_at = $element['chgtime'];
             $ticket->timeout = $element['timeout'];
-
             $ticket->save();
         } catch(Exception $e)  {
             echo 'Exception, Dev stopped this because <br/>'.$e;
@@ -134,8 +155,8 @@ function importUser($id){
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());
     $resultData = array_values(pg_fetch_all($result));
     //var_dump($resultData[0]['login']); gives you the login of the first user as a string
-    $user = User::find($id);
-    //$user->id = $resultData[0]['id'];
+    $user = new User();
+    $user->id = $resultData[0]['id'];
     $user->name = $resultData[0]['login'];
     $user->email= $resultData[0]['login'] . "@novabase.com";
     $user->league_id = 1;
@@ -159,4 +180,89 @@ function importGroup($id){
     $group->variant_name = $resultData[0]['comments'];
     $group->points = 0;
     $group->save();
+}
+
+
+/***********************************************************************************************************************/
+/***********************************************************************************************************************/
+/***********************************************************************************************************************/
+/***********************************************************************************************************************/
+/***********************************************************************************************************************/
+/***********************************************************************************************************************/
+function manualMigration(){
+    try{
+        $dal = connect();
+        fillUserTables();
+        fillGroupTables();
+        fillGroupUserRelationTables();
+        closeDB($dal);
+    } catch(exception $e){
+        App::abort(403, 'Manual Migration fucked up '.$e);
+    }
+}
+
+function fillUserTables(){
+    $query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u";
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $data = array_values(pg_fetch_all($result));
+    $chunkOfData = array_chunk($data, 1000);
+    foreach ($chunkOfData as $chunk) {
+        insertUserChunkToDB($chunk);
+    }
+}
+function insertUserChunkToDB($chunk){
+    foreach ($chunk as $us) {
+        $user = new User;
+        $user->id = $us['id'];
+        $user->name = $us['login'];
+        $user->email= $us['login'] . "@novabase.com";
+        $user->league_id = 1;
+        $user->password = bcrypt('password');
+        if($us['title']){ $user->title = $us['title']; }
+        else { $user->title = "novice"; }
+        $user->full_name = $us['first_name'] . " " . $us['last_name'];
+        $user->points = 0;
+        $user->health_points = 100;
+        $user->experience = 0;
+        $user->level = 1;
+        $user->save();
+    }
+}
+
+
+function fillGroupTables(){
+    $query = "SELECT id ,name, comments  FROM groups";
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $data = array_values(pg_fetch_all($result));
+    $chunkOfData = array_chunk($data, 1000);
+    foreach ($chunkOfData as $chunk) {
+        insertGroupChunkToDB($chunk);
+    }
+}
+function insertGroupChunkToDB($chunk){
+    foreach ($chunk as $grp) {
+        $group = new Group;
+        $group->id = $grp['id'];
+        $group->title = $grp['name'];
+        $group->variant_name = $grp['comments'];
+        $group->points = 0;
+        $group->save();
+    }
+}
+
+function fillGroupUserRelationTables(){
+    $query = "SELECT user_id, group_id  FROM group_user";
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $data = array_values(pg_fetch_all($result));
+    $chunkOfData = array_chunk($data, 1000);
+    foreach ($chunkOfData as $chunk) {
+        insertChunkUserGroupRelation($chunk);
+    }
+}
+function insertChunkUserGroupRelation($chunk){
+    foreach ($chunk as $rel) {
+        DB::table('group_user')->insert(array(
+            array('user_id' => $rel['user_id'], 'group_id' => $rel['group_id']),
+        ));
+    }
 }

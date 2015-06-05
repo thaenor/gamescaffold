@@ -12,32 +12,34 @@ use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+require('otrsDAL.php');
 
 class TicketController extends Controller {
 
+    public function manualMigration(){
+        manualMigration();
+    }
+    
+    /**
+     * Now that we have all the tickets it's time to calculate
+     * the points
+     */
     public function calculatePoints(){
         $ticket = new Ticket();
         $ticket->setTicketPoints();
         $ticket->setTicketPenalties();
+        return redirect('/');
     }
+
 
     /**
      * This is a migration function that gets some tickets from OTRS
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
-
-    public function firstMigrate(){
-        require('otrsDAL.php');
-        addTicketsTable();
-        return redirect('tickets/');
-    }
-     * */
-
+     */
     public function sync(){
         $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
-        require('otrsDAL.php');
         syncDBs($lastTicketId);
-        //$this->calculatePoints();
-        return redirect('tickets/');
+        return redirect('secretRoute/calculatePoints');
     }
     
 	/**
@@ -47,9 +49,8 @@ class TicketController extends Controller {
 	 */
 	public function index()
 	{
-		//$tickets = Ticket::all();
-        $carbon = new Carbon('first day of February 2015', 'Europe/London');
-        $tickets = Ticket::where('created_at', '>=', $carbon )->where('state','=','open')->get();
+        $time = new DateTime('first day of this month');
+        $tickets = Ticket::where('created_at', '>=', $time )->get();
 		return view('tickets.index', compact('tickets'));
     }
 

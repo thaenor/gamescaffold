@@ -33,10 +33,9 @@ Route::resource('tickets', 'TicketController');
 //shhhh! Secret routes are not meant to be used by common mortals
 Route::group(array('prefix' => 'secretRoute'), function()
 {
-    Route::get('migrateTicket','TicketController@firstMigrate');
-    Route::get('CalculatePoints','TicketController@CalculatePoints');
-    Route::get('CalculatePenalties','TicketController@CalculatePenalties');
+    Route::get('calculatePoints','TicketController@calculatePoints');
     Route::get('sync','TicketController@sync');
+    Route::get('manualmigration','TicketController@manualMigration');
 });
 
 //API routes, suitable to be called through ajax
