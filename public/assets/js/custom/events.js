@@ -3,7 +3,12 @@
  *
  * jQuery event handling
  * */
-function events() {
+
+ function renderEvents() {
+
+    $('#ticketNumber').empty().append(_openTicketsData.length);
+    $('#notificationBox').empty().append('<p></p>');
+
     /**
      * Click event on next button in pagination
      * This code handles all "next" buttons
@@ -15,7 +20,7 @@ function events() {
         updatePageNumber();
         switch (_pageTab) {
             case 'ticket':
-                ticketPagination(_ticketsJson);
+                ticketPagination(_openTicketsData);
                 break;
             case 'groupLeaderBoard':
                 leaderBoardPagination(_groupJson);
@@ -36,7 +41,7 @@ function events() {
         updatePageNumber();
         switch (_pageTab) {
             case 'ticket':
-                ticketPagination(_ticketsJson);
+                ticketPagination(_openTicketsData);
                 break;
             case 'groupLeaderBoard':
                 leaderBoardPagination(_groupJson);
@@ -85,15 +90,9 @@ function events() {
     $("#timeTravelTrigger").click(function () {
         var start = replaceAll('/', '-', $('#startDatePicker').val());
         var end = replaceAll('/', '-', $('#endDatePicker').val());
-        var ticketCall = new TicketsAjaxCall(start, end);
+        var link = generateLink('open',start,end);
+        //TODO: create ReCalculatePage function to redraw all the tables
 
-        //TODO: make sure this piece of code is run only once ajax call is finished
-        ticketCall.onReady = function () {
-            //ajax call is made here
-            $('#timeTravelTrigger').prop('disabled', true);
-            renderGroupLeaderBoard();
-            renderPlayerLeaderBoard();
-        }
     });
 
 
@@ -108,6 +107,5 @@ function events() {
         $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('M[/]D[/]YYYY')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
-
 
 }

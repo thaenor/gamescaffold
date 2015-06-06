@@ -4,17 +4,25 @@
  * Group related functions.
  */
 
-function getGroupMaintData() {
-    return $.ajax({
-        url : '/api/v1/groups',
-        dataType: 'json'
-    });
+function getGroupData(){
+    var link = generateLink('groups');
+    getAjaxData(link).done(function(data){
+        _groupJson = data;
+        //sort groups by points. So highest scoring comes first
+        _groupJson.sort(function (a, b) {
+            return parseFloat(b.points) -
+                parseFloat(a.points)
+        });
+        //TODO: remove elements with zero
+        leaderBoardPagination(_groupJson);
+        drawMorrisBarGraph();
+        $('#notificationBox').empty().append('<p></p>');
+    }).fail(showAlertMessage('Getting team score blew up the server!'));
 }
-
 
 function renderGroupLeaderBoard() {
     var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
-    $.each(_ticketsJson, function (index, currentTicket) {
+    $.each(_resolvedTicketsData, function (index, currentTicket) {
         if (teamsArray[currentTicket.assignedGroup_id] == null) {
             teamsArray[currentTicket.assignedGroup_id] = 0;
         }

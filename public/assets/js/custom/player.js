@@ -7,7 +7,8 @@
 function renderPlayerLeaderBoard() {
     var playerArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
     var playerCounter = 0;
-    $.each(_ticketsJson, function(index, currentTicket) {
+
+    $.each(_resolvedTicketsData, function(index, currentTicket) {
         if(playerArray[currentTicket.user_id] == null){
             playerArray[currentTicket.user_id] = 0;
             playerCounter++;
@@ -23,7 +24,7 @@ function countPlayers(size){
 
 function showPlayerLeaderBoard(array) {
     $('#playerLeaderboard').empty();
-    //TODO sort player array
+    //TODO sort player array and remove zeroes
     $.each(array, function(index, el) {
         $('#playerLeaderboard').append(index + ' ' + el + '<hr/>');
         //TODO: fill some graph here

@@ -4,27 +4,31 @@
  * Ticket related functions
  */
 
-function parseLink(start, end){
-    var link = '/api/v1/tickets/';
-    if (start && end) {
-        link = link + start + '&' + end;
-    }
-    return link;
+function getOpenTicketData(){
+    var link = generateLink('open');
+    getAjaxData(link).done(function(data) {
+        _openTicketsData = data;
+        ticketPagination(data);
+        renderEvents();
+    }).fail(showAlertMessage('Getting all the tickets data was a bust!'), showTicketErrorMessage());
 }
 
-function getTicketData(start, end) {
-    var link = parseLink(start,end);
-    return $.ajax({
-        url : link,
-        dataType: 'json'
-    });
+function getResolvedAndReopenedTicketData(){
+    var link = generateLink('resolved');
+    getAjaxData(link).done(function(resolvedData){
+        _resolvedTicketsData = resolvedData;
+
+        link = generateLink('reOpened');
+        getAjaxData(link).done(function(data){
+            if(data.length > 0){
+                data += resolvedData;
+                _reopenedTicketsData = data;
+            }
+            renderPlayerLeaderBoard(data);
+        }).fail(showAlertMessage('Getting the reopened tickets was a bad idea... I know'));
+    }).fail(showAlertMessage('Getting user score data was a bad idea!'));
 }
 
-
-
-function countOpenTickets(){
-    $('#ticketNumber').empty().append(_ticketsJson.length);
-}
 
 function replaceAll(find, replace, str) {
     return str.replace(new RegExp(find, 'g'), replace);
@@ -67,7 +71,7 @@ function ticketPagination(tickets) {
  */
 function searchTickets(searchString) {
     var searchResults = [];
-    $.each(_ticketsJson, function (index, currentTicket) {
+    $.each(_openTicketsData, function (index, currentTicket) {
         //TODO: rewrite this using indexOf
         if (currentTicket.title.includes(searchString)) {
             searchResults.push(currentTicket);
@@ -78,4 +82,16 @@ function searchTickets(searchString) {
         searchResults.push('no results');
     }
     return searchResults;
+}
+
+
+function drawMorrisDonnutchart(openTickets, ResolvedTickets, Pending){
+    Morris.Donut({
+        element: 'donut-example',
+        data: [
+            {label: "Open tickets", value: 12},
+            {label: "Resolved tickets", value: 30},
+            {label: "In progress", value: 20}
+        ]
+    });
 }

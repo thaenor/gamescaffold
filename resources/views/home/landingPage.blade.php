@@ -38,13 +38,56 @@
 <body>
   <div id="outdated">
   </div>
+  <div id="preloader">
+  		<div id="status">loading</div>
+  	</div>
 
 <div class="col-sm-12 col-md-12 col-lg-12">
   <img src="assets/logo.png" class=""/>
   <h1>Gamification front end</h1>
 </div>
 
-<div class="col-md-12 col-sm-12 col-lg-12"><label><p></p></label></div>
+<div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2">
+
+</div>
+
+ <section class="col-md-12 col-lg-12">
+      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+          <!-- Indicators -->
+          <ol class="carousel-indicators">
+              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
+              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
+          </ol>
+
+          <!-- Wrapper for slides -->
+          <div class="carousel-inner" role="listbox">
+              <div class="item active">
+                  <img src="..." alt="...">
+                  <div class="carousel-caption">
+                      ...
+                  </div>
+              </div>
+              <div class="item">
+                  <img src="..." alt="...">
+                  <div class="carousel-caption">
+                      ...
+                  </div>
+              </div>
+              ...
+          </div>
+
+          <!-- Controls -->
+          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+              <span class="sr-only">Previous</span>
+          </a>
+          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
+              <span class="sr-only">Next</span>
+          </a>
+      </div>
+</section>
 
   <div class="col-md-6 col-sm-6 col-lg-6">
     <div class="panel panel-default">
@@ -379,10 +422,10 @@
   <script src="assets/js/morris/morris.js"></script>
   <script src="assets/js/moment-with-locales.js" charset="utf-8"></script>
   <!-- Extra js for Object Oriented implementation -->
+  <script src="assets/js/custom/ajax.js" type="text/javascript"></script>
   <script src="assets/js/custom/group.js" type="text/javascript"></script>
   <script src="assets/js/custom/ticket.js" type="text/javascript"></script>
   <script src="assets/js/custom/events.js" type="text/javascript"></script>
-  <script src="assets/js/custom/extras.js" type="text/javascript"></script>
   <script src="assets/js/custom/player.js" type="text/javascript" charset="utf-8"></script>
   <script src="assets/js/custom/main.js" type="text/javascript"></script>
   <script src="assets/js/outdatedbrowser.min.js"></script>
