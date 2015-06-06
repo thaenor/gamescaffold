@@ -41,9 +41,15 @@ Route::group(array('prefix' => 'secretRoute'), function()
 //API routes, suitable to be called through ajax
 Route::group(array('prefix' => 'api/v1'), function()
 {
-    Route::get('tickets/{start}&{end}', 'ApiController@validateInputs');
+    Route::get('openTickets/{start}&{end}', 'ApiController@fetchOpenTicketJson');
+    Route::get('resolvedTickets/{start}&{end}','ApiController@fetchResolvedTicketJson');
+    Route::get('reOpenedTickets/{start}&{end}','ApiController@fetchReOpenedTicketJson');
+
+    Route::get('openTickets', 'ApiController@fetchOpenTicketJsonDefault');
+    Route::get('resolvedTickets', 'ApiController@fetchResolvedTicketJsonDefault');
+    Route::get('reOpenedTickets', 'ApiController@fetchReopenedTicketJsonDefault');
+
     Route::get('groups', 'ApiController@fetchGroupJson');
-    Route::get('tickets', 'ApiController@fetchTicketJsonDefault');
     Route::get('articles', 'ApiController@fetchArticles');
-    Route::get('getchallengescount', 'ApiController@getchallengescount');
+    Route::get('getChallengesCount', 'ApiController@getChallengesCount');
 });

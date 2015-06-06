@@ -6,22 +6,16 @@ use Carbon\Carbon;
 
 class Ticket extends Model {
 
-    /**
-     * Get the resolved tickets this month
-     * @return mixed
-     */
-    public static function getResolvedTicketsForThisMonth (){
-        $carbon = new DateTime('first day of this month');
-        return Ticket::where('created_at', '>=', $carbon )->where('state','=','Resolved')->get();
+    public static function getResolvedTicketsBetween($start, $end){
+        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','Resolved')->get();
     }
 
-    /**
-     * Get all the reopened tickets this month
-     * @return mixed
-     */
-    public static function getReopenedTicketsForThisMonth (){
-        $carbon = new DateTime('first day of this month');
-        return $tickets = Ticket::where('created_at', '>=', $carbon )->where('state','=','ReOpened')->get();
+    public static function getReOpenedTicketsBetween ($start, $end){
+        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','ReOpened')->get();
+    }
+
+    public static function getOpenTicketsBetween ($start, $end){
+        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','open')->get();
     }
 
     /**
@@ -32,7 +26,8 @@ class Ticket extends Model {
     public function setTicketPoints(){
         $player = new User();
         $team = new Group();
-        $tickets = Ticket::getResolvedTicketsForThisMonth();
+        $carbon = new DateTime('first day of this month');
+        $tickets = Ticket::getResolvedTicketsBetween($carbon, Carbon::now());
         if($tickets){
             foreach($tickets as $ticket){
                 $ticket->updateTicketPoints();
@@ -63,7 +58,8 @@ class Ticket extends Model {
     public function setTicketPenalties(){
         $player = new User();
         $team = new Group();
-        $tickets = Ticket::getReopenedTicketsForThisMonth();
+        $carbon = new DateTime('first day of this month');
+        $tickets = Ticket::getReOpenedTicketsBetween($carbon, Carbon::now());
         if($tickets){
             foreach($tickets as $t){
                 $player->updateUser($t->user_id, (-10));

@@ -33,11 +33,22 @@ class ApiController extends Controller {
      * @return mixed
      */
     public function fetchOpenTicketJson($startTime, $endTime){
-        $tickets = Ticket::where('created_at', '>=', $startTime )->where('created_at', '<=', $endTime )->get();
-        $this->filterTickets($tickets);
-        return $tickets;
+        $this->validateInputs($startTime,$endTime);
+        $tickets = Ticket::getOpenTicketsBetween($startTime, $endTime);
+        return $this->filterTickets($tickets);
     }
 
+    public function fetchResolvedTicketJson($startTime, $endTime){
+        $this->validateInputs($startTime,$endTime);
+        $tickets = Ticket::getResolvedTicketsBetween($startTime, $endTime);
+        return $this->filterTickets($tickets);
+    }
+
+    public function fetchReOpenedTicketJson($startTime, $endTime){
+        $this->validateInputs($startTime,$endTime);
+        $tickets = Ticket::getReOpenedTicketsBetween($startTime, $endTime);
+        return $this->filterTickets($tickets);
+    }
 
     public function filterTickets($tickets){
         foreach($tickets as $ti){
@@ -56,10 +67,22 @@ class ApiController extends Controller {
      * Merely because those are the latest results in the test DB
      * Once deployed the interval can be changed to the last month
      */
-    public function fetchTicketJsonDefault(){
-        $start = new DateTime('first day of this month');
-        $end = Carbon::now();
-        return $this->fetchOpenTicketJson($start,$end);
+    public function fetchOpenTicketJsonDefault(){
+        $start = new Carbon('first day of this month');
+        $tickets = Ticket::getOpenTicketsBetween($start, Carbon::now());
+        return $this->filterTickets($tickets);
+    }
+
+    public function fetchReopenedTicketJsonDefault(){
+        $start = new Carbon('first day of this month');
+        $tickets = Ticket::getReOpenedTicketsBetween($start,Carbon::now());
+        return $this-> filterTickets($tickets);
+    }
+
+    public function fetchResolvedTicketJsonDefault(){
+        $start = new Carbon('first day of this month');
+        $tickets = Ticket::getResolvedTicketsBetween($start,Carbon::now());
+        return $this->filterTickets($tickets);
     }
 
     public function fetchArticles(){
@@ -96,14 +119,12 @@ class ApiController extends Controller {
             $carbonEnd = $this->convertTime($end);
             if($carbonStart->isFuture() || $carbonEnd->isFuture())
                 abort(404,"we couldn't find the tickets you are looking for");
-            // Replace with current date with $carbonStart = Carbon::now();
-            return $this->fetchTicketJson($carbonStart,$carbonEnd);
         } catch(Exception $e){
             abort(400,$e);
         }
     }
 
-    public function getchallengescount(){
+    public function getChallengesCount(){
         return $count = Reward::all()->count();
     }
 
