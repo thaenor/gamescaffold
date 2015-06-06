@@ -1,3 +1,9 @@
+/**
+ * Created by NB21334 / Celfocus 2015.
+ *
+ * Group related functions.
+ */
+
 function getGroupMaintData() {
     return $.ajax({
         url : '/api/v1/groups',
@@ -5,37 +11,6 @@ function getGroupMaintData() {
     });
 }
 
-/*function GroupsAjaxCall() {
-    this.onReady = function () {
-    }; // Our onReady function
-    this.response = {}; // The response Variable
-    var self = this; // "References" this scope and all the "this" variables
-
-    $.ajax({
-        url: '/api/v1/groups',
-        dataType: 'json',
-        success: function (json) {
-            self.response = json; // Sets the response
-            self.onReady.apply(self); // Calls the callback
-
-            // get the `groups` array
-            _groupJson = json;
-            //sort groups by points. So highest scoring comes first
-            _groupJson.sort(function (a, b) {
-                return parseFloat(b.points) -
-                    parseFloat(a.points)
-            });
-
-            leaderBoardPagination(_groupJson);
-            drawMorrisBarGraph();
-        },
-        error: function () {
-            console.error(
-                'error while making ajax request to retrieve groups json file. If you are a dev I\'m from main.js'
-            );
-        }
-    });
-}*/
 
 function renderGroupLeaderBoard() {
     var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc

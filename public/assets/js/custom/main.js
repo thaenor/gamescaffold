@@ -1,4 +1,8 @@
-//Celfocus 2015
+/**
+ * Created by NB21334 / Celfocus 2015.
+ *
+ * Ticket Premier Leader board app
+ */
 var _barGraphDesignJson = [];
 var _pageTab = "ticket";
 var _pagination = [];

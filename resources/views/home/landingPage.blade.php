@@ -23,7 +23,8 @@
   <!-- Custom Styles-->
   <link href="assets/css/custom-styles.css" rel="stylesheet">
   <!-- Google Fonts-->
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>
+  <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
+    <link href='assets/css/font/font.css' rel='stylesheet' type='text/css'>
   <!-- outdated browser pluggin-->
   <link href="assets/css/outdatedbrowser.min.css" rel="stylesheet">
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -39,7 +40,7 @@
   </div>
 
 <div class="col-sm-12 col-md-12 col-lg-12">
-  <img src="assets/logo.png" class=""></img>
+  <img src="assets/logo.png" class=""/>
   <h1>Gamification front end</h1>
 </div>
 

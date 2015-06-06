@@ -1,5 +1,7 @@
 /**
- * bellow here there's only event handling
+ * Created by NB21334 / Celfocus 2015.
+ *
+ * jQuery event handling
  * */
 function events() {
     /**

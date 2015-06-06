@@ -1,4 +1,8 @@
-
+/**
+ * Created by NB21334 / Celfocus 2015.
+ *
+ * Assorted/external functions
+ */
 
 /**
  * The var_dump(variable) equivalent in Javascript
@@ -34,3 +38,44 @@ function dump(obj) {
         $("div").find("span");
 
 */
+
+/*function TicketsAjaxCall(start, end) {
+ this.onReady = function () {
+ }; // Our onReady function
+ this.response = {}; // The response Variable
+ var self = this; // "References" this scope and all the "this" variables
+
+ var link = '/api/v1/tickets/';
+ if (start && end) {
+ link = link + start + '&' + end;
+ }
+
+ $.ajax({
+ url: link,
+ dataType: 'json',
+ success: function (json) {
+ self.response = json; // Sets the response
+ self.onReady.apply(self); // Calls the callback
+ if (json.length != 0) {
+ console.log("ajax call complete "+Date.now());
+ _ticketsJson = json;
+ ticketPagination(_ticketsJson);
+ renderPlayerLeaderBoard();
+ countOpenTickets();
+ } else {
+ showTicketErrorMessage();
+ }
+
+ },
+ error: function (xhr, ajaxOptions, thrownError) {
+ if (xhr.status == 404) {
+ console.error('404 Error - the date referenced a future time or was incorrect ' + thrownError);
+ } else if (xhr.status == 400) {
+ console.error('400 Error - the dates supplied were poorly formatted. Input valid dates (let jQueryUI do it\'s work) ' + thrownError);
+ } else {
+ console.error('unknown error: ' + thrownError);
+ }
+ showTicketErrorMessage();
+ }
+ });
+ }*/

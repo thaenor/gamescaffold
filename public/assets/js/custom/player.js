@@ -1,3 +1,9 @@
+/**
+ * Created by NB21334 / Celfocus 2015.
+ *
+ * Player related functions
+ */
+
 function renderPlayerLeaderBoard() {
     var playerArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
     var playerCounter = 0;
