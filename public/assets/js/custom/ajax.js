@@ -14,25 +14,25 @@ function generateLink(type, start, end){
     var link = "";
     switch (type){
         case 'open':
-            link = '/api/v1/openTickets';
+            link = '/api/v1/openTickets/';
             break;
         case 'resolved':
-            link = '/api/v1/resolvedTickets';
+            link = '/api/v1/resolvedTickets/';
             break;
         case 'reOpened':
-            link = '/api/v1/reOpenedTickets';
+            link = '/api/v1/reOpenedTickets/';
             break;
         case 'groups':
-            link = '/api/v1/groups';
+            link = '/api/v1/groups/';
             break;
         case 'getChallengesCount':
-            link = '/api/v1/getChallengesCount';
+            link = '/api/v1/getChallengesCount/';
             break;
         case 'articles':
-            link = '/api/v1/articles';
+            link = '/api/v1/articles/';
             break;
         default:
-            link = '/api/v1/openTickets';
+            link = '/api/v1/openTickets/';
     }
 
     if (start && end) {

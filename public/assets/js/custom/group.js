@@ -4,10 +4,11 @@
  * Group related functions.
  */
 
-function getGroupData(){
-    var link = generateLink('groups');
+function getGroupData(start,end){
+    var link = generateLink('groups', start, end);
     getAjaxData(link).done(function(data){
         _groupJson = data;
+        console.log(data);
         //sort groups by points. So highest scoring comes first
         _groupJson.sort(function (a, b) {
             return parseFloat(b.points) -
@@ -20,9 +21,9 @@ function getGroupData(){
     }).fail(showAlertMessage('Getting team score blew up the server!'));
 }
 
-function renderGroupLeaderBoard() {
+function renderGroupLeaderBoard(data) {
     var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
-    $.each(_resolvedTicketsData, function (index, currentTicket) {
+    $.each(data, function (index, currentTicket) {
         if (teamsArray[currentTicket.assignedGroup_id] == null) {
             teamsArray[currentTicket.assignedGroup_id] = 0;
         }

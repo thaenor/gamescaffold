@@ -90,9 +90,14 @@
     $("#timeTravelTrigger").click(function () {
         var start = replaceAll('/', '-', $('#startDatePicker').val());
         var end = replaceAll('/', '-', $('#endDatePicker').val());
-        var link = generateLink('open',start,end);
-        //TODO: create ReCalculatePage function to redraw all the tables
-
+        getOpenTicketData(start, end);
+        var link = generateLink('resolved',start, end);
+        getAjaxData(link).done(function(data){
+            _resolvedTicketsData = data;
+            console.log(data);
+            renderPlayerLeaderBoard(data);
+            renderGroupLeaderBoard(data);
+        }).fail(showAlertMessage('error fetching remote data'));
     });
 
 

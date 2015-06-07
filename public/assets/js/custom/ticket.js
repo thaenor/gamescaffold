@@ -4,28 +4,29 @@
  * Ticket related functions
  */
 
-function getOpenTicketData(){
-    var link = generateLink('open');
+function getOpenTicketData(start,end){
+    var link = generateLink('open', start, end);
     getAjaxData(link).done(function(data) {
         _openTicketsData = data;
         ticketPagination(data);
+        console.log(data);
         renderEvents();
     }).fail(showAlertMessage('Getting all the tickets data was a bust!'), showTicketErrorMessage());
 }
 
-function getResolvedAndReopenedTicketData(){
-    var link = generateLink('resolved');
+function getResolvedAndReopenedTicketData(start, end){
+    var link = generateLink('resolved',start, end);
     getAjaxData(link).done(function(resolvedData){
         _resolvedTicketsData = resolvedData;
-
-        link = generateLink('reOpened');
+console.log(resolvedData);
+        /*link = generateLink('reOpened');
         getAjaxData(link).done(function(data){
-            if(data.length > 0){
-                data += resolvedData;
+                //TODO: treat scenario where there is no open tickets
+                console.log(data);
                 _reopenedTicketsData = data;
-            }
-            renderPlayerLeaderBoard(data);
-        }).fail(showAlertMessage('Getting the reopened tickets was a bad idea... I know'));
+        }).fail(showAlertMessage('Getting the reopened tickets was a bad idea... I know'));*/
+        renderPlayerLeaderBoard(resolvedData);
+        drawMorrisDonnutchart();
     }).fail(showAlertMessage('Getting user score data was a bad idea!'));
 }
 
@@ -89,9 +90,9 @@ function drawMorrisDonnutchart(openTickets, ResolvedTickets, Pending){
     Morris.Donut({
         element: 'donut-example',
         data: [
-            {label: "Open tickets", value: 12},
-            {label: "Resolved tickets", value: 30},
-            {label: "In progress", value: 20}
+            {label: "Open tickets", value: _openTicketsData.length},
+            {label: "Resolved tickets", value: _resolvedTicketsData.length},
+            {label: "In progress", value: 1}
         ]
     });
 }

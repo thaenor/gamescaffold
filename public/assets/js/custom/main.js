@@ -17,17 +17,23 @@ var _reopenedTicketsData;
 
 
 $(document).ready(function () {
-    $("body > *").not("body > #preloader").hide();
+    //$("body > *").not("body > #preloader").hide();
     welcome();
     getOpenTicketData();
     getGroupData();
     getResolvedAndReopenedTicketData();
+    getChallenges();
 
-    setTimeout($('#preloader').append('loaded'), 5000);
+    //setTimeout($('#preloader').append('loaded'), 5000);
 
 });
 
-
+function getChallenges(){
+    var link = generateLink('getChallengesCount');
+    getAjaxData(link).done(function(result){
+        $('#challengeCount').empty().append(result);
+    }).fail(showAlertMessage('failed to get chalenges count'));
+}
 
 function updatePageNumber() {
     $('.pageNumber').empty().append('<i class="glyphicon glyphicon-th-list"></i> Page: ' + _pagination[_pageTab]);
