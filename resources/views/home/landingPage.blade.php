@@ -182,7 +182,7 @@
             <section>
                   <div class='form-group'>
                     <div class="col-md-12 col-sm-12 col-lg-12">
-                      <ul class="list-group">
+                      <ul id="articleList" class="list-group">
                         <li class="list-group-item">Jason: Cras justo odio</li>
                         <li class="list-group-item">Mark: Dapibus ac facilisis in</li>
                         <li class="list-group-item">Tony: Morbi leo risus</li>

@@ -113,4 +113,13 @@
         $('#timeTravelTrigger').prop('disabled', false);
     });
 
+    $("#postFeed").click(function(){
+        var post = $('#writtenFeed').val();
+        if(post){
+            //TODO: make ajax call to post feed
+            $('#articleList').append('<li class="list-group-item">'+ 'You : ' +post + '</li>');
+        } else {
+            showAlertMessage('Please write something before posting to newsfeed');
+        }
+    });
 }

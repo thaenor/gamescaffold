@@ -87,6 +87,10 @@ class ApiController extends Controller {
 
     public function fetchArticles(){
         $articles = Article::all();
+        foreach($articles as $article){
+            $user = User::find($article->author);
+            $article->author = $user->full_name;
+        }
         return $articles;
     }
 

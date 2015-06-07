@@ -14,6 +14,7 @@ var _groupJson;
 var _openTicketsData;
 var _resolvedTicketsData;
 var _reopenedTicketsData;
+var allArticles;
 
 
 $(document).ready(function () {
@@ -23,7 +24,7 @@ $(document).ready(function () {
     getGroupData();
     getResolvedAndReopenedTicketData();
     getChallenges();
-
+    getArticles();
     //setTimeout($('#preloader').append('loaded'), 5000);
 
 });
@@ -33,6 +34,21 @@ function getChallenges(){
     getAjaxData(link).done(function(result){
         $('#challengeCount').empty().append(result);
     }).fail(showAlertMessage('failed to get chalenges count'));
+}
+
+function getArticles(){
+    $('#articleList').empty();
+    var link = generateLink('articles');
+    getAjaxData(link).done(function showArticles(data) {
+        allArticles = data;
+        displayArticles(data);
+    }).fail(showAlertMessage('no articles to show'));
+}
+
+function displayArticles(data){
+    $.each(data, function (i, currentArticle) {
+        $('#articleList').append('<li class="list-group-item">'+currentArticle.author+' : '+ currentArticle.body+'</li>');
+    });
 }
 
 function updatePageNumber() {
