@@ -44,7 +44,7 @@
 
 <div class="col-sm-12 col-md-12 col-lg-12">
   <img src="assets/logo.png" class=""/>
-  <h1>Gamification front end</h1>
+  <h1>Tickets Premier League </h1>
 </div>
 
 <div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2">

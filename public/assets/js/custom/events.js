@@ -23,6 +23,7 @@
                 ticketPagination(_openTicketsData);
                 break;
             case 'groupLeaderBoard':
+                _barGraphDesignJson = [];
                 leaderBoardPagination(_groupJson);
                 drawMorrisBarGraph();
                 break;
@@ -44,6 +45,7 @@
                 ticketPagination(_openTicketsData);
                 break;
             case 'groupLeaderBoard':
+                _barGraphDesignJson = [];
                 leaderBoardPagination(_groupJson);
                 drawMorrisBarGraph();
                 break;
