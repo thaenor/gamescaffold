@@ -63,18 +63,17 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
               <div class="item active">
-                  <img src="..." alt="...">
+                  <img src="assets/img.png"></img>
                   <div class="carousel-caption">
-                      ...
+                      SomeGraph
                   </div>
               </div>
               <div class="item">
-                  <img src="..." alt="...">
+                  <img src="assets/logo.png"></img>
                   <div class="carousel-caption">
-                      ...
+                      CompanyLogo
                   </div>
               </div>
-              ...
           </div>
 
           <!-- Controls -->
@@ -386,25 +385,6 @@
   <!-- END Morris chart -->
 
 
-
-
-  <div class="col-md-12 col-lg-12 col-sm-12">
-    <hr/>
-    <div class="col-sm-6 col-md-3 text-center col-md-offset-3 col-lg-offset-3 col-sm-offset-3">
-      <img src="assets/img.png"></img>
-    </div>
-  </div>
-
-
-
-
-  <!-- red div for alerts
-    <div id="alertDiv" class="pull-right alert alert-danger alert-dismissible fade in pulse " style="position: fixed; top: 30px; right: 5px;">
-      <button  type="button" class="close" data-dismiss="alert" aria-label="Close">
-        <span id="dangerlabel" aria-hidden="true">&times;</span>
-      </button>
-    </div>
--->
 
   <footer class="col-md-12 col-sm-6 col-lg-12">
     Copyright by Celfocus. Gamification page. All rights reserved.
