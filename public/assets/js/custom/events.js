@@ -65,7 +65,7 @@
     });
 
     //search event handling
-    $("#ticketSearchField").change(function () {
+    $("#ticketSearchField").keyup(function () {
         var searchResults = searchTickets($("#ticketSearchField").val());
         if (searchResults[0] == 'no results') {
             $('#ticketList').empty().append("<p class=\"well\">Sorry, these aren't the tickets you are looking for</p>");

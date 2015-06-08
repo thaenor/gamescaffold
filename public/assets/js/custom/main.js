@@ -63,7 +63,7 @@ function welcome(){
 }
 
 function showAlertMessage(message){
-    var html = '<div class="alert alert-warning alert-dismissible fade in" role="alert">'+
+    var html = '<div class="alert alert-warning alert-dismissible fade in" role="alert" data-spy="affix" data-offset-top="60" data-offset-bottom="200">'+
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
         '<strong>Holy guacamole!</strong> '+message+' </div>';
     $('#notificationBox').append(html);

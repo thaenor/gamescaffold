@@ -41,7 +41,24 @@ class Ticket extends Model {
     }
 
     public function updateTicketPoints(){
-        $priority = filter_var($this->priority, FILTER_SANITIZE_NUMBER_INT);
+        switch ($this->priority){
+            case "1 Critical":
+                $points = 10;
+                break;
+            case "2 High":
+                $points = 8;
+                break;
+            case "3 Medium":
+                $points = 3;
+                break;
+            case "4 Low":
+                $points = 1;
+                break;
+            default:
+                $points = 1;
+        }
+
+        /*$priority = filter_var($this->priority, FILTER_SANITIZE_NUMBER_INT);
         $priorityInt = intval($priority);
 
         $created = strtotime($this->created_at); //This is a unix timestamp
@@ -50,8 +67,8 @@ class Ticket extends Model {
         $timeSpentSolving = $created - $updated; // == <seconds between the two times>
         $minutesSpentSolving = ($timeSpentSolving/60)/60; // convert that into hours
 
-        $formula = (($slaSolutionTime - $minutesSpentSolving) + rand(2,4) / $priorityInt);
-        $this->points = $formula;
+        $formula = (($slaSolutionTime - $minutesSpentSolving) + rand(2,4) / $priorityInt);*/
+        $this->points = $points;
         $this->save();
     }
     
