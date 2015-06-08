@@ -9,7 +9,6 @@ function getOpenTicketData(start,end){
     getAjaxData(link).done(function(data) {
         _openTicketsData = data;
         ticketPagination(data);
-        console.log(data);
         renderEvents();
     }).fail(showAlertMessage('Getting all the tickets data was a bust!'), showTicketErrorMessage());
 }
@@ -18,11 +17,9 @@ function getResolvedAndReopenedTicketData(start, end){
     var link = generateLink('resolved',start, end);
     getAjaxData(link).done(function(resolvedData){
         _resolvedTicketsData = resolvedData;
-console.log(resolvedData);
         /*link = generateLink('reOpened');
         getAjaxData(link).done(function(data){
                 //TODO: treat scenario where there is no open tickets
-                console.log(data);
                 _reopenedTicketsData = data;
         }).fail(showAlertMessage('Getting the reopened tickets was a bad idea... I know'));*/
         renderPlayerLeaderBoard(resolvedData);
@@ -90,9 +87,9 @@ function drawMorrisDonnutchart(openTickets, ResolvedTickets, Pending){
     Morris.Donut({
         element: 'donut-example',
         data: [
-            {label: "Open tickets", value: _openTicketsData.length},
-            {label: "Resolved tickets", value: _resolvedTicketsData.length},
-            {label: "In progress", value: 1}
+            {label: "Open tickets", value: 10},
+            {label: "Resolved tickets", value: 8},
+            {label: "In progress", value: 5}
         ]
     });
 }

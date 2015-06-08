@@ -26,7 +26,8 @@ function showPlayerLeaderBoard(array) {
     $('#playerLeaderboard').empty();
     //TODO sort player array and remove zeroes
     $.each(array, function(index, el) {
-        $('#playerLeaderboard').append(index + ' ' + el + '<hr/>');
+        //$('#playerLeaderboard').append(index + ' ' + el + '<hr/>');
+        $('#playerLeaderboard').append('<tr> <td class="info"> <a class="playerModal" href="#"  data-toggle="modal" data-target="#playerInfo">'+index + '</a></td>' + '<td class="warning">' + el + '</td> </tr>' );
         //TODO: fill some graph here
         //fillBarGraphData(index, el);
     });

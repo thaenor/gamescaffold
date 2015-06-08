@@ -8,7 +8,6 @@ function getGroupData(start,end){
     var link = generateLink('groups', start, end);
     getAjaxData(link).done(function(data){
         _groupJson = data;
-        console.log(data);
         //sort groups by points. So highest scoring comes first
         _groupJson.sort(function (a, b) {
             return parseFloat(b.points) -

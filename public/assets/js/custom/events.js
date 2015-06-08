@@ -100,7 +100,6 @@
         var link = generateLink('resolved',start, end);
         getAjaxData(link).done(function(data){
             _resolvedTicketsData = data;
-            console.log(data);
             renderPlayerLeaderBoard(data);
             renderGroupLeaderBoard(data);
         }).fail(showAlertMessage('error fetching remote data'));
@@ -127,5 +126,9 @@
         } else {
             showAlertMessage('Please write something before posting to newsfeed');
         }
+    });
+
+    $(".playerModal").click(function(){
+        $("#playerDetails").empty().append( $(this).text()+'\'s information' );
     });
 }

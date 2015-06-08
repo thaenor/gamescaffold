@@ -262,7 +262,18 @@
             <div class="panel-heading">
               Player leaderboard
             </div>
-            <div id="playerLeaderboard"></div>
+              <div class="table-responsive">
+                  <table class="table">
+                      <thead>
+                      <tr>
+                          <th>Name</th>
+                          <th>Points</th>
+                      </tr>
+                      </thead>
+
+                      <tbody id='playerLeaderboard'></tbody>
+                  </table>
+              </div>
           </div>
 
         </div>
@@ -383,6 +394,26 @@
     </div>
   </section>
   <!-- END Morris chart -->
+
+
+  <!-- Modal for player info -->
+  <div class="modal fade" id="playerInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="myModalLabel">Player details</h4>
+              </div>
+              <div id="playerDetails" class="modal-body">
+
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
 
 
 
