@@ -38,10 +38,10 @@
 <body>
   <div id="outdated">
   </div>
-  <div id="preloader">
+<!--  <div id="preloader">
   		<div id="status">loading</div>
   	</div>
-
+-->
 <div class="col-sm-12 col-md-12 col-lg-12">
   <img src="assets/logo.png" class=""/>
   <h1>Tickets Premier League </h1>
@@ -63,13 +63,13 @@
           <!-- Wrapper for slides -->
           <div class="carousel-inner" role="listbox">
               <div class="item active">
-                  <img src="assets/img.png"></img>
+
                   <div class="carousel-caption">
                       SomeGraph
                   </div>
               </div>
               <div class="item">
-                  <img src="assets/logo.png"></img>
+
                   <div class="carousel-caption">
                       CompanyLogo
                   </div>

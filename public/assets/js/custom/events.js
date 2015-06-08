@@ -77,8 +77,12 @@
 
     //Date pickers for advanced search
     $(function () {
-        $("#startDatePicker").datepicker();
-        $("#endDatePicker").datepicker();
+        $("#startDatePicker").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
+        $("#endDatePicker").datepicker({
+            dateFormat: "yy-mm-dd"
+        });
     });
 
     //simple validation (if dates are inserted)
@@ -104,14 +108,14 @@
 
 
     $("#setTimeWeek").click(function () {
-        $("#startDatePicker").val(moment().weekday(-7).format('M[/]D[/]YYYY')); // last Monday
-        $('#endDatePicker').val(moment().weekday(-2).format('M[/]D[/]YYYY')); //Last Friday
+        $("#startDatePicker").val(moment().weekday(-7).format('M[-]D[-]YYYY')); // last Monday
+        $('#endDatePicker').val(moment().weekday(-2).format('M[-]D[-]YYYY')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
 
     $("#setTimeMonth").click(function () {
-        $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('M[/]D[/]YYYY')); // last Monday
-        $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('M[/]D[/]YYYY')); //Last Friday
+        $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('M[-]D[-]YYYY')); // last Monday
+        $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('M[-]D[-]YYYY')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
 
