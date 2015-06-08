@@ -101,7 +101,7 @@ class ApiController extends Controller {
      * @return static
      */
     public function convertTime($date){
-        return $ValidDate = Carbon::createFromFormat('m-d-Y', $date);
+        return $ValidDate = Carbon::createFromFormat('Y-m-d', $date);
     }
 
     /**

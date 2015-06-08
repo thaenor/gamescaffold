@@ -108,14 +108,14 @@
 
 
     $("#setTimeWeek").click(function () {
-        $("#startDatePicker").val(moment().weekday(-7).format('M[-]D[-]YYYY')); // last Monday
-        $('#endDatePicker').val(moment().weekday(-2).format('M[-]D[-]YYYY')); //Last Friday
+        $("#startDatePicker").val(moment().weekday(-7).format('YYYY[-]M[-]D')); // last Monday
+        $('#endDatePicker').val(moment().weekday(-2).format('YYYY[-]M[-]D')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
 
     $("#setTimeMonth").click(function () {
-        $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('M[-]D[-]YYYY')); // last Monday
-        $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('M[-]D[-]YYYY')); //Last Friday
+        $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('YYYY[-]M[-]D')); // last Monday
+        $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('YYYY[-]M[-]D')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
 
