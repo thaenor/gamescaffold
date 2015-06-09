@@ -143,7 +143,7 @@
                     break;
                 case '2 High':
                     highCount++;
-                    highPointCount += 8;
+                    highPointCount += el.points;
                     break;
                 case '3 Medium':
                     mediumCount++;
@@ -155,10 +155,10 @@
                     break;
             }
         });
-        $('#playerlist').empty().append('<tr> <td> Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
-            '<tr> <td> High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
-            '<tr> <td> Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +
-            '<tr> <td> Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');
+        $('#playerlist').empty().append('<tr> <td> P1 Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
+            '<tr> <td> P2 High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
+            '<tr> <td> P3 Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +
+            '<tr> <td> P4 Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');
     });
 
 
