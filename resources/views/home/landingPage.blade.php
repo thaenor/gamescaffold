@@ -397,12 +397,12 @@
 
 
   <!-- Modal for player info -->
-  <div class="modal fade" id="playerInfo" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal fade" id="playerInfo" tabindex="-1" role="dialog" aria-labelledby="playerModalLabel" aria-hidden="true">
       <div class="modal-dialog">
           <div class="modal-content">
               <div id="playerDetails" class="modal-header">
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="myModalLabel">Player details</h4>
+                  <h4 class="modal-title" id="playerModalLabel">Player details</h4>
               </div>
               <div class="modal-body">
                 <table class="table">
@@ -415,6 +415,27 @@
                   </thead>
                   <tbody id='playerlist'></tbody>
                 </table>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+
+
+  <!-- Modal for ticket info -->
+  <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+          <div class="modal-content">
+              <div id="ticketDetails" class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                  <h4 class="modal-title" id="ticketModalLabel">Ticket details</h4>
+              </div>
+              <div id="ticketInfo" class="modal-body">
+
               </div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

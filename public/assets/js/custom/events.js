@@ -128,6 +128,7 @@
         }
     });
 
+
     // Attach a delegated event handler
     $( "#playerLeaderboard" ).on( "click", "a", function( event ) {
         event.preventDefault();
@@ -154,11 +155,19 @@
                     break;
             }
         });
-        //$("#playerDetails").append('group'+el.assignedGroup_id+' points'+el.points+' '+el.title);
         $('#playerlist').empty().append('<tr> <td> Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
             '<tr> <td> High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
             '<tr> <td> Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +
             '<tr> <td> Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');
+    });
+
+
+    $("#ticketList").on("click","a",function(event){
+        event.preventDefault();
+        var title = $(this).text();
+        $("#ticketDetails").empty().append(title+' related data:');
+        var ticket = findTicket(_openTicketsData,title);
+        $("#ticketInfo").empty().append('<ul class="list-group"><li class="list-group-item"> id: '+ticket[0].id+'</li><li class="list-group-item"> title: '+ticket[0].title+'</li><li class="list-group-item"> priority: '+ticket[0].priority+'</li><li class="list-group-item"> sla: '+ticket[0].sla+'</li><li class="list-group-item"> assigned to: '+ticket[0].user_id+'</li><li class="list-group-item"> team: '+ticket[0].assignedGroup_id+'</li><li class="list-group-item"> points: '+ticket[0].points+'</li><li class="list-group-item"> created at: '+ticket[0].created_at+'</li><li class="list-group-item"> updated at: '+ticket[0].updated_at+'</li></ul>');
     });
 }
 

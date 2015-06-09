@@ -51,11 +51,11 @@ function ticketPagination(tickets) {
     var recordsToShow = tickets.slice(startRec, endRec);
     $.each(recordsToShow, function (i, currentTicket) {
         if (currentTicket.priority == "2 High") {
-            $('#ticketList').append('<li class="list-group-item list-group-item-danger"> <a href="#">' + currentTicket.title + '<span class="pull-right">' + currentTicket.created_at + '</span> </a></li>');
+            $('#ticketList').append('<li class="list-group-item list-group-item-danger"> <a data-toggle="modal" data-target="#ticketModal" href="#">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> </li>');
         } else if (currentTicket.priority == "3 Medium") {
-            $('#ticketList').append('<li class="list-group-item list-group-item-warning"> <a href="#">' + currentTicket.title + '<span class="pull-right">' + currentTicket.created_at + '</span> </a></li>');
+            $('#ticketList').append('<li class="list-group-item list-group-item-warning"> <a data-toggle="modal" data-target="#ticketModal" href="#">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> </li>');
         } else {
-            $('#ticketList').append('<li class="list-group-item list-group-item-info"> <a href="#">' + currentTicket.title + '<span class="pull-right">' + currentTicket.created_at + '</span> </a></li>');
+            $('#ticketList').append('<li class="list-group-item list-group-item-info"> <a data-toggle="modal" data-target="#ticketModal" href="#">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> </li>');
         }
     });
 }
@@ -80,6 +80,12 @@ function searchTickets(searchString) {
         searchResults.push('no results');
     }
     return searchResults;
+}
+
+function findTicket(TicketArray, title){
+    return TicketArray.filter(function(p) {
+        return p.title === title
+    });
 }
 
 
