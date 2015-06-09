@@ -24,13 +24,22 @@ function countPlayers(size){
 
 function showPlayerLeaderBoard(array) {
     $('#playerLeaderboard').empty();
-    //TODO sort player array and remove zeroes
-    $.each(array, function(index, el) {
+    var orderedPlayers = sortByPoints(array);
+    $.each(orderedPlayers, function(index, el) {
         //$('#playerLeaderboard').append(index + ' ' + el + '<hr/>');
-        $('#playerLeaderboard').append('<tr> <td class="info"> <a href="#"  data-toggle="modal" data-target="#playerInfo">'+index + '</a></td>' + '<td class="warning">' + el + '</td> </tr>' );
+        $('#playerLeaderboard').append('<tr> <td class="info"> <a href="#"  data-toggle="modal" data-target="#playerInfo">'+orderedPlayers[index][0] + '</a></td>' + '<td class="warning">' + orderedPlayers[index][1]  + '</td> </tr>' );
         //TODO: fill some graph here
         //fillBarGraphData(index, el);
     });
+}
+
+function sortByPoints(array) {
+    var sortable = [];
+    for(var player in array){
+        sortable.push([player,array[player]])
+        sortable.sort(function(a,b) {return b[1] - a[1]})
+    }
+    return sortable;
 }
 
 function findPlayers(array, playerToFind){
