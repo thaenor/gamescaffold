@@ -260,7 +260,7 @@
 
           <div class="tab-pane fade" id="Pleaderboard">
             <div class="panel-heading">
-              Player leaderboard
+              <h4>Player leaderboard</h4>
             </div>
               <div class="table-responsive">
                   <table class="table">

@@ -36,9 +36,10 @@ function renderGroupLeaderBoard(data) {
 function reDisplayGroupLeaderBoard(array) {
     $('#grouplist').empty();
     $('.hidden-sm').remove();
-    $.each(array, function (index, el) {
-        $('#grouplist').append('<tr> <td class="success">' + index + '</td>' + '<td class="info">' + el + '</td> </tr>');
-        fillBarGraphData(index, el);
+    var orderedTeams = sortByPoints(array);
+    $.each(orderedTeams, function (index, el) {
+        $('#grouplist').append('<tr> <td class="success">' + el[0] + '</td>' + '<td class="info">' + el[1] + '</td> </tr>');
+        fillBarGraphData(el[0], el[1]);
     });
 }
 
