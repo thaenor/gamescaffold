@@ -27,8 +27,16 @@ function showPlayerLeaderBoard(array) {
     //TODO sort player array and remove zeroes
     $.each(array, function(index, el) {
         //$('#playerLeaderboard').append(index + ' ' + el + '<hr/>');
-        $('#playerLeaderboard').append('<tr> <td class="info"> <a class="playerModal" href="#"  data-toggle="modal" data-target="#playerInfo">'+index + '</a></td>' + '<td class="warning">' + el + '</td> </tr>' );
+        $('#playerLeaderboard').append('<tr> <td class="info"> <a href="#"  data-toggle="modal" data-target="#playerInfo">'+index + '</a></td>' + '<td class="warning">' + el + '</td> </tr>' );
         //TODO: fill some graph here
         //fillBarGraphData(index, el);
     });
+}
+
+function findPlayers(array, playerToFind){
+    var foundMatches = [];
+    for (var i=0; i < array.length; i++)
+        if(array[i].user_id === playerToFind)
+            foundMatches.push(array[i]);
+    return foundMatches;
 }

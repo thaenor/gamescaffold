@@ -128,7 +128,37 @@
         }
     });
 
-    $(".playerModal").click(function(){
-        $("#playerDetails").empty().append( $(this).text()+'\'s information' );
+    // Attach a delegated event handler
+    $( "#playerLeaderboard" ).on( "click", "a", function( event ) {
+        event.preventDefault();
+        $("#playerDetails").empty().append( $(this).text()+'\'s information');
+        var player = findPlayers(_resolvedTicketsData,$(this).text());
+        var criticalCount= 0, criticalPointCount= 0, highCount= 0, highPointCount= 0, mediumCount= 0, mediumPointCount= 0, lowCount= 0, lowPointCount=0;
+        $.each(player, function(index,el){
+            switch (el.priority){
+                case '1 Critical':
+                    criticalCount++;
+                    criticalPointCount += el.points;
+                    break;
+                case '2 High':
+                    highCount++;
+                    highPointCount += 8;
+                    break;
+                case '3 Medium':
+                    mediumCount++;
+                    mediumPointCount += el.points;
+                    break;
+                case '4 Low':
+                    lowCount++;
+                    lowPointCount += el.points;
+                    break;
+            }
+        });
+        //$("#playerDetails").append('group'+el.assignedGroup_id+' points'+el.points+' '+el.title);
+        $('#playerlist').empty().append('<tr> <td> Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
+            '<tr> <td> High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
+            '<tr> <td> Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +
+            '<tr> <td> Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');
     });
 }
+
