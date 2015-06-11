@@ -141,6 +141,7 @@ function insertChunkToDB($chunk){
             if(!$group){
                 importGroup($element['group_id']);
             }
+            //optional: importRelationUserGroup($element['user_id'], $element['group_id']);
             $ticket->assignedGroup_id = $element['group_id'];
             $ticket->sla = $element['sla_name'];
             $ticket->sla_time = $element['solution_time'];
@@ -250,7 +251,7 @@ function importGroup($id){
     }
 }
 
-/*function importRelationUserGroup($user_id, $group_id){
+function importRelationUserGroup($user_id, $group_id){
     try {
         $query = "select user_id, group_id from group_user where user_id=$user_id AND group_id=$group_id";
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
@@ -262,7 +263,7 @@ function importGroup($id){
     }catch (exception $e){
         Log::error('Error updating user-group relation table. '.$e);
     }
-}*/
+}
 
 /***********************************************************************************************************************/
 /***********************************************************************************************************************/
@@ -348,8 +349,13 @@ function fillGroupUserRelationTables(){
 }
 function insertChunkUserGroupRelation($chunk){
     foreach ($chunk as $rel) {
-        DB::table('group_user')->insert(array(
+        try {
+           DB::table('group_user')->insert(array(
             array('user_id' => $rel['user_id'], 'group_id' => $rel['group_id']),
-        ));
+        )); 
+       } catch (exception $e){
+            Log::warning("the relation you are trying to create already exists, more details: ".$e);
+       }
+        
     }
 }
