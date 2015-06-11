@@ -16,30 +16,28 @@ require('otrsDAL.php');
 
 class TicketController extends Controller {
 
+    /**
+     * Manual migration method.
+     * This is call and import, from OTRS,
+     * all the tables for Tickets, users, groups
+     * and their relations. This method only needs
+     * to be called in case the local DB is cleaned
+     */
     public function manualMigration(){
         manualMigration();
     }
-    
-    /**
-     * Now that we have all the tickets it's time to calculate
-     * the points
-     */
-    public function calculatePoints(){
-        $ticket = new Ticket();
-        $ticket->setTicketPoints();
-        $ticket->setTicketPenalties();
-        return redirect('/');
-    }
 
 
     /**
-     * This is a migration function that gets some tickets from OTRS
+     * Sync funtion that's run daily. Preferably in the afternoon (if connected to development server)
+     * this compares the last ticket id between DB's and migrates any new tickets
+     * It also calculates the points in the tickets and attributes them to players and teams.
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function sync(){
         $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
         syncDBs($lastTicketId);
-        return redirect('secretRoute/calculatePoints');
+        return redirect('/');
     }
     
 	/**

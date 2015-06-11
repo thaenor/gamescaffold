@@ -33,7 +33,7 @@ Route::resource('tickets', 'TicketController');
 //shhhh! Secret routes are not meant to be used by common mortals
 Route::group(array('prefix' => 'secretRoute'), function()
 {
-    Route::get('calculatePoints','TicketController@calculatePoints');
+    //Route::get('calculatePoints','TicketController@calculatePoints');
     Route::get('sync','TicketController@sync');
     Route::get('manualmigration','TicketController@manualMigration');
 });

@@ -7,9 +7,8 @@ class Group extends Model {
     
     public function users()  {  return $this->belongsToMany('App\User'); }
 
-    public function updateTeam($team_id, $pts){
-        $team = Group::findOrFail($team_id);
-        $team->points += $pts;
-        $team->save();
+    public function updateTeam($pts){
+        $this->points += $pts;
+        $this->save();
     }
 }

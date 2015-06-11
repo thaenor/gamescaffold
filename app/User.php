@@ -41,35 +41,46 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
     public function groups()  {  return $this->belongsToMany('App\Group'); }
 
 
-    public function updateUser($userid, $pts){
-        $user = User::findOrFail($userid);
-        $user->points += $pts;
-        $user->experience += ($pts)/100;
-        $user->checkLvlUp($user);
-        $user->checkDeath($user);
-        $user->save();
+    public function updateUser($pts){
+        if($pts >0){
+            $this->points += $pts;
+            if($pts > 5){
+                $this->experience += 10;
+            } else{
+                $this->experience +=5;
+            }
+            $this->checkLvlUp();
+        } else {
+            $this->takeDamage($pts);
+            $this->checkDeath();
+        }
+        $this->save();
     }
 
-    public function checkLvlUp($user)
+    public function checkLvlUp()
     {
         $articleUpdater = new Article();
-        if($user->experience > 100){
-            $user->level += $user->experience/100;
-            $user->save();
-            $articleUpdater->postAutomatedMessageLevelUp($user->id,$user->level);
+        if($this->experience > 100){
+            $this->level++;
+            $this->save();
+            $articleUpdater->postAutomatedMessageLevelUp($this->id,$this->level);
         }
     }
 
-    public function checkDeath($user)
+    public function takeDamage($damage){
+        $this->health_points -= $damage;
+    }
+    
+    public function checkDeath()
     {
         $articleUpdater = new Article();
-        if($user->health_points < 0){
-            $user->level -= 1;
-            $user->experience = 0;
-            $user->points -= 50;
-            $user->health_points = 100;
-            $user->save();
-            $articleUpdater->postAutomatedMessageDead($user->full_name);
+        if($this->health_points < 0){
+            $this->level -= 1;
+            $this->experience = 0;
+            $this->points -= 50;
+            $this->health_points = 100;
+            $this->save();
+            $articleUpdater->postAutomatedMessageDead($this->full_name);
         }
     }
 }

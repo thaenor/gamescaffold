@@ -43,7 +43,7 @@
   	</div>
 -->
 <div class="col-sm-12 col-md-12 col-lg-12">
-  <img src="assets/logo.png" class=""/>
+  <img id="logo" src="assets/logo.png" class="hatch"/>
   <h1>Tickets Premier League </h1>
 </div>
 

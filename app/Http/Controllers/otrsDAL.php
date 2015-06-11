@@ -13,6 +13,7 @@ use App\User;
 use App\Ticket;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
 
 /**
  * Simple connectivity function to Postgres database. Returns connectivity variable.
@@ -40,13 +41,13 @@ function closeDB($dbconn){
 }
 
 
-/**
+/*
  * Same as getTicketsFromLastWeek() but only fetches tickets whose id is greater than the last one of localDB
  * In other words it syncs OTRS and localDB ensuring both have the same tickets.
  *
  * @param $last
  * @return string
- */
+
 function getTicketsFromLastId($last){
     $query = "select ti.id, ti.title, ti.user_id, us.first_name, us.last_name, sl.name AS sla_name, tp.name AS priority, tp.id AS priority_id, ts.name AS ticket_state, ti.timeout, ti.create_time AS cretime, ti.change_time AS chgtime
 from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts
@@ -54,9 +55,12 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
 
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());
     return json_encode(array_values(pg_fetch_all($result)));
-}
+}*/
 
-
+/**
+ * Retrieves latest ticket ID from OTRS
+ * @return int
+ */
 function getLastIDFromTickets(){
     $query = "select id from ticket order by id desc limit 1";
     $result = pg_query($query) or die('Query failed: ' . pg_last_error());
@@ -66,19 +70,13 @@ function getLastIDFromTickets(){
 
 
 /**
+ * See TicketController->sync function
  * Inserts data retrieved from OTRS into localDB
  * Lynked to insertChunkToDB
  * @param $lastId
  * @return string
  */
 function syncDBs($lastId){
-    $dal = connect();
-
-    $otrsTicketLastId = getLastIDFromTickets();
-
-    if($lastId === $otrsTicketLastId){
-        return;
-    }
 
     $query = "select ti.id,
 	ti.title,
@@ -97,21 +95,33 @@ function syncDBs($lastId){
 	ti.change_time AS chgtime
 from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g
 where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id
-	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.id>$lastId order by ti.id;";
+	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.id>$lastId order by ti.id";
 
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $data = (array_values(pg_fetch_all($result)));
-
-    $chunkOfData = array_chunk($data, 1000);
-    foreach ($chunkOfData as $chunk) {
-        insertChunkToDB($chunk);
+    try {
+        $dal = connect();
+        $otrsTicketLastId = getLastIDFromTickets();
+        if($lastId === $otrsTicketLastId){
+            Log::warning('Nothing to sync.');
+            return;
+        }
+        $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+        $data = (array_values(pg_fetch_all($result)));
+        $chunkOfData = array_chunk($data, 1000);
+        foreach ($chunkOfData as $chunk) {
+            insertChunkToDB($chunk);
+        }
+        closeDB($dal);
+    } catch(exception $e){
+        Log::error('Error syncing both databases, more details: '.$e);
+        exit(1);
     }
-
-    closeDB($dal);
 }
 
 /**
  * Insert each chunk
+ * This function calls related functions to calculate points for each ticket.
+ * It also defines the points for each player and team in DB.
+ * New players and teams are created if they do not exist.
  * @param $chunk
  * @return Exception
  */
@@ -124,65 +134,135 @@ function insertChunkToDB($chunk){
             $ticket->title = $element['title'];
             $ticket->user_id = $element['user_id'];
             $user = User::find($element['user_id']);
-            var_dump($user);
             if(!$user){
-                var_dump($user);
                 importUser($element['user_id']);
             }
             $group = Group::find($element['group_id']);
             if(!$group){
                 importGroup($element['group_id']);
             }
-
             $ticket->assignedGroup_id = $element['group_id'];
             $ticket->sla = $element['sla_name'];
             $ticket->sla_time = $element['solution_time'];
             $ticket->priority = $element['priority'];
             $ticket->state = $element['ticket_state'];
-            $ticket->points = 0; //$element['priority_id'] * rand(5, 15);
             $ticket->created_at = $element['cretime'];
             $ticket->updated_at = $element['chgtime'];
             $ticket->timeout = $element['timeout'];
+            if($element['ticket_state'] == "ReOpened"){
+                $ticket->points = -10;
+            } else {
+                $ticket->points = updateTicketPoints($element['priority']);
+            }
             $ticket->save();
+            $ticket->updateScorePoints($element['user_id'], $element['group_id'], $ticket->points);
         } catch(Exception $e)  {
-            echo 'Exception, Dev stopped this because <br/>'.$e;
+            Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
             exit(1);
         }
     }
 }
 
+/**
+ * Function that calculates points of a ticket based on it's priority
+ * @param $priority
+ * @return int
+ */
+function updateTicketPoints($priority){
+    switch ($priority){
+        case "1 Critical":
+            $points = 10;
+            break;
+        case "2 High":
+            $points = 8;
+            break;
+        case "3 Medium":
+            $points = 3;
+            break;
+        case "4 Low":
+            $points = 1;
+            break;
+        default:
+            $points = 1;
+    }
+
+    /*$priority = filter_var($this->priority, FILTER_SANITIZE_NUMBER_INT);
+    $priorityInt = intval($priority);
+
+    $created = strtotime($this->created_at); //This is a unix timestamp
+    $updated = strtotime($this->updated_at);
+    $slaSolutionTime = $this->sla_time;
+    $timeSpentSolving = $created - $updated; // == <seconds between the two times>
+    $minutesSpentSolving = ($timeSpentSolving/60)/60; // convert that into hours
+
+    $formula = (($slaSolutionTime - $minutesSpentSolving) + rand(2,4) / $priorityInt);*/
+    return $points;
+}
+
+/**
+ * Function triggered when a user being imported does not exist in local DB
+ * This fetches the related information and records it to local DB
+ * @param $id
+ */
 function importUser($id){
-    $query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u WHERE u.id=$id";
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $resultData = array_values(pg_fetch_all($result));
-    //var_dump($resultData[0]['login']); gives you the login of the first user as a string
-    $user = new User();
-    $user->id = $resultData[0]['id'];
-    $user->name = $resultData[0]['login'];
-    $user->email= $resultData[0]['login'] . "@novabase.com";
-    $user->league_id = 1;
-    $user->password = bcrypt('password');
-    if($resultData[0]['title']){ $user->title = $resultData[0]['title']; }
-    else { $user->title = "novice"; }
-    $user->full_name = $resultData[0]['first_name'] . " " . $resultData[0]['last_name'];
-    $user->points = 0;
-    $user->health_points = 100;
-    $user->experience = 0;
-    $user->level = 1;
-    $user->save();
+    try{
+        $query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u WHERE u.id=$id";
+        $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+        $resultData = array_values(pg_fetch_all($result));
+        //var_dump($resultData[0]['login']); gives you the login of the first user as a string
+        $user = new User();
+        $user->id = $resultData[0]['id'];
+        $user->name = $resultData[0]['login'];
+        $user->email= $resultData[0]['login'] . "@novabase.com";
+        $user->league_id = 1;
+        $user->password = bcrypt('password');
+        if($resultData[0]['title']){ $user->title = $resultData[0]['title']; }
+        else { $user->title = "novice"; }
+        $user->full_name = $resultData[0]['first_name'] . " " . $resultData[0]['last_name'];
+        $user->points = 0;
+        $user->health_points = 100;
+        $user->experience = 0;
+        $user->level = 1;
+        $user->save();
+    } catch (exception $e){
+        Log::error('Error updating user table. more details on why:  '.$e);
+    }
+
 }
 
+/**
+ * Function triggered when a group being imported does not exist in local DB
+ * This fetches the related information and records it to local DB
+ * @param $id
+ */
 function importGroup($id){
-    $query = "SELECT id ,name, comments  FROM groups WHERE id=$id";
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $resultData = array_values(pg_fetch_all($result));
-    $group = Group::find($id);
-    $group->title = $resultData[0]['name'];
-    $group->variant_name = $resultData[0]['comments'];
-    $group->points = 0;
-    $group->save();
+    try{
+        $query = "SELECT id ,name, comments  FROM groups WHERE id=$id";
+        $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+        $resultData = array_values(pg_fetch_all($result));
+        $group = Group::find($id);
+        $group->title = $resultData[0]['name'];
+        $group->variant_name = $resultData[0]['comments'];
+        $group->points = 0;
+        $group->save();
+    } catch (exception $e){
+        Log::error('Error updating user table. more details on why:  '.$e);
+    }
 }
 
+/*function importRelationUserGroup($user_id, $group_id){
+    try {
+        $query = "select user_id, group_id from group_user where user_id=$user_id AND group_id=$group_id";
+        $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+        $resultData = array_values(pg_fetch_all($result));
+        $chunkOfData = array_chunk($resultData, 1000);
+        foreach ($chunkOfData as $chunk) {
+            insertChunkUserGroupRelation($chunk);
+        }
+    }catch (exception $e){
+        Log::error('Error updating user-group relation table. '.$e);
+    }
+}*/
 
 /***********************************************************************************************************************/
 /***********************************************************************************************************************/
@@ -190,6 +270,11 @@ function importGroup($id){
 /***********************************************************************************************************************/
 /***********************************************************************************************************************/
 /***********************************************************************************************************************/
+/**
+ * Manual migration and bellow functions are only used
+ * in case the local DB has been truncated or emptied.
+ * They import all data from OTRS
+ */
 function manualMigration(){
     try{
         $dal = connect();
@@ -198,6 +283,7 @@ function manualMigration(){
         fillGroupUserRelationTables();
         closeDB($dal);
     } catch(exception $e){
+        Log::error('Error on manual migration. More details: '.$e);
         App::abort(403, 'Manual Migration fucked up '.$e);
     }
 }
