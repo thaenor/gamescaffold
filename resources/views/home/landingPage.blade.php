@@ -91,7 +91,7 @@
   <div class="col-md-6 col-sm-6 col-lg-6">
     <div class="panel panel-default">
       <div class="panel-heading">
-
+          <h4>Tickets betweeh <em><label id="startTimeLabel"><label></em> and <em><label id="endTimeLabel"><label></em><h4>
       </div>
 
 
@@ -338,11 +338,11 @@
     </ul>
 
     <!-- time travel -->
-    <button class="btn btn-primary btn-info pull-right hatch" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary btn-info hatch" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       Time travel
     </button>
 
-    <div class="collapse pull-right" id="collapseExample">
+    <div class="collapse" id="collapseExample">
     <p><p/>
         <div class="btn-group btn-group-sm" role="group">
           <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
@@ -461,7 +461,7 @@
   <!-- <script src="assets/BigVideo/lib/bigvideo.js"></script>-->
   <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
   <script src="assets/js/morris/morris.js"></script>
-  <script src="assets/js/moment-with-locales.js" charset="utf-8"></script>
+  <script src="assets/js/moment.js" charset="utf-8"></script>
   <!-- Extra js for Object Oriented implementation -->
   <script src="assets/js/custom/ajax.js" type="text/javascript"></script>
   <script src="assets/js/custom/group.js" type="text/javascript"></script>

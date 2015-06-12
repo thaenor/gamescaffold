@@ -36,7 +36,7 @@ class TicketController extends Controller {
      */
     public function sync(){
         $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
-        syncDBs($lastTicketId);
+        syncDBs($lastTicketId); //202325
         return redirect('/');
     }
     

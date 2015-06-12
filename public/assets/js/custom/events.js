@@ -6,6 +6,8 @@
 
  function renderEvents() {
 
+    $('#startTimeLabel').append(moment().startOf('month').format('MMMM Do YYYY'));
+    $('#endTimeLabel').append(moment().format('MMMM Do YYYY'));
     $('#ticketNumber').empty().append(_openTicketsData.length);
     $('#notificationBox').empty().append('<p></p>');
 
@@ -102,6 +104,8 @@
             _resolvedTicketsData = data;
             renderPlayerLeaderBoard(data);
             renderGroupLeaderBoard(data);
+            $('#startTimeLabel').empty().append(start);
+            $('#endTimeLabel').empty().append(end);
         }).fail(showAlertMessage('error fetching remote data'));
     });
 
@@ -170,4 +174,3 @@
         $("#ticketInfo").empty().append('<ul class="list-group"><li class="list-group-item"> id: '+ticket[0].id+'</li><li class="list-group-item"> title: '+ticket[0].title+'</li><li class="list-group-item"> priority: '+ticket[0].priority+'</li><li class="list-group-item"> sla: '+ticket[0].sla+'</li><li class="list-group-item"> assigned to: '+ticket[0].user_id+'</li><li class="list-group-item"> team: '+ticket[0].assignedGroup_id+'</li><li class="list-group-item"> points: '+ticket[0].points+'</li><li class="list-group-item"> created at: '+ticket[0].created_at+'</li><li class="list-group-item"> updated at: '+ticket[0].updated_at+'</li></ul>');
     });
 }
-
