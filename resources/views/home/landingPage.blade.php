@@ -47,84 +47,28 @@
   <h1>Tickets Premier League </h1>
 </div>
 
-<div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2">
+<div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2"></div>
 
-</div>
-
- <section class="col-md-12 col-lg-12">
-      <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-          <!-- Indicators -->
-          <ol class="carousel-indicators">
-              <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-              <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-              <li data-target="#carousel-example-generic" data-slide-to="2"></li>
-          </ol>
-
-          <!-- Wrapper for slides -->
-          <div class="carousel-inner" role="listbox">
-              <div class="item active">
-
-                  <div class="carousel-caption">
-                      SomeGraph
-                  </div>
-              </div>
-              <div class="item">
-
-                  <div class="carousel-caption">
-                      CompanyLogo
-                  </div>
-              </div>
-          </div>
-
-          <!-- Controls -->
-          <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-              <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-              <span class="sr-only">Previous</span>
-          </a>
-          <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-              <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-              <span class="sr-only">Next</span>
-          </a>
-      </div>
-</section>
-
-  <div class="col-md-6 col-sm-6 col-lg-6">
+  <div class="col-md-7 col-sm-12 col-lg-7">
     <div class="panel panel-default">
       <div class="panel-heading">
-          <h4>Tickets betweeh <em><label id="startTimeLabel"><label></em> and <em><label id="endTimeLabel"><label></em><h4>
+          <h4>Tickets betweeh <em><label id="startTimeLabel"></label></em> and <em><label id="endTimeLabel"></label></em></h4>
       </div>
 
 
-      <div class="panel-body">
-        <ul class="nav nav-tabs">
-          <li id="ticket-tab" class="active">
-            <a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a>
-          </li>
-
-
-          <li class="">
-            <a data-toggle="tab" href="#rewards">Rewards</a>
-          </li>
-
-
-          <li class="">
-            <a data-toggle="tab" href="#newsfeed">Newsfeed</a>
-          </li>
-
-
-          <li id="groupLeaderboard-tab" class="">
-            <a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a>
-          </li>
-
-          <li class="">
-            <a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a>
-          </li>
-        </ul>
+        <div class="panel-body">
+          <ul class="nav nav-tabs">
+              <li id="ticket-tab" class="active"> <a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a> </li>
+              <li class=""> <a data-toggle="tab" href="#rewards">Rewards</a> </li>
+              <li class="">   <a data-toggle="tab" href="#newsfeed">Newsfeed</a>  </li>
+              <li id="groupLeaderboard-tab" class="">  <a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a>   </li>
+              <li class=""> <a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a>  </li>
+              <li class=""> <a data-toggle="tab" href="#Graphs">Graphs</a>  </li>
+          </ul>
 
         <hr/>
-
-        <div class="tab-content">
-          <div class="tab-pane fade active in" id="ticketDisplayScreen">
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="ticketDisplayScreen">
             <h4>Tickets</h4>
 
 
@@ -167,33 +111,35 @@
                 </ul>
               </div>
             </div>
+              <div class="col-md-5 col-lg-5 col-sm-5">
+                  <ul class="list-group">
+                      <li class="list-group-item list-group-item-heading">Legend</li>
+                      <li class="list-group-item list-group-item-danger">Red - Critical (P1)</li>
+                      <li class="list-group-item list-group-item-warning">Yellow - High (P2)</li>
+                      <li class="list-group-item list-group-item-info">Blue - Medium (P3) </li>
+                      <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
+                  </ul>
+              </div>
           </div>
 
-
-          <div class="tab-pane fade well" id="rewards">
+                <div class="tab-pane fade well" id="rewards">
             <h4>Rewards</h4>
             <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
           </div>
 
-
-          <div class="tab-pane fade well" id="newsfeed">
+                <div class="tab-pane fade well" id="newsfeed">
             <h4>Newsfeed</h4>
 
             <section>
                   <div class='form-group'>
                     <div class="col-md-12 col-sm-12 col-lg-12">
                       <ul id="articleList" class="list-group">
-                        <li class="list-group-item">Jason: Cras justo odio</li>
-                        <li class="list-group-item">Mark: Dapibus ac facilisis in</li>
-                        <li class="list-group-item">Tony: Morbi leo risus</li>
-                        <li class="list-group-item">Martha: Porta ac consectetur ac</li>
-                        <li class="list-group-item">Xana: Vestibulum at eros</li>
                       </ul>
                     </div>
                     <input type="text" class="form-control" id="writtenFeed" placeholder="What's on your mind...">
 
                   </div>
-                  <button type="submit" id="postFeed" class="btn btn-info">Post</button>
+                  <button type="submit" id="postFeed" class="btn btn-danger">Post</button>
 
             </section>
 
@@ -201,8 +147,7 @@
 
           </div>
 
-
-          <div class="tab-pane fade" id="Gleaderboard">
+                <div class="tab-pane fade" id="Gleaderboard">
             <h4>Leaderboard</h4>
             <!-- group leaderboard -->
 
@@ -258,7 +203,7 @@
             <!-- END group leaderboard -->
           </div>
 
-          <div class="tab-pane fade" id="Pleaderboard">
+                <div class="tab-pane fade" id="Pleaderboard">
             <div class="panel-heading">
               <h4>Player leaderboard</h4>
             </div>
@@ -276,12 +221,48 @@
               </div>
           </div>
 
+                <div class="tab-content" id="Graphs">
+                <section>
+                    <section>
+                        <!-- Morris chart -->
+                        <div class="col-md-6 col-sm-12 col-xs-12 ">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Team's point score
+                                </div>
+
+
+                                <div class="panel-body">
+                                    <div id="morris-bar-chart">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- END Morris chart -->
+                    </section>
+
+                    <!-- Morris chart -->
+                    <section>
+                        <div class="col-md-6 col-sm-12 col-xs-12 ">
+                            <div class="panel panel-default">
+                                <div class="panel-heading">
+                                    Tickets per status
+                                </div>
+                                <div class="panel-body">
+                                    <div id="donut-example"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </section>
+                    <!-- END Morris chart -->
+                </section>
+            </div>
+            </div>
         </div>
-      </div>
     </div>
   </div>
 
-  <div class="well col-md-6 col-sm-6 col-lg-6 ">
+  <div class="well col-md-4 col-sm-4 col-lg-4 ">
 
     <section class="col-md-12 col-sm-12 col-xs-12 hatch">
       <div class="col-md-3 col-sm-6 col-xs-6">
@@ -338,7 +319,7 @@
     </ul>
 
     <!-- time travel -->
-    <button class="btn btn-primary btn-info hatch" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+    <button class="btn btn-primary btn-danger hatch" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
       Time travel
     </button>
 
@@ -355,45 +336,11 @@
         <p class="text-primary">End Date:
           <input type="text" id="endDatePicker">
         </p>
-        <button id="timeTravelTrigger" type="button" class="btn btn-warning">GO!</button>
+        <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
 
     </div>
     <!-- END time travel -->
   </div>
-
-<section>
-  <!-- Morris chart -->
-  <div class="col-md-6 col-sm-12 col-xs-12 ">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        Team's point score
-      </div>
-
-
-      <div class="panel-body">
-        <div id="morris-bar-chart">
-        </div>
-      </div>
-    </div>
-  </div>
-  <!-- END Morris chart -->
-  </section>
-
-  <!-- Morris chart -->
-  <section>
-    <div class="col-md-6 col-sm-12 col-xs-12 ">
-      <div class="panel panel-default">
-        <div class="panel-heading">
-          Tickets per status
-        </div>
-        <div class="panel-body">
-            <div id="donut-example"></div>
-        </div>
-        </div>
-      </div>
-    </div>
-  </section>
-  <!-- END Morris chart -->
 
 
   <!-- Modal for player info -->
@@ -405,7 +352,7 @@
                   <h4 class="modal-title" id="playerModalLabel">Player details</h4>
               </div>
               <div class="modal-body">
-                <table class="table">
+<!--                <table class="table">
                   <thead>
                     <tr>
                       <th>Priority</th>
@@ -414,8 +361,9 @@
                     </tr>
                   </thead>
                   <tbody id='playerlist'></tbody>
-                </table>
+                </table> -->
               </div>
+                  <div id="playerList" class="list-group"></div>
               <div class="modal-footer">
                   <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
               </div>
