@@ -5,7 +5,7 @@
  */
 
 function renderPlayerLeaderBoard() {
-    var playerArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
+    var playerArray = {}; //Dictionary like array, will contain [player name][player's points]... etc
     var playerCounter = 0;
 
     $.each(_resolvedTicketsData, function(index, currentTicket) {
@@ -14,6 +14,7 @@ function renderPlayerLeaderBoard() {
             playerCounter++;
         }
         playerArray[currentTicket.user_id] += currentTicket.points;
+        //console.log("player: "+currentTicket.user_id+" solved ticket with "+currentTicket.points+" priority"+currentTicket.priority+" type"+currentTicket.type+" sla "+currentTicket.sla_time+"%");
     });
     playerArray ? (showPlayerLeaderBoard(playerArray), countPlayers(playerCounter)) : alert('no players exists');
 }
