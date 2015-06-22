@@ -139,30 +139,54 @@
         $("#playerDetails").empty().append( $(this).text()+'\'s information');
         var player = findPlayers(_resolvedTicketsData,$(this).text());
         var criticalCount= 0, criticalPointCount= 0, highCount= 0, highPointCount= 0, mediumCount= 0, mediumPointCount= 0, lowCount= 0, lowPointCount=0;
+        var incidentCount= 0, incidentPointCount= 0, problemCount= 0, problemPointCount= 0, serviceRequestCount= 0, srPointCount= 0;
         $.each(player, function(index,el){
             switch (el.priority){
                 case '1 Critical':
                     criticalCount++;
-                    criticalPointCount += el.points;
+                    criticalPointCount += 10;
                     break;
                 case '2 High':
                     highCount++;
-                    highPointCount += el.points;
+                    highPointCount += 8;
                     break;
                 case '3 Medium':
                     mediumCount++;
-                    mediumPointCount += el.points;
+                    mediumPointCount += 3;
                     break;
                 case '4 Low':
                     lowCount++;
-                    lowPointCount += el.points;
+                    lowPointCount += 1;
+                    break;
+            }
+            switch(el.type) {
+                case "Incident":
+                    incidentCount++;
+                    incidentPointCount += 10;
+                    break;
+                case "Service Request":
+                    serviceRequestCount++;
+                    srPointCount += 3;
+                    break;
+                case "Problem":
+                    problemCount++;
+                    problemPointCount += 5;
                     break;
             }
         });
-        $('#playerlist').empty().append('<tr> <td> P1 Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
+        $('#playerList').empty().append('A total of '+player.length+' tickets solved of which <ul>'+
+            '<li class="list-group-item list-group-item-danger">' +criticalCount+ ' were P1-Critical <span class="badge">'+criticalPointCount+' Points</span></li>'+
+            '<li class="list-group-item list-group-item-warning">'+ highCount + ' were P2 - High <span class="badge">'+highPointCount+' Points</span></li>'+
+            '<li class="list-group-item list-group-item-info">'+ mediumCount + ' were P3 - Medium <span class="badge">'+mediumPointCount+' Points</span></li>'+
+            '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P1 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
+            '<li class="list-group-item list-group-item-danger">'+ incidentCount + ' were incidents <span class="badge">'+incidentPointCount+' Points</span></li>'+
+            '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were P2 - problems <span class="badge">'+problemPointCount+' Points</span></li>'+
+            '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were P2 - service requests <span class="badge">'+srPointCount+' Points</span></li>'
+        );
+        /*$('#playerlist').empty().append('<tr> <td> P1 Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
             '<tr> <td> P2 High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
             '<tr> <td> P3 Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +
-            '<tr> <td> P4 Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');
+            '<tr> <td> P4 Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');*/
     });
 
 
