@@ -36,6 +36,10 @@ class Ticket extends Model {
         return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','open')->get();
     }
 
+    public static function getAllOpenTickets(){
+        return Ticket::where('state','=','open')->get();
+    }
+
     /**
      * This is the start of the point calculation method.
      * The models will be reviewed as points are distributed

@@ -62,10 +62,15 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
  * @return int
  */
 function getLastIDFromTickets(){
-    $query = "select id from ticket order by id desc limit 1";
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    $data = (array_values(pg_fetch_all($result)));
-    return intval($data[0]['id']);
+    try{
+        $query = "select id from ticket order by id desc limit 1";
+        $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+        $data = (array_values(pg_fetch_all($result)));
+        return intval($data[0]['id']);
+    } catch(exception $e){
+        Log::error('Error getting time from OTRS, more details: '.$e);
+        exit(1);
+    }
 }
 
 
@@ -73,6 +78,9 @@ function getLastIDFromTickets(){
  * See TicketController->sync function
  * Inserts data retrieved from OTRS into localDB
  * Lynked to insertChunkToDB
+ *
+ * helpfull link: http://codepoets.co.uk/2014/postgresql-unbuffered-queries/
+ *
  * @param $lastId
  * @return string
  */
@@ -90,12 +98,15 @@ function syncDBs($lastId){
 	tp.name AS priority,
 	/*tp.id AS priority_id,*/
 	ts.name AS ticket_state,
-	ti.timeout, /*unix timestamp to when ticket was created*/
+	/*ti.timeout, unix timestamp to when ticket was created*/
+	ti.percentage,
+	/*ti.type_id,*/
+	type.name AS type_of_ticket,
 	ti.create_time AS cretime,
 	ti.change_time AS chgtime
-from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g
+from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g, ticket_type type
 where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id
-	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.id>$lastId order by ti.id";
+	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.change_time >= '".$lastId."' order by ti.id";
 
     try {
         $dal = connect();
@@ -117,6 +128,41 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
     }
 }
 
+function syncSingleTicket($ticketId){
+    $query = "select ti.id,
+	ti.title,
+	ti.user_id,
+	/*us.first_name,
+	us.last_name,*/
+	q.group_id AS group_id,
+	/*q.name AS group_name,*/
+	sl.name AS sla_name,
+	sl.solution_time AS solution_time, /*tells me how long till an sla runs out in minutes*/
+	tp.name AS priority,
+	/*tp.id AS priority_id,*/
+	ts.name AS ticket_state,
+	/*ti.timeout, unix timestamp to when ticket was created*/
+	ti.percentage,
+	/*ti.type_id,*/
+	type.name AS type_of_ticket,
+	ti.create_time AS cretime,
+	ti.change_time AS chgtime
+from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g, ticket_type type
+where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id
+	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.id = '".$ticketId."'";
+
+    try {
+        $dal = connect();
+        $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+        $ticket = (array_values(pg_fetch_all($result)));
+        insertTicketToDB($ticket);
+        closeDB($dal);
+    } catch(exception $e){
+        Log::error('Error syncing both databases, more details: '.$e);
+        exit(1);
+    }
+}
+
 /**
  * Insert each chunk
  * This function calls related functions to calculate points for each ticket.
@@ -126,41 +172,47 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
  * @return Exception
  */
 function insertChunkToDB($chunk){
-
     foreach ($chunk as $element) {
-        try{
+        insertTicketToDB($element);
+    }
+}
+
+function insertTicketToDB($element){
+    try{
+        $ticket = Ticket::find($element['id']);
+        if(!$ticket){
             $ticket = new Ticket();
-            $ticket->id = $element['id'];
-            $ticket->title = $element['title'];
-            $ticket->user_id = $element['user_id'];
-            $user = User::find($element['user_id']);
-            if(!$user){
-                importUser($element['user_id']);
-            }
-            $group = Group::find($element['group_id']);
-            if(!$group){
-                importGroup($element['group_id']);
-            }
-            //optional: importRelationUserGroup($element['user_id'], $element['group_id']);
-            $ticket->assignedGroup_id = $element['group_id'];
-            $ticket->sla = $element['sla_name'];
-            $ticket->sla_time = $element['solution_time'];
-            $ticket->priority = $element['priority'];
-            $ticket->state = $element['ticket_state'];
-            $ticket->created_at = $element['cretime'];
-            $ticket->updated_at = $element['chgtime'];
-            $ticket->timeout = $element['timeout'];
-            if($element['ticket_state'] == "ReOpened"){
-                $ticket->points = -10;
-            } else {
-                $ticket->points = updateTicketPoints($element['priority']);
-            }
-            $ticket->save();
-            $ticket->updateScorePoints($element['user_id'], $element['group_id'], $ticket->points);
-        } catch(Exception $e)  {
-            Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
-            exit(1);
         }
+        $ticket->id = $element['id'];
+        $ticket->title = $element['title'];
+        $ticket->type = $element['type_of_ticket'];
+        $ticket->priority = $element['priority'];
+        $ticket->state = $element['ticket_state'];
+        $ticket->sla = $element['sla_name'];
+        $ticket->sla_time = $element['solution_time'];
+        $ticket->percentage = $element['percentage'];
+        $ticket->created_at = $element['cretime'];
+        $ticket->updated_at = $element['chgtime'];
+        $ticket->user_id = $element['user_id'];
+        //tries to locate the user. If non existen, the data is imported
+        $user = User::find($element['user_id']);
+        if(!$user){
+            importUser($element['user_id']);
+        }
+        //tries to locate the group. If non existen, the data is imported
+        $group = Group::find($element['group_id']);
+        if(!$group){
+            importGroup($element['group_id']);
+        }
+        $ticket->assignedGroup_id = $element['group_id'];
+        //optional: importRelationUserGroup($element['user_id'], $element['group_id']);
+        //point calculation
+        $ticket->points = updateTicketPoints($element['type_of_ticket'], $element['priority'],$element['percentage']);
+        $ticket->save();
+        $ticket->updateScorePoints($element['user_id'], $element['group_id'], $ticket->points);
+    } catch(Exception $e)  {
+        Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
+        exit(1);
     }
 }
 
@@ -169,7 +221,7 @@ function insertChunkToDB($chunk){
  * @param $priority
  * @return int
  */
-function updateTicketPoints($priority){
+function updateTicketPoints($type, $priority, $percentage){
     switch ($priority){
         case "1 Critical":
             $points = 10;
@@ -187,16 +239,18 @@ function updateTicketPoints($priority){
             $points = 1;
     }
 
-    /*$priority = filter_var($this->priority, FILTER_SANITIZE_NUMBER_INT);
-    $priorityInt = intval($priority);
+    switch ($type){
+        case "Incident":
+            $points += 10;
+            break;
+        case "Service Request":
+            $points += 3;
+            break;
+        case "Problem":
+            $points += 5;
+            break;
+    }
 
-    $created = strtotime($this->created_at); //This is a unix timestamp
-    $updated = strtotime($this->updated_at);
-    $slaSolutionTime = $this->sla_time;
-    $timeSpentSolving = $created - $updated; // == <seconds between the two times>
-    $minutesSpentSolving = ($timeSpentSolving/60)/60; // convert that into hours
-
-    $formula = (($slaSolutionTime - $minutesSpentSolving) + rand(2,4) / $priorityInt);*/
     return $points;
 }
 
