@@ -37,12 +37,6 @@ class TicketController extends Controller {
     public function sync(){
         $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
         try{
-            syncDBs($lastTicketId); //202325
-        } catch(exception $e){
-            Log::error('Overall sync error: '.$e);
-            exit(1);
-        }
-        try{
             $toUpdate = Ticket::getAllOpenTickets();
             foreach($toUpdate as $ticket){
                 syncSingleTicket($ticket);
@@ -51,7 +45,14 @@ class TicketController extends Controller {
             Log::error('error updating open ticket state: '.$e);
             exit(1);
         }
-        return "done";
+
+        try{
+            syncDBs($lastTicketId); //202325
+        } catch(exception $e){
+            Log::error('Overall sync error: '.$e);
+            exit(1);
+        }
+        return " done";
     }
     
 	/**
