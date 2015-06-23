@@ -69,6 +69,7 @@ function getLastIDFromTickets(){
         return intval($data[0]['id']);
     } catch(exception $e){
         Log::error('Error getting time from OTRS, more details: '.$e);
+        echo $e;
         exit(1);
     }
 }
@@ -106,13 +107,14 @@ function syncDBs($lastId){
 	ti.change_time AS chgtime
 from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g, ticket_type type
 where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id
-	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.change_time >= '".$lastId."' order by ti.id";
+	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.id >= '$lastId' order by ti.id";
 
     try {
         $dal = connect();
         $otrsTicketLastId = getLastIDFromTickets();
         if($lastId === $otrsTicketLastId){
             Log::warning('Nothing to sync.');
+            echo "Nothing to sync";
             return;
         }
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
@@ -124,11 +126,13 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
         closeDB($dal);
     } catch(exception $e){
         Log::error('Error syncing both databases, more details: '.$e);
+        echo $e;
         exit(1);
     }
 }
 
-function syncSingleTicket($ticketId){
+function syncSingleTicket($ticketToUpdate){
+    $ticketId = $ticketToUpdate->id;
     $query = "select ti.id,
 	ti.title,
 	ti.user_id,
@@ -149,16 +153,22 @@ function syncSingleTicket($ticketId){
 	ti.change_time AS chgtime
 from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g, ticket_type type
 where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id
-	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.id = '".$ticketId."'";
+	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.id = '$ticketId'";
 
     try {
         $dal = connect();
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-        $ticket = (array_values(pg_fetch_all($result)));
-        insertTicketToDB($ticket);
+        $ticketObj = pg_fetch_object($result);
+		//postgres returns false when there's no more data
+        if($ticketObj == false){
+            closeDB($dal);
+            return;
+        }
+        insertTicketToDB($ticketObj); //because we know only one ticket is returned
         closeDB($dal);
     } catch(exception $e){
-        Log::error('Error syncing both databases, more details: '.$e);
+        Log::error('Error syncing single ticket, more details: '.$e);
+        echo $e;
         exit(1);
     }
 }
@@ -179,39 +189,40 @@ function insertChunkToDB($chunk){
 
 function insertTicketToDB($element){
     try{
-        $ticket = Ticket::find($element['id']);
+        $ticket = Ticket::find($element->id);
         if(!$ticket){
             $ticket = new Ticket();
         }
-        $ticket->id = $element['id'];
-        $ticket->title = $element['title'];
-        $ticket->type = $element['type_of_ticket'];
-        $ticket->priority = $element['priority'];
-        $ticket->state = $element['ticket_state'];
-        $ticket->sla = $element['sla_name'];
-        $ticket->sla_time = $element['solution_time'];
-        $ticket->percentage = $element['percentage'];
-        $ticket->created_at = $element['cretime'];
-        $ticket->updated_at = $element['chgtime'];
-        $ticket->user_id = $element['user_id'];
+        $ticket->id = $element->id;
+        $ticket->title = $element->title;
+        $ticket->type = $element->type_of_ticket;
+        $ticket->priority = $element->priority;
+        $ticket->state = $element->ticket_state;
+        $ticket->sla = $element->sla_name;
+        $ticket->sla_time = $element->solution_time;
+        $ticket->percentage = $element->percentage;
+        $ticket->created_at = $element->cretime;
+        $ticket->updated_at = $element->chgtime;
+        $ticket->user_id = $element->user_id;
         //tries to locate the user. If non existen, the data is imported
-        $user = User::find($element['user_id']);
+        $user = User::find($element->user_id);
         if(!$user){
-            importUser($element['user_id']);
+            importUser($element->user_id);
         }
         //tries to locate the group. If non existen, the data is imported
-        $group = Group::find($element['group_id']);
+        $group = Group::find($element->group_id);
         if(!$group){
-            importGroup($element['group_id']);
+            importGroup($element->group_id);
         }
-        $ticket->assignedGroup_id = $element['group_id'];
-        //optional: importRelationUserGroup($element['user_id'], $element['group_id']);
+        $ticket->assignedGroup_id = $element->group_id;
+        //optional: importRelationUserGroup($element->user_id, $element->group_id);
         //point calculation
-        $ticket->points = updateTicketPoints($element['type_of_ticket'], $element['priority'],$element['percentage']);
+        $ticket->points = updateTicketPoints($element->type_of_ticket, $element->priority,$element->percentage);
         $ticket->save();
-        $ticket->updateScorePoints($element['user_id'], $element['group_id'], $ticket->points);
+        //$ticket->updateScorePoints($element->user_id, $element->group_id, $ticket->points);
     } catch(Exception $e)  {
         Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
+        echo $e;
         exit(1);
     }
 }
@@ -263,17 +274,19 @@ function importUser($id){
     try{
         $query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u WHERE u.id=$id";
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-        $resultData = array_values(pg_fetch_all($result));
-        //var_dump($resultData[0]['login']); gives you the login of the first user as a string
+        $resultData = pg_fetch_object($result);
+		if($resultData == false){
+            return;
+        }
         $user = new User();
-        $user->id = $resultData[0]['id'];
-        $user->name = $resultData[0]['login'];
-        $user->email= $resultData[0]['login'] . "@novabase.com";
+        $user->id = $resultData->id;
+        $user->name = $resultData->login;
+        $user->email= $resultData->login . "@novabase.com";
         $user->league_id = 1;
         $user->password = bcrypt('password');
-        if($resultData[0]['title']){ $user->title = $resultData[0]['title']; }
+        if($resultData->title){ $user->title = $resultData->title; }
         else { $user->title = "novice"; }
-        $user->full_name = $resultData[0]['first_name'] . " " . $resultData[0]['last_name'];
+        $user->full_name = $resultData->first_name . " " . $resultData->last_name;
         $user->points = 0;
         $user->health_points = 100;
         $user->experience = 0;
@@ -281,6 +294,7 @@ function importUser($id){
         $user->save();
     } catch (exception $e){
         Log::error('Error updating user table. more details on why:  '.$e);
+        echo $e;
     }
 
 }
@@ -294,14 +308,19 @@ function importGroup($id){
     try{
         $query = "SELECT id ,name, comments  FROM groups WHERE id=$id";
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-        $resultData = array_values(pg_fetch_all($result));
-        $group = Group::find($id);
-        $group->title = $resultData[0]['name'];
-        $group->variant_name = $resultData[0]['comments'];
+        $resultData = pg_fetch_object($result);
+		if($resultData == false){
+            return;
+        }
+        $group = new Group();
+        $group->id = $resultData->id;
+        $group->title = $resultData->name;
+        $group->variant_name = $resultData->comments;
         $group->points = 0;
         $group->save();
     } catch (exception $e){
         Log::error('Error updating user table. more details on why:  '.$e);
+        echo $e;
     }
 }
 
@@ -316,6 +335,7 @@ function importRelationUserGroup($user_id, $group_id){
         }
     }catch (exception $e){
         Log::error('Error updating user-group relation table. '.$e);
+        echo $e;
     }
 }
 
@@ -339,6 +359,7 @@ function manualMigration(){
         closeDB($dal);
     } catch(exception $e){
         Log::error('Error on manual migration. More details: '.$e);
+        echo $e;
         App::abort(403, 'Manual Migration fucked up '.$e);
     }
 }
@@ -409,6 +430,7 @@ function insertChunkUserGroupRelation($chunk){
         )); 
        } catch (exception $e){
             Log::warning("the relation you are trying to create already exists, more details: ".$e);
+            echo $e;
        }
         
     }
