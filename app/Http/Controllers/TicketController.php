@@ -12,6 +12,8 @@ use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 require('otrsDAL.php');
 
 class TicketController extends Controller {
@@ -29,27 +31,25 @@ class TicketController extends Controller {
 
 
     /**
-     * Sync funtion that's run daily. Preferably in the afternoon (if connected to development server)
+     * Sync function that's run daily. Preferably in the afternoon (if connected to development server)
      * this compares the last ticket id between DB's and migrates any new tickets
      * It also calculates the points in the tickets and attributes them to players and teams.
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function sync(){
-        $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
         try{
-            $toUpdate = Ticket::getAllOpenTickets();
-            foreach($toUpdate as $ticket){
-                syncSingleTicket($ticket);
-            }
-        } catch(exception $e){
-            Log::error('error updating open ticket state: '.$e);
-            exit(1);
-        }
-
-        try{
+            $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
             syncDBs($lastTicketId); //202325
         } catch(exception $e){
             Log::error('Overall sync error: '.$e);
+            exit(1);
+        }
+        try{
+            $lastId = Storage::disk('local')->get('lastid.txt');
+            $newLastId = updateChangedTickets($lastId);
+            Storage::disk('local')->put('lastid.txt', $newLastId);
+        } catch(exception $e){
+            Log::error('error updating ticket state: '.$e);
             exit(1);
         }
         return " done";

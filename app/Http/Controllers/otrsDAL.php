@@ -41,22 +41,6 @@ function closeDB($dbconn){
 }
 
 
-/*
- * Same as getTicketsFromLastWeek() but only fetches tickets whose id is greater than the last one of localDB
- * In other words it syncs OTRS and localDB ensuring both have the same tickets.
- *
- * @param $last
- * @return string
-
-function getTicketsFromLastId($last){
-    $query = "select ti.id, ti.title, ti.user_id, us.first_name, us.last_name, sl.name AS sla_name, tp.name AS priority, tp.id AS priority_id, ts.name AS ticket_state, ti.timeout, ti.create_time AS cretime, ti.change_time AS chgtime
-from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts
-where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id AND ti.id>$last";
-
-    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-    return json_encode(array_values(pg_fetch_all($result)));
-}*/
-
 /**
  * Retrieves latest ticket ID from OTRS
  * @return int
@@ -114,7 +98,6 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
         $otrsTicketLastId = getLastIDFromTickets();
         if($lastId === $otrsTicketLastId){
             Log::warning('Nothing to sync.');
-            echo "Nothing to sync";
             return;
         }
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
@@ -131,47 +114,49 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
     }
 }
 
-function syncSingleTicket($ticketToUpdate){
-    $ticketId = $ticketToUpdate->id;
-    $query = "select ti.id,
-	ti.title,
-	ti.user_id,
-	/*us.first_name,
-	us.last_name,*/
-	q.group_id AS group_id,
-	/*q.name AS group_name,*/
-	sl.name AS sla_name,
-	sl.solution_time AS solution_time, /*tells me how long till an sla runs out in minutes*/
-	tp.name AS priority,
-	/*tp.id AS priority_id,*/
-	ts.name AS ticket_state,
-	/*ti.timeout, unix timestamp to when ticket was created*/
-	ti.percentage,
-	/*ti.type_id,*/
-	type.name AS type_of_ticket,
-	ti.create_time AS cretime,
-	ti.change_time AS chgtime
-from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g, ticket_type type
-where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id
-	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.id = '$ticketId'";
+function updateChangedTickets($lastUpdateId){
+    $query = "select th.id, th.ticket_id, tp.name AS priority, ts.name AS state, owner_id AS player_id, g.id AS team_id, tt.name AS ticket_type
+ from ticket_history th, ticket_priority tp, ticket_state ts, users, queue, ticket_type tt, groups g
+ where th.priority_id = tp.id
+ AND queue.id = g.id
+ AND th.state_id = ts.id
+ AND owner_id = users.id
+ AND th.queue_id = queue.id
+ AND th.type_id = tt.id
+ AND th.id > $lastUpdateId
+ ORDER BY th.id desc";
 
     try {
         $dal = connect();
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
-        $ticketObj = pg_fetch_object($result);
-		//postgres returns false when there's no more data
-        if($ticketObj == false){
-            closeDB($dal);
+        if(pg_fetch_result($result,0) === false){
+            Log::warning('Nothing to sync.');
             return;
         }
-        insertTicketToDB($ticketObj); //because we know only one ticket is returned
+        $data = (array_values(pg_fetch_all($result)));
+        $chunkOfData = array_chunk($data, 100);
+        foreach ($chunkOfData as $chunk) {
+            updateChunkToDB($chunk);
+        }
         closeDB($dal);
+        return updateLastTicketHistoryId();
     } catch(exception $e){
-        Log::error('Error syncing single ticket, more details: '.$e);
+        Log::error('Error syncing ticket updates, more details: '.$e);
         echo $e;
         exit(1);
     }
 }
+
+
+function updateLastTicketHistoryId(){
+    $query = "select id from ticket_history order by id desc limit 1";
+    $dal = connect();
+    $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+    $data = pg_fetch_result($result, 0, 0);
+    closeDB($dal);
+    return $data;
+}
+
 
 /**
  * Insert each chunk
@@ -183,7 +168,15 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
  */
 function insertChunkToDB($chunk){
     foreach ($chunk as $element) {
-        insertTicketToDB($element);
+        $object = json_decode(json_encode($element), FALSE);
+        insertTicketToDB($object);
+    }
+}
+
+function updateChunkToDB($chunk){
+    foreach($chunk as $element){
+        $object = json_decode(json_encode($element), FALSE);
+        updateTicketToDB($object);
     }
 }
 
@@ -217,7 +210,7 @@ function insertTicketToDB($element){
         $ticket->assignedGroup_id = $element->group_id;
         //optional: importRelationUserGroup($element->user_id, $element->group_id);
         //point calculation
-        $ticket->points = updateTicketPoints($element->type_of_ticket, $element->priority,$element->percentage);
+        $ticket->points = 0; //updateTicketPoints($element->type_of_ticket, $element->priority,$element->percentage);
         $ticket->save();
         //$ticket->updateScorePoints($element->user_id, $element->group_id, $ticket->points);
     } catch(Exception $e)  {
@@ -226,6 +219,26 @@ function insertTicketToDB($element){
         exit(1);
     }
 }
+
+
+function updateTicketToDB($object){
+    $ticket = Ticket::find($object->ticket_id);
+    $ticket->type = $object->ticket_type;
+    $ticket->assignedGroup_id = $object->team_id;
+    $group = Group::find($object->team_id);
+    if(!$group){
+        importGroup($object->team_id);
+    }
+    $ticket->user_id = $object->player_id;
+    $user = User::find($object->player_id);
+    if(!$user){
+        importUser($object->player_id);
+    }
+    $ticket->priority = $object->priority;
+    $ticket->state = $object->state;
+    $ticket->save();
+}
+
 
 /**
  * Function that calculates points of a ticket based on it's priority
@@ -278,6 +291,7 @@ function importUser($id){
 		if($resultData == false){
             return;
         }
+        $resultData = json_decode(json_encode($resultData), FALSE);
         $user = new User();
         $user->id = $resultData->id;
         $user->name = $resultData->login;
@@ -312,6 +326,7 @@ function importGroup($id){
 		if($resultData == false){
             return;
         }
+        $resultData = json_decode(json_encode($resultData), FALSE);
         $group = new Group();
         $group->id = $resultData->id;
         $group->title = $resultData->name;
