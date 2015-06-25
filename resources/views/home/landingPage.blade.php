@@ -2,436 +2,460 @@
 <html>
 
 <head>
-  <meta charset="utf-8">
-  <meta content="IE=edge" http-equiv="X-UA-Compatible">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-  <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta charset="utf-8">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="yes" name="apple-mobile-web-app-capable">
 
-  <title>Celfocus Gamification</title>
-  <!-- includes at head-->
-  <link href="assets/css/animations.css" rel="stylesheet">
-  <!-- Bootstrap jquery Styles-->
-  <link href="assets/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
-  <link href="assets/jquery-ui-1.11.4/jquery-ui.theme.css" rel="stylesheet">
-  <link href="assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Big Video -->
-  <!-- <link href="assets/BigVideo/css/bigvideo.css"/> -->
-  <!-- FontAwesome Styles-->
-  <link href="assets/css/font-awesome.css" rel="stylesheet">
-  <!-- Morris Chart Styles-->
-  <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet">
-  <!-- Custom Styles-->
-  <link href="assets/css/custom-styles.css" rel="stylesheet">
-  <!-- Google Fonts-->
-  <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
+    <title>Celfocus Gamification</title>
+    <!-- includes at head-->
+    <link href="assets/css/animations.css" rel="stylesheet">
+    <!-- Bootstrap jquery Styles-->
+    <link href="assets/jquery-ui-1.11.4/jquery-ui.css" rel="stylesheet">
+    <link href="assets/jquery-ui-1.11.4/jquery-ui.theme.css" rel="stylesheet">
+    <link href="assets/bootstrap-3.3.4/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Big Video -->
+    <!-- <link href="assets/BigVideo/css/bigvideo.css"/> -->
+    <!-- FontAwesome Styles-->
+    <link href="assets/css/font-awesome.css" rel="stylesheet">
+    <!-- Morris Chart Styles-->
+    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <!-- Custom Styles-->
+    <link href="assets/css/custom-styles.css" rel="stylesheet">
+    <!-- Google Fonts-->
+    <!--<link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css'>-->
     <link href='assets/css/font/font.css' rel='stylesheet' type='text/css'>
-  <!-- outdated browser pluggin-->
-  <link href="assets/css/outdatedbrowser.min.css" rel="stylesheet">
-  <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-  <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-  <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <!-- outdated browser pluggin-->
+    <link href="assets/css/outdatedbrowser.min.css" rel="stylesheet">
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
     <![endif]-->
 </head>
 
 <body>
-  <div id="outdated">
-  </div>
+<div id="outdated">
+</div>
 <!--  <div id="preloader">
   		<div id="status">loading</div>
   	</div>
 -->
 <div class="col-sm-12 col-md-12 col-lg-12">
-  <img id="logo" src="assets/logo.png" class="hatch"/>
-  <h1>Tickets Premier League </h1>
+    <img id="logo" src="assets/logo.png" class="hatch"/>
+
+    <h1>Tickets Premier League </h1>
 </div>
 
 <div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2"></div>
 
-  <div class="col-md-7 col-sm-12 col-lg-7">
+<div class="col-md-7 col-sm-12 col-lg-7">
     <div class="panel panel-default">
-      <div class="panel-heading">
-          <h4>Tickets betweeh <em><label id="startTimeLabel"></label></em> and <em><label id="endTimeLabel"></label></em></h4>
-      </div>
+        <div class="panel-heading">
+            <h4>Tickets betweeh <em><label id="startTimeLabel"></label></em> and <em><label
+                            id="endTimeLabel"></label></em></h4>
+        </div>
 
 
         <div class="panel-body">
-          <ul class="nav nav-tabs">
-              <li id="ticket-tab" class="active"> <a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a> </li>
-              <li class=""> <a data-toggle="tab" href="#rewards">Rewards</a> </li>
-              <li class="">   <a data-toggle="tab" href="#newsfeed">Newsfeed</a>  </li>
-              <li id="groupLeaderboard-tab" class="">  <a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a>   </li>
-              <li class=""> <a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a>  </li>
-              <li class=""> <a data-toggle="tab" href="#Graphs">Graphs</a>  </li>
-          </ul>
-
-        <hr/>
-            <div class="tab-content">
-                <div class="tab-pane fade active in" id="ticketDisplayScreen">
-            <h4>Tickets</h4>
-
-
-            <nav class="col-md-12 col-sm-12 col-lg-12">
-              <ul class="pager">
-                <li class="previous">
-                  <a href="#">
-                    <span>&larr;</span> Previous</a>
-                </li>
-
-                <li>
-                  <a class="pageNumber" href="#">
-                    <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
-                </li>
-
-
-                <li class="next">
-                  <a href="#">Next <span>&rarr;</span></a>
-                </li>
-              </ul>
-            </nav>
-
-            <!-- search bar -->
-            <div class="col-md-6 col-sm-12 col-lg-6">
-              <div class="input-group">
-                <div class="input-group">
-                  <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
-                  <input class="form-control" id="ticketSearchField" placeholder="Search for..." type="text">
-                </div>
-              </div> <!-- /input-group -->
-            </div>
-            <!-- END search bar -->
+            <ul class="nav nav-tabs">
+                <li id="ticket-tab" class="active"><a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
+                <!--<li class=""><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
+                <li class=""><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
+                <li id="groupLeaderboard-tab" class=""><a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
+                <li class=""><a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
+                <li class=""><a data-toggle="tab" href="#Graphs">Graphs</a></li>
+            </ul>
 
             <hr/>
+            <div class="tab-content">
+                <div class="tab-pane fade active in" id="ticketDisplayScreen">
+                    <h4>Tickets</h4>
 
-            <div class="row">
-              <div class="col-lg-12 col-md-12 col-sm-12 hatch">
-                <ul class="list-group pullUp" id="ticketList">
-                  <!-- LIST WITH TICKETS -->
-                </ul>
-              </div>
-            </div>
-              <div class="col-md-5 col-lg-5 col-sm-5">
-                  <ul class="list-group">
-                      <li class="list-group-item list-group-item-heading">Legend</li>
-                      <li class="list-group-item list-group-item-danger">Red - Critical (P1)</li>
-                      <li class="list-group-item list-group-item-warning">Yellow - High (P2)</li>
-                      <li class="list-group-item list-group-item-info">Blue - Medium (P3) </li>
-                      <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
-                  </ul>
-              </div>
-          </div>
 
-                <div class="tab-pane fade well" id="rewards">
-            <h4>Rewards</h4>
-            <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
-          </div>
+                    <nav class="col-md-12 col-sm-12 col-lg-12">
+                        <ul class="pager">
+                            <li class="previous">
+                                <a href="#">
+                                    <span>&larr;</span> Previous</a>
+                            </li>
+
+                            <li>
+                                <a class="pageNumber" href="#">
+                                    <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
+                            </li>
+
+
+                            <li class="next">
+                                <a href="#">Next <span>&rarr;</span></a>
+                            </li>
+                        </ul>
+                    </nav>
+
+                    <!-- search bar -->
+                    <div class="col-md-6 col-sm-12 col-lg-6">
+                        <div class="input-group">
+                            <div class="input-group">
+                                <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
+                                <input class="form-control" id="ticketSearchField" placeholder="Search for..."
+                                       type="text">
+                            </div>
+                        </div>
+                        <!-- /input-group -->
+                    </div>
+                    <!-- END search bar -->
+
+                    <hr/>
+
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 hatch">
+                            <ul class="list-group pullUp" id="ticketList">
+                                <!-- LIST WITH TICKETS -->
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-5 col-lg-5 col-sm-5">
+                        <ul class="list-group">
+                            <li class="list-group-item list-group-item-heading">Legend</li>
+                            <li class="list-group-item list-group-item-danger">Red - Critical (P1)</li>
+                            <li class="list-group-item list-group-item-warning">Yellow - High (P2)</li>
+                            <li class="list-group-item list-group-item-info">Blue - Medium (P3) </li>
+                            <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
+                        </ul>
+                    </div>
+                </div>
+
+<!--                <div class="tab-pane fade well" id="rewards">
+                    <h4>Rewards</h4>
+
+                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
+                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
+                        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
+                        laborum.</p>
+                </div> -->
 
                 <div class="tab-pane fade well" id="newsfeed">
-            <h4>Newsfeed</h4>
+                    <h4>Newsfeed</h4>
 
-            <section>
-                  <div class='form-group'>
-                    <div class="col-md-12 col-sm-12 col-lg-12">
-                      <ul id="articleList" class="list-group">
-                      </ul>
-                    </div>
-                    <input type="text" class="form-control" id="writtenFeed" placeholder="What's on your mind...">
+                    <section>
+                        <div class='form-group'>
+                            <div class="col-md-12 col-sm-12 col-lg-12">
+                                <ul id="articleList" class="list-group">
+                                </ul>
+                            </div>
+                            <input type="text" class="form-control" id="writtenFeed"
+                                   placeholder="What's on your mind...">
 
-                  </div>
-                  <button type="submit" id="postFeed" class="btn btn-danger">Post</button>
+                        </div>
+                        <button type="submit" id="postFeed" class="btn btn-danger">Post</button>
 
-            </section>
+                    </section>
 
 
-
-          </div>
+                </div>
 
                 <div class="tab-pane fade" id="Gleaderboard">
-            <h4>Leaderboard</h4>
-            <!-- group leaderboard -->
+                    <h4>Leaderboard</h4>
+                    <!-- group leaderboard -->
 
-            <div class="col-md-12">
-              <!--    Context Classes  -->
+                    <div class="col-md-12">
+                        <!--    Context Classes  -->
 
 
-              <div class="panel panel-default">
-                <div class="panel-heading" id="leaderboard">
-                  Group leaderboard
+                        <div class="panel panel-default">
+                            <div class="panel-heading" id="leaderboard">
+                                Group leaderboard
+                            </div>
+
+
+                            <nav>
+                                <ul class="pager">
+                                    <li class="previous">
+                                        <a href="#">
+                                            <span>&larr;</span>
+                                            Previous</a>
+                                    </li>
+
+                                    <li>
+                                        <a class="pageNumber" href="#">
+                                            <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
+                                    </li>
+
+                                    <li class="next">
+                                        <a href="#">Next <span>&rarr;</span></a>
+                                    </li>
+                                </ul>
+                            </nav>
+
+
+                            <div class="panel-body">
+                                <div id="table-resp" class="table-responsive">
+                                    <table class="table">
+                                        <thead>
+                                        <tr>
+                                            <th>Name</th>
+                                            <th class="hidden-xs hidden-sm">Description</th>
+                                            <th>Points</th>
+                                        </tr>
+                                        </thead>
+
+
+                                        <tbody id='grouplist'></tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                        <!--  end  Context Classes  -->
+                    </div>
+                    <!-- END group leaderboard -->
                 </div>
-
-
-                <nav>
-                  <ul class="pager">
-                    <li class="previous">
-                      <a href="#">
-                        <span>&larr;</span>
-                        Previous</a>
-                    </li>
-
-                    <li>
-                      <a class="pageNumber" href="#">
-                        <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
-                    </li>
-
-                    <li class="next">
-                      <a href="#">Next <span>&rarr;</span></a>
-                    </li>
-                  </ul>
-                </nav>
-
-
-                <div class="panel-body">
-                  <div id="table-resp" class="table-responsive">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th>Name</th>
-                          <th class="hidden-xs hidden-sm">Description</th>
-                          <th>Points</th>
-                        </tr>
-                      </thead>
-
-
-                      <tbody id='grouplist'></tbody>
-                    </table>
-                  </div>
-                </div>
-              </div>
-              <!--  end  Context Classes  -->
-            </div>
-            <!-- END group leaderboard -->
-          </div>
 
                 <div class="tab-pane fade" id="Pleaderboard">
-            <div class="panel-heading">
-              <h4>Player leaderboard</h4>
-            </div>
-              <div class="table-responsive">
-                  <table class="table">
-                      <thead>
-                      <tr>
-                          <th>Name</th>
-                          <th>Points</th>
-                      </tr>
-                      </thead>
+                    <div class="panel-heading">
+                        <h4>Player leaderboard</h4>
+                    </div>
+                    <div class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
 
-                      <tbody id='playerLeaderboard'></tbody>
-                  </table>
-              </div>
-          </div>
+                            <tbody id='playerLeaderboard'></tbody>
+                        </table>
+                    </div>
+                </div>
 
-                <div class="tab-content" id="Graphs">
-                <section>
+                <!-- TAB CONTENT FOR GRAHPS-->
+                <div class="tab-content fade well" id="Graphs">
                     <section>
-                        <!-- Morris chart -->
-                        <div class="col-md-6 col-sm-12 col-xs-12 ">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Team's point score
-                                </div>
+                        <section>
+                            <!-- Morris chart -->
+                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Team's point score
+                                    </div>
 
 
-                                <div class="panel-body">
-                                    <div id="morris-bar-chart">
+                                    <div class="panel-body">
+                                        <div id="morris-bar-chart">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- END Morris chart -->
-                    </section>
+                            <!-- END Morris chart -->
+                        </section>
 
-                    <!-- Morris chart -->
-                    <section>
-                        <div class="col-md-6 col-sm-12 col-xs-12 ">
-                            <div class="panel panel-default">
-                                <div class="panel-heading">
-                                    Tickets per status
-                                </div>
-                                <div class="panel-body">
-                                    <div id="donut-example"></div>
+                        <!-- Morris chart -->
+                        <section>
+                            <div class="col-md-6 col-sm-12 col-xs-12 ">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        Tickets per status
+                                    </div>
+                                    <div class="panel-body">
+                                        <div id="donut-example"></div>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
+                        </section>
+                        <!-- END Morris chart -->
                     </section>
-                    <!-- END Morris chart -->
-                </section>
-            </div>
+                </div>
+
             </div>
         </div>
     </div>
-  </div>
+</div>
 
-  <div class="well col-md-4 col-sm-4 col-lg-4 ">
+<div class="well col-md-4 col-sm-4 col-lg-4 ">
 
     <section class="col-md-12 col-sm-12 col-xs-12 hatch">
-      <div class="col-md-3 col-sm-6 col-xs-6">
-			     <div class="panel panel-back noti-box">
+        <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="panel panel-back noti-box">
                 <span class="icon-box bg-color-red set-icon">
                     <i class="fa fa-envelope-o"></i>
                 </span>
+
                 <div class="text-box">
                     <p id="ticketNumber" class="main-text"></p>
+
                     <p class="text-muted">tickets are open and waiting</p>
                 </div>
-           </div>
-	     </div>
-
-       <div class="col-md-3 col-sm-6 col-xs-6">
-            <div class="panel panel-back noti-box">
-                 <span class="icon-box bg-color-red set-icon">
-                   <i class="glyphicon glyphicon-user"></i>
-                 </span>
-                 <div class="text-box">
-                     <p id="playersInLeague" class="main-text"></p>
-                     <p class="text-muted">Players in your league</p>
-                 </div>
             </div>
         </div>
 
         <div class="col-md-3 col-sm-6 col-xs-6">
-           <div class="panel panel-back noti-box">
+            <div class="panel panel-back noti-box">
+                 <span class="icon-box bg-color-red set-icon">
+                   <i class="glyphicon glyphicon-user"></i>
+                 </span>
+
+                <div class="text-box">
+                    <p id="playersInLeague" class="main-text"></p>
+
+                    <p class="text-muted">Players in your league</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-3 col-sm-6 col-xs-6">
+            <div class="panel panel-back noti-box">
                 <span class="icon-box bg-color-brown set-icon">
                     <i class="fa fa-rocket"></i>
                 </span>
+
                 <div class="text-box">
                     <p id="challengeCount" class="main-text">3</p>
+
                     <p class="text-muted">Challenges open Solve them now!</p>
                 </div>
-             </div>
-		     </div>
+            </div>
+        </div>
     </section>
 
     <hr/>
     <ul class="list-inline">
-      <li>
-        <a href="http://localhost/users"><i class="glyphicon glyphicon-user"></i> My stats</a>
-      </li>
-      <li>
-        <a href="http://localhost/tickets"><i class="glyphicon glyphicon-th-list"></i> all tickets</a>
-      </li>
-      <li>
-        <a href="http://localhost/articles"><i class="glyphicon glyphicon-tasks"></i> all articles</a>
-      </li>
-      <li>
-        <a href="http://localhost/groups"><i class="glyphicon glyphicon-eye-open"></i> all teams</a>
-      </li>
+        <li>
+            <a href="http://localhost/users"><i class="glyphicon glyphicon-user"></i> My stats</a>
+        </li>
+        <li>
+            <a href="http://localhost/tickets"><i class="glyphicon glyphicon-th-list"></i> all tickets</a>
+        </li>
+        <li>
+            <a href="http://localhost/articles"><i class="glyphicon glyphicon-tasks"></i> all articles</a>
+        </li>
+        <li>
+            <a href="http://localhost/groups"><i class="glyphicon glyphicon-eye-open"></i> all teams</a>
+        </li>
     </ul>
 
     <!-- time travel -->
-    <button class="btn btn-primary btn-danger hatch" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-      Time travel
+    <button class="btn btn-primary btn-danger hatch" type="button" data-toggle="collapse" data-target="#collapseExample"
+            aria-expanded="false" aria-controls="collapseExample">
+        Time travel
     </button>
 
     <div class="collapse" id="collapseExample">
-    <p><p/>
+        <p>
+
+        <p/>
+
         <div class="btn-group btn-group-sm" role="group">
-          <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
-          <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
+            <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
+            <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
         </div>
         <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
+
         <p class="text-primary">Start Date:
-          <input type="text" id="startDatePicker">
+            <input type="text" id="startDatePicker">
         </p>
+
         <p class="text-primary">End Date:
-          <input type="text" id="endDatePicker">
+            <input type="text" id="endDatePicker">
         </p>
         <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
 
     </div>
     <!-- END time travel -->
-  </div>
+</div>
 
 
-  <!-- Modal for player info -->
-  <div class="modal fade" id="playerInfo" tabindex="-1" role="dialog" aria-labelledby="playerModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div id="playerDetails" class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="playerModalLabel">Player details</h4>
-              </div>
-              <div class="modal-body">
-<!--                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Priority</th>
-                      <th>Tickets</th>
-                      <th>Points</th>
-                    </tr>
-                  </thead>
-                  <tbody id='playerlist'></tbody>
-                </table> -->
-              </div>
-                  <div id="playerList" class="list-group"></div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
+<!-- Modal for player info -->
+<div class="modal fade" id="playerInfo" tabindex="-1" role="dialog" aria-labelledby="playerModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="playerDetails" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="playerModalLabel">Player details</h4>
+            </div>
+            <div class="modal-body">
+                <!--                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Priority</th>
+                                      <th>Tickets</th>
+                                      <th>Points</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id='playerlist'></tbody>
+                                </table> -->
+            </div>
+            <div id="playerList" class="list-group"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
+<!-- Modal for ticket info -->
+<div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="ticketDetails" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="ticketModalLabel">Ticket details</h4>
+            </div>
+            <div id="ticketInfo" class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 
-  <!-- Modal for ticket info -->
-  <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel" aria-hidden="true">
-      <div class="modal-dialog">
-          <div class="modal-content">
-              <div id="ticketDetails" class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                  <h4 class="modal-title" id="ticketModalLabel">Ticket details</h4>
-              </div>
-              <div id="ticketInfo" class="modal-body">
-
-              </div>
-              <div class="modal-footer">
-                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-          </div>
-      </div>
-  </div>
-
-
-
-
-  <footer class="col-md-12 col-sm-6 col-lg-12">
+<footer class="col-md-12 col-sm-6 col-lg-12">
     Copyright by Celfocus. Gamification page. All rights reserved.
-  </footer>
-  <!-- js includes before closing body -->
-  <script src="assets/js/jquery-2.1.4.min.js"></script>
-  <script src="assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
-  <!-- not needed if jquery 2 works fine <script src="assets/js/jquery-1.10.2.js"></script> -->
+</footer>
+<!-- js includes before closing body -->
+<script src="assets/js/jquery-2.1.4.min.js"></script>
+<script src="assets/bootstrap-3.3.4/js/bootstrap.min.js"></script>
+<!-- not needed if jquery 2 works fine <script src="assets/js/jquery-1.10.2.js"></script> -->
 
-  <!-- JQuerry currently not being used but may come in handy in the future-->
-  <script src="assets/jquery-ui-1.11.4/jquery-ui.js"></script>
-  <!-- <script src="assets/videojs/dist/video-js/video.js"></script>-->
-  <!-- <script src="assets/BigVideo/lib/bigvideo.js"></script>-->
-  <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
-  <script src="assets/js/morris/morris.js"></script>
-  <script src="assets/js/moment.js" charset="utf-8"></script>
-  <!-- Extra js for Object Oriented implementation -->
-  <script src="assets/js/custom/ajax.js" type="text/javascript"></script>
-  <script src="assets/js/custom/group.js" type="text/javascript"></script>
-  <script src="assets/js/custom/ticket.js" type="text/javascript"></script>
-  <script src="assets/js/custom/events.js" type="text/javascript"></script>
-  <script src="assets/js/custom/player.js" type="text/javascript" charset="utf-8"></script>
-  <script src="assets/js/custom/main.js" type="text/javascript"></script>
-  <script src="assets/js/outdatedbrowser.min.js"></script>
-  <script>
+<!-- JQuerry currently not being used but may come in handy in the future-->
+<script src="assets/jquery-ui-1.11.4/jquery-ui.js"></script>
+<!-- <script src="assets/videojs/dist/video-js/video.js"></script>-->
+<!-- <script src="assets/BigVideo/lib/bigvideo.js"></script>-->
+<script src="assets/js/morris/raphael-2.1.0.min.js"></script>
+<script src="assets/js/morris/morris.js"></script>
+<script src="assets/js/moment.js" charset="utf-8"></script>
+<!-- Extra js for Object Oriented implementation -->
+<script src="assets/js/custom/ajax.js" type="text/javascript"></script>
+<script src="assets/js/custom/group.js" type="text/javascript"></script>
+<script src="assets/js/custom/ticket.js" type="text/javascript"></script>
+<script src="assets/js/custom/events.js" type="text/javascript"></script>
+<script src="assets/js/custom/player.js" type="text/javascript" charset="utf-8"></script>
+<script src="assets/js/custom/main.js" type="text/javascript"></script>
+<script src="assets/js/outdatedbrowser.min.js"></script>
+<script>
     /**
      *   OutdatedBrowser function. Displays
      *   warning message is the user is in an outdated browser
      */
-    $(document).ready(function() {
-      outdatedBrowser({
-        bgColor: '#f25648',
-        color: '#ffffff',
-        lowerThan: 'transform',
-        languagePath: 'assets/en.html'
-      })
+    $(document).ready(function () {
+        outdatedBrowser({
+            bgColor: '#f25648',
+            color: '#ffffff',
+            lowerThan: 'transform',
+            languagePath: 'assets/en.html'
+        })
     })
-  </script>
+</script>
 </body>
 
 </html>
