@@ -89,9 +89,16 @@ function syncDBs($lastId){
 	type.name AS type_of_ticket,
 	ti.create_time AS cretime,
 	ti.change_time AS chgtime
-from ticket ti, users us, sla sl, ticket_priority tp, ticket_state ts, queue q, groups g, ticket_type type
-where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND ti.ticket_state_id=ts.id
-	AND q.group_id = g.id AND ti.queue_id = q.id AND ti.type_id = type.id AND ti.id >= '$lastId' order by ti.id";
+from ticket ti
+JOIN ticket_type type ON ti.type_id = type.id
+JOIN sla sl ON ti.sla_id=sl.id
+JOIN ticket_priority tp ON ti.ticket_priority_id=tp.id
+JOIN ticket_state ts ON ti.ticket_state_id=ts.id
+JOIN users us ON ti.user_id=us.id
+JOIN queue q ON ti.queue_id = q.id
+JOIN groups g ON q.group_id = g.id
+WHERE ti.id >= '$lastId'
+order by ti.id";
 
     try {
         $dal = connect();
@@ -115,16 +122,17 @@ where ti.user_id=us.id AND ti.sla_id=sl.id AND ti.ticket_priority_id=tp.id AND t
 }
 
 function updateChangedTickets($lastUpdateId){
-    $query = "select th.id, th.ticket_id, tp.name AS priority, ts.name AS state, owner_id AS player_id, g.id AS team_id, tt.name AS ticket_type
- from ticket_history th, ticket_priority tp, ticket_state ts, users, queue, ticket_type tt, groups g
- where th.priority_id = tp.id
- AND queue.id = g.id
- AND th.state_id = ts.id
- AND owner_id = users.id
- AND th.queue_id = queue.id
- AND th.type_id = tt.id
- AND th.id > $lastUpdateId
- ORDER BY th.id desc";
+    $query = "SELECT th.id, th.ticket_id, tp.name AS priority, ts.name AS state, owner_id AS player_id,
+       g.id AS team_id, tt.name AS ticket_type
+FROM ticket_history th
+JOIN ticket_priority tp ON tp.id = th.priority_id
+JOIN ticket_state ts ON ts.id = th.state_id
+-- JOIN users ON users.id = th.owner_id   NOT USED IN THE QUERY
+JOIN queue ON queue.id = th.queue_id
+JOIN ticket_type tt ON tt.id = th.type_id
+JOIN groups g ON g.id = queue.id
+WHERE th.id > $lastUpdateId
+ORDER BY th.id DESC";
 
     try {
         $dal = connect();
