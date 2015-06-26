@@ -25,6 +25,7 @@ $(document).ready(function () {
     getResolvedAndReopenedTicketData();
     getChallenges();
     getArticles();
+    automator();
     //setTimeout($('#preloader').append('loaded'), 5000);
 
 });

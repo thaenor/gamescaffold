@@ -62,10 +62,10 @@
             <ul class="nav nav-tabs">
                 <li id="ticket-tab" class="active"><a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
                 <!--<li class=""><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
-                <li class=""><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
+                <li id="newsfeed-tab" class=""><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
                 <li id="groupLeaderboard-tab" class=""><a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
-                <li class=""><a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
-                <li class=""><a data-toggle="tab" href="#Graphs">Graphs</a></li>
+                <li id="player-leaderboard-tab" class=""><a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
+                <li id="graph-tab" class=""><a data-toggle="tab" href="#Graphs">Graphs</a></li>
             </ul>
 
             <hr/>
@@ -442,6 +442,7 @@
 <script src="assets/js/custom/player.js" type="text/javascript" charset="utf-8"></script>
 <script src="assets/js/custom/main.js" type="text/javascript"></script>
 <script src="assets/js/outdatedbrowser.min.js"></script>
+<script src="assets/js/custom/automator.js" type="text/javascript"></script>
 <script>
     /**
      *   OutdatedBrowser function. Displays
