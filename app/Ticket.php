@@ -3,6 +3,7 @@
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use kintParser;
 
 class Ticket extends Model {
 
@@ -14,6 +15,10 @@ class Ticket extends Model {
      */
     public static function getResolvedTicketsBetween($start, $end){
         return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','Resolved')->get();
+    }
+
+    public static function getResolvedTicketsBetweenInternal($start, $end){
+        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','Resolved');
     }
 
     /**
@@ -53,8 +58,8 @@ class Ticket extends Model {
         $team->updateTeam($points);
     }
 
-    /*public function updateTicketPoints(){
-        switch ($this->priority){
+    public function updateTicketPoints($ticket){
+        switch ($ticket->priority){
             case "1 Critical":
                 $points = 10;
                 break;
@@ -71,21 +76,35 @@ class Ticket extends Model {
                 $points = 1;
         }
 
-        $priority = filter_var($this->priority, FILTER_SANITIZE_NUMBER_INT);
-        $priorityInt = intval($priority);
+        switch($ticket->type){
+            case "Incident":
+                $points += 10;
+                break;
+            case "Service Request":
+                $points += 5;
+                break;
+            case "Problem":
+                $points += 7;
+                break;
+            default:
+                $points += 1;
+        }
 
-        $created = strtotime($this->created_at); //This is a unix timestamp
-        $updated = strtotime($this->updated_at);
-        $slaSolutionTime = $this->sla_time;
-        $timeSpentSolving = $created - $updated; // == <seconds between the two times>
-        $minutesSpentSolving = ($timeSpentSolving/60)/60; // convert that into hours
-
-        $formula = (($slaSolutionTime - $minutesSpentSolving) + rand(2,4) / $priorityInt);
-        $this->points = $points;
-        $this->save();
-    }*/
+        if( $ticket->percentage > 25){
+            if($ticket->percentage < 100){
+                $points = $points * ($ticket->percentage/100);
+            }
+            else {
+                //set it to zero points but decrease HP
+                $points = - $points * ($ticket->percentage/100);
+            }
+        }
+        $ticket->points = round($points);
+        dump($ticket->points);
+        //$ticket->save();
+    }
     
-    /*public function setTicketPenalties(){
+    public function setTicketPenalties(){
         $player = new User();
         $team = new Group();
         $carbon = new DateTime('first day of this month');
@@ -98,5 +117,5 @@ class Ticket extends Model {
         } else {
             exit(1);
         }
-    }*/
+    }
 }

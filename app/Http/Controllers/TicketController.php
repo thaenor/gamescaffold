@@ -4,6 +4,7 @@ use App\Group;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
 //use Illuminate\Support\Facades\App;
+use App\League;
 use App\User;
 use Carbon\Carbon;
 use App\Ticket;
@@ -53,6 +54,19 @@ class TicketController extends Controller {
             exit(1);
         }
         return " done";
+    }
+
+    public function calculatePoints(){
+        //$openCount = Ticket::where('state','=','open')->count();
+        // Ticket::take(26000)->get(); this is the limit, requesting 27000 will cause out of memory error
+		//this code bellow isn't fully functional. It breaks for large ammounts of data due to an out of memory error
+		$start = Carbon::now()->startOfMonth();
+        $end = Carbon::now();
+        $tickets = Ticket::getResolvedTicketsBetweenInternal($start,$end)->chunk(200, function($chunkOfTickets){
+            foreach ($chunkOfTickets as $ticket) {
+                $ticket->updateTicketPoints($ticket);
+            }
+        });
     }
     
 	/**

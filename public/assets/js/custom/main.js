@@ -25,8 +25,9 @@ $(document).ready(function () {
     getResolvedAndReopenedTicketData();
     getChallenges();
     getArticles();
-    automator();
-    //setTimeout($('#preloader').append('loaded'), 5000);
+    setInterval(function () {
+        tabClicker();
+    }, 300000);
 
 });
 
@@ -68,4 +69,10 @@ function showAlertMessage(message){
         '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
         '<strong>Holy guacamole!</strong> '+message+' </div>';
     $('#notificationBox').append(html);
+}
+
+function tabClicker(){
+    var tabbedArray = ["ticket-tab", "newsfeed-tab", "groupLeaderboard-tab", "player-leaderboard-tab", "graph-tab"];
+    var selectedTabIndex = Math.floor((Math.random() * tabbedArray.length));
+    $("#" + tabbedArray[selectedTabIndex]).trigger("click");
 }

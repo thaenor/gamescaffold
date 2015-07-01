@@ -442,7 +442,6 @@
 <script src="assets/js/custom/player.js" type="text/javascript" charset="utf-8"></script>
 <script src="assets/js/custom/main.js" type="text/javascript"></script>
 <script src="assets/js/outdatedbrowser.min.js"></script>
-<script src="assets/js/custom/automator.js" type="text/javascript"></script>
 <script>
     /**
      *   OutdatedBrowser function. Displays

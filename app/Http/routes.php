@@ -35,6 +35,7 @@ Route::group(array('prefix' => 'secretRoute'), function()
 {
     //Route::get('calculatePoints','TicketController@calculatePoints');
     Route::get('sync','TicketController@sync');
+    Route::get('calculate','TicketController@calculatePoints');
     Route::get('manualmigration','TicketController@manualMigration');
 });
 
