@@ -17,7 +17,7 @@ function generateLink(type, start, end){
             link = '/api/v1/openTickets/';
             break;
         case 'resolved':
-            link = '/api/v1/resolvedTickets/';
+            link = '/api/v1/closedTickets/';
             break;
         case 'reOpened':
             link = '/api/v1/reOpenedTickets/';

@@ -38,9 +38,9 @@ class ApiController extends Controller {
         return $this->filterTickets($tickets);
     }
 
-    public function fetchResolvedTicketJson($startTime, $endTime){
+    public function fetchClosedTicketJson($startTime, $endTime){
         $this->validateInputs($startTime,$endTime);
-        $tickets = Ticket::getResolvedTicketsBetween($startTime, $endTime);
+        $tickets = Ticket::getClosedTicketsBetween($startTime, $endTime);
         return $this->filterTickets($tickets);
     }
 
@@ -79,9 +79,9 @@ class ApiController extends Controller {
         return $this-> filterTickets($tickets);
     }
 
-    public function fetchResolvedTicketJsonDefault(){
+    public function fetchClosedTicketJsonDefault(){
         $start = new Carbon('first day of this month');
-        $tickets = Ticket::getResolvedTicketsBetween($start,Carbon::now());
+        $tickets = Ticket::getClosedTicketsBetween($start,Carbon::now());
         return $this->filterTickets($tickets);
     }
 

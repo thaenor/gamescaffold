@@ -43,11 +43,11 @@ Route::group(array('prefix' => 'secretRoute'), function()
 Route::group(array('prefix' => 'api/v1'), function()
 {
     Route::get('openTickets/{start}&{end}', 'ApiController@fetchOpenTicketJson');
-    Route::get('resolvedTickets/{start}&{end}','ApiController@fetchResolvedTicketJson');
+    Route::get('closedTickets/{start}&{end}','ApiController@fetchClosedTicketJson');
     Route::get('reOpenedTickets/{start}&{end}','ApiController@fetchReOpenedTicketJson');
 
     Route::get('openTickets', 'ApiController@fetchOpenTicketJsonDefault');
-    Route::get('resolvedTickets', 'ApiController@fetchResolvedTicketJsonDefault');
+    Route::get('closedTickets', 'ApiController@fetchClosedTicketJsonDefault');
     Route::get('reOpenedTickets', 'ApiController@fetchReopenedTicketJsonDefault');
 
     Route::get('groups', 'ApiController@fetchGroupJson');

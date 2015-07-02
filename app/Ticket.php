@@ -13,12 +13,8 @@ class Ticket extends Model {
      * @param $end
      * @return mixed
      */
-    public static function getResolvedTicketsBetween($start, $end){
-        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','Resolved')->get();
-    }
-
-    public static function getResolvedTicketsBetweenInternal($start, $end){
-        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','Resolved');
+    public static function getClosedTicketsBetween($start, $end){
+        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=',"closed")->get();
     }
 
     /**
@@ -94,14 +90,15 @@ class Ticket extends Model {
             if($ticket->percentage < 100){
                 $points = $points * ($ticket->percentage/100);
             }
-            else {
+            else if($ticket->percentage > 100){
                 //set it to zero points but decrease HP
-                $points = - $points * ($ticket->percentage/100);
+                $points = 0;
+                $user = User::find($ticket->user_id);
+                $user->takeDamage($ticket->percentage);
             }
         }
         $ticket->points = round($points);
-        dump($ticket->points);
-        //$ticket->save();
+        $ticket->save();
     }
     
     public function setTicketPenalties(){
