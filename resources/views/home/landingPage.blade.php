@@ -45,7 +45,8 @@
 <div class="col-sm-12 col-md-12 col-lg-12">
     <img id="logo" src="assets/logo.png" class="hatch"/>
 
-    <h1>Tickets Premier League </h1>
+    <h1>SGounter</h1>
+    <h2>Inc. hunter</h2>
 </div>
 
 <div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2"></div>
