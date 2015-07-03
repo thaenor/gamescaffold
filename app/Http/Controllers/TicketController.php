@@ -1,5 +1,7 @@
 <?php namespace App\Http\Controllers;
 
+use App\Commands\calculatePoints;
+use App\Commands\sync;
 use App\Group;
 use App\Http\Requests;
 //use App\Http\Controllers\Controller;
@@ -12,6 +14,8 @@ use App\Ticket;
 //use App\Group;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
@@ -53,27 +57,39 @@ class TicketController extends Controller {
             Log::error('error updating ticket state: '.$e);
             exit(1);
         }
-        return " done";
+        echo "sync done";
     }
 
     public function calculatePoints(){
+        /*ini_set("memory_limit", "-1");
+        set_time_limit(0);
+        echo 'working...<hr/> <img src="http://media1.giphy.com/media/4bAEIAB84zPwc/giphy.gif"/><br/>';
+        try{
+            $lastid = Storage::disk('local')->get('lastIdToCalculate.txt');
+        } catch(exceptio $e){
+            Log::error('unable to read last id. Unable to calculate points');
+            exit(1);
+        }*/
 
-        $chunkSize = 100; // or whatever your memory allows
-        $totalTickets = Ticket::where('state','=',"closed")->count();
+        /*$start = Carbon::createFromDate(2015,06,01, 'GMT');
+        $end = Carbon::now();
+        $tickets = Ticket::getAllTicketsBetween($start,$end);
+        foreach($tickets as $ticket){
+            $ticket->updateTicketPoints($ticket);
+            echo "ticket updated ".$ticket->id." | ".$ticket->points."<br/>";
+        }*/
 
+        /*$chunkSize = 1000;
+        $totalTickets = Ticket::where('id','>=',$lastid)->count();
         $chunks = floor($totalTickets / $chunkSize);
-
         for ($chunk = 0; $chunk < $chunks; $chunk++) {
-
             $offset = $chunk * $chunkSize;
-
             $tickets = Ticket::where('state','=',"closed")->skip($offset)->take($chunkSize)->get();
-
-            foreach($tickets as $ticket)
-            {
+            foreach($tickets as $ticket){
                 $ticket->updateTicketPoints($ticket);
             }
         }
+        return "done";*/
     }
     
 	/**
