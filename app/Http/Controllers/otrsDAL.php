@@ -132,7 +132,7 @@ JOIN queue ON queue.id = th.queue_id
 JOIN ticket_type tt ON tt.id = th.type_id
 JOIN groups g ON g.id = queue.id
 WHERE th.id > $lastUpdateId
-ORDER BY th.id DESC";
+ORDER BY th.id ASC";
 
     try {
         $dal = connect();
@@ -143,6 +143,7 @@ ORDER BY th.id DESC";
         }
         $data = (array_values(pg_fetch_all($result)));
         $chunkOfData = array_chunk($data, 100);
+        Storage::disk('local')->put('lastIdToCalculate.txt', $chunkOfData[0][0]['id']);
         foreach ($chunkOfData as $chunk) {
             updateChunkToDB($chunk);
         }
@@ -217,10 +218,8 @@ function insertTicketToDB($element){
         }
         $ticket->assignedGroup_id = $element->group_id;
         //optional: importRelationUserGroup($element->user_id, $element->group_id);
-        //point calculation
-        $ticket->points = 0; //updateTicketPoints($element->type_of_ticket, $element->priority,$element->percentage);
+        $ticket->points = $ticket->updateTicketPoints($ticket);
         $ticket->save();
-        //$ticket->updateScorePoints($element->user_id, $element->group_id, $ticket->points);
     } catch(Exception $e)  {
         Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
         echo $e;
@@ -244,47 +243,12 @@ function updateTicketToDB($object){
     }
     $ticket->priority = $object->priority;
     $ticket->state = $object->state;
+    //decrease old points in user and group leader board
+    $ticket->updateScorePoints($ticket->user_id, $ticket->assignedGroup_id, (-$ticket->points));
+    $ticket->points = $ticket->updateTicketPoints($ticket);
     $ticket->save();
 }
 
-
-/**
- * Function that calculates points of a ticket based on it's priority
- * @param $priority
- * @return int
- */
-function updateTicketPoints($type, $priority, $percentage){
-    switch ($priority){
-        case "1 Critical":
-            $points = 10;
-            break;
-        case "2 High":
-            $points = 8;
-            break;
-        case "3 Medium":
-            $points = 3;
-            break;
-        case "4 Low":
-            $points = 1;
-            break;
-        default:
-            $points = 1;
-    }
-
-    switch ($type){
-        case "Incident":
-            $points += 10;
-            break;
-        case "Service Request":
-            $points += 3;
-            break;
-        case "Problem":
-            $points += 5;
-            break;
-    }
-
-    return $points;
-}
 
 /**
  * Function triggered when a user being imported does not exist in local DB

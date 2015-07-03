@@ -95,9 +95,9 @@ function drawMorrisDonnutchart(openTickets, ResolvedTickets, Pending){
     Morris.Donut({
         element: 'donut-example',
         data: [
-            {label: "Open tickets", value: 10},
-            {label: "Resolved tickets", value: 8},
-            {label: "In progress", value: 5}
+            {label: "Open tickets", value: _openTicketsData},
+            {label: "Resolved tickets", value: _resolvedTicketsData},
+            {label: "In progress", value: _reopenedTicketsData}
         ]
     });
 }
