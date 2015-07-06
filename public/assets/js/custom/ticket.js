@@ -109,10 +109,10 @@ function drawMorrisDonnutchart(openTickets, ResolvedTickets, Pending){
 }
 
 function renderPlayerDetailtModal(playerName){
-    var player = findPlayers(_resolvedTicketsData,playerName);
+    var ticketsOwnedByPlayer = findPlayers(_resolvedTicketsData,playerName);
     var criticalCount= 0, criticalPointCount= 0, highCount= 0, highPointCount= 0, mediumCount= 0, mediumPointCount= 0, lowCount= 0, lowPointCount=0;
-    var incidentCount= 0, incidentPointCount= 0, problemCount= 0, problemPointCount= 0, serviceRequestCount= 0, srPointCount= 0;
-    $.each(player, function(index,el){
+    var incidentCount= 0, incidentPointCount= 0, problemCount= 0, problemPointCount= 0, serviceRequestCount= 0, srPointCount= 0, slaPenalty=0, slaOutput = "";
+    $.each(ticketsOwnedByPlayer, function(index,el){
         switch (el.priority){
             case '1 Critical':
                 criticalCount++;
@@ -145,17 +145,38 @@ function renderPlayerDetailtModal(playerName){
                 problemPointCount += 5;
                 break;
         }
+
+        if(el.percentage > 25) {
+            if (el.percentage <= 100) {
+                slaPenalty = ( el.points * (el.percentage / 100) );
+                slaPenalty = Math.ceil(slaPenalty);
+                slaOutput += "<li class='list-group-item list-group-item-warning'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> is <abbr title='means the sla is getting big'>growing mold</abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points can still be earned!</span> </li>";
+            }
+            if (el.percentage > 100) {
+                slaPenalty = el.points - (el.points * (el.percentage / 100));
+                alert(slaPenalty);
+                slaPenalty = Math.floor(slaPenalty);
+                alert(slaPenalty);
+                slaOutput = "<li class='list-group-item list-group-item-danger'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> <abbr title='sla went KAPUT!'> blew up!1! </abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points Lost</span> </li>";
+            }
+        } /*else {
+            slaOutput += "<li class='list-group-item list-group-item-info'> ticket is <abbr title='means the sla is still small'>primed</abbr> - "+el.percentage+"% </li>";
+        }*/
     });
-    $('#playerList').empty().append('A total of '+player.length+' tickets solved of which <ul>'+
+    $('#playerList').empty().append('A total of '+ticketsOwnedByPlayer.length+' tickets solved of which <ul>'+
+        '<li class="list-group-item"> <u> point analysis based on priority </u> </li>'+
         '<li class="list-group-item list-group-item-danger">' +criticalCount+ ' were P1-Critical <span class="badge">'+criticalPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-warning">'+ highCount + ' were P2 - High <span class="badge">'+highPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-info">'+ mediumCount + ' were P3 - Medium <span class="badge">'+mediumPointCount+' Points</span></li>'+
-        '<li class="list-group-item"></li>'+
+        '<li class="list-group-item"> <u> point analysis based on type </u> </li>'+
         '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P1 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-danger">'+ incidentCount + ' were incidents <span class="badge">'+incidentPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were P2 - problems <span class="badge">'+problemPointCount+' Points</span></li>'+
-        '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were P2 - service requests <span class="badge">'+srPointCount+' Points</span></li>'
+        '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were P2 - service requests <span class="badge">'+srPointCount+' Points</span></li> ' +
+        '<li class="list-group-item"> <u>warnings</u> </li>'+
+        slaOutput+'</ul>'
     );
+
     /*$('#playerlist').empty().append('<tr> <td> P1 Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
      '<tr> <td> P2 High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
      '<tr> <td> P3 Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +

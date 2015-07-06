@@ -93,15 +93,17 @@ class Ticket extends Model {
         if( $ticket->percentage > 25){
             if($ticket->percentage < 100){
                 $points = $points * ($ticket->percentage/100);
+                $points = ceil($points);
             }
             else if($ticket->percentage > 100){
                 //set it to zero points but decrease HP
-                $points = 0;
+                $points = $points - ($points * ($ticket->percentage/100));
+                $points = floor($points);
                 $user = User::find($ticket->user_id);
                 $user->takeDamage($ticket->percentage);
             }
         }
-        $ticket->points = round($points);
+        $ticket->points = $points;
         $ticket->updateScorePoints($ticket->user_id, $ticket->assignedGroup_id, $points);
         $ticket->save();
     }

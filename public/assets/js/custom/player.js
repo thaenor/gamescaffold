@@ -9,7 +9,7 @@ function renderPlayerLeaderBoard() {
     var playerCounter = 0;
 
     $.each(_resolvedTicketsData, function(index, currentTicket) {
-        if(playerArray[currentTicket.user_id] == null){
+        if(playerArray[currentTicket.user_id] === undefined){
             playerArray[currentTicket.user_id] = 0;
             playerCounter++;
         }
