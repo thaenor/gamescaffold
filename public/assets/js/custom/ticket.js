@@ -51,13 +51,13 @@ function ticketPagination(tickets) {
     var recordsToShow = tickets.slice(startRec, endRec);
     $.each(recordsToShow, function (i, currentTicket) {
         if(currentTicket.priority =="1 Critical"){
-            $('#ticketList').append('<li class="list-group-item list-group-item-danger"> <a data-toggle="modal" data-target="#ticketModal" href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> </li>');
+            $('#ticketList').append('<li class="list-group-item list-group-item-danger"> <a data-toggle="modal" data-target="#ticketModal" href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> <span class="badge">'+currentTicket.percentage+'%</span> </li>');
         } else if (currentTicket.priority == "2 High") {
-            $('#ticketList').append('<li class="list-group-item list-group-item-warning"> <a data-toggle="modal" data-target="#ticketModal" href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> </li>');
+            $('#ticketList').append('<li class="list-group-item list-group-item-warning"> <a data-toggle="modal" data-target="#ticketModal" href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> <span class="badge">'+currentTicket.percentage+'%</span> </li>');
         } else if (currentTicket.priority == "3 Medium") {
-            $('#ticketList').append('<li class="list-group-item list-group-item-info"> <a data-toggle="modal" data-target="#ticketModal"href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> </li>');
+            $('#ticketList').append('<li class="list-group-item list-group-item-info"> <a data-toggle="modal" data-target="#ticketModal"href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> <span class="badge">'+currentTicket.percentage+'%</span> </li>');
         } else{
-            $('#ticketList').append('<li class="list-group-item list-group-item-success"> <a data-toggle="modal" data-target="#ticketModal" href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> </li>');
+            $('#ticketList').append('<li class="list-group-item list-group-item-success"> <a data-toggle="modal" data-target="#ticketModal" href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> <span class="badge">'+currentTicket.percentage+'%</span> </li>');
         }
     });
 }
@@ -107,6 +107,74 @@ function drawMorrisDonnutchart(openTickets, ResolvedTickets, Pending){
         ]
     });
 }
+
+function renderPlayerDetailtModal(playerName){
+    var player = findPlayers(_resolvedTicketsData,playerName);
+    var criticalCount= 0, criticalPointCount= 0, highCount= 0, highPointCount= 0, mediumCount= 0, mediumPointCount= 0, lowCount= 0, lowPointCount=0;
+    var incidentCount= 0, incidentPointCount= 0, problemCount= 0, problemPointCount= 0, serviceRequestCount= 0, srPointCount= 0;
+    $.each(player, function(index,el){
+        switch (el.priority){
+            case '1 Critical':
+                criticalCount++;
+                criticalPointCount += 10;
+                break;
+            case '2 High':
+                highCount++;
+                highPointCount += 8;
+                break;
+            case '3 Medium':
+                mediumCount++;
+                mediumPointCount += 3;
+                break;
+            case '4 Low':
+                lowCount++;
+                lowPointCount += 1;
+                break;
+        }
+        switch(el.type) {
+            case "Incident":
+                incidentCount++;
+                incidentPointCount += 10;
+                break;
+            case "Service Request":
+                serviceRequestCount++;
+                srPointCount += 3;
+                break;
+            case "Problem":
+                problemCount++;
+                problemPointCount += 5;
+                break;
+        }
+    });
+    $('#playerList').empty().append('A total of '+player.length+' tickets solved of which <ul>'+
+        '<li class="list-group-item list-group-item-danger">' +criticalCount+ ' were P1-Critical <span class="badge">'+criticalPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-warning">'+ highCount + ' were P2 - High <span class="badge">'+highPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-info">'+ mediumCount + ' were P3 - Medium <span class="badge">'+mediumPointCount+' Points</span></li>'+
+        '<li class="list-group-item"></li>'+
+        '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P1 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-danger">'+ incidentCount + ' were incidents <span class="badge">'+incidentPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were P2 - problems <span class="badge">'+problemPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were P2 - service requests <span class="badge">'+srPointCount+' Points</span></li>'
+    );
+    /*$('#playerlist').empty().append('<tr> <td> P1 Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
+     '<tr> <td> P2 High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
+     '<tr> <td> P3 Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +
+     '<tr> <td> P4 Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');*/
+}
+
+
+function displayTicketPercentage(percentage){
+    var output = "";
+    if(percentage > 100){
+        output = "WARNING: expired "+percentage;
+    } else if(percentage < 20){
+        output  = "early ticket "+percentage;
+    } else {
+        output = percentage;
+    }
+    return output;
+}
+
 function renderTicketDetailsModal(ticketId){
     var ticket = findTicket(_openTicketsData,ticketId);
 
@@ -116,7 +184,7 @@ function renderTicketDetailsModal(ticketId){
         '<li class="list-group-item"> title: '+ticket.title+'</li>' +
         '<li class="list-group-item"> <b> type: '+ticket.type+'</b> </li>' +
         '<li class="list-group-item"> <b> priority: '+ticket.priority+'</b> </li>' +
-        '<li class="list-group-item"> <b> sla: '+ticket.sla+' </b> <span class="badge">'+ticket.percentage+' Points</span> </li>' +
+        '<li class="list-group-item"> <b> sla: '+ticket.sla+' </b> <span class="badge">'+displayTicketPercentage(ticket.percentage)+'%</span> </li>' +
         '<li class="list-group-item"> <b> assigned to: '+ticket.user_id+' </b> </li>' +
         '<li class="list-group-item"> team: '+ticket.assignedGroup_id+'</li>' +
         '<li class="list-group-item"> points: '+ticket.points+'</li>' +

@@ -43,6 +43,16 @@ function sortByPoints(array) {
     return sortable;
 }
 
+/**
+ * Method that finds all tickets that belong to a specific player (playerToFind)
+ * It looks into the attribute "user_id" of each ticket which actually contains
+ * the name of the user that detains the ticket
+ * This assumes no two players have the same name
+ *
+ * @param array
+ * @param playerToFind
+ * @returns {Array}
+ */
 function findPlayers(array, playerToFind){
     var foundMatches = [];
     for (var i=0; i < array.length; i++)
