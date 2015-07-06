@@ -11,6 +11,7 @@
     $('#ticketNumber').empty().append(_openTicketsData.length);
     $('#notificationBox').empty().append('<p></p>');
 
+
     /**
      * Click event on next button in pagination
      * This code handles all "next" buttons
@@ -31,9 +32,9 @@
                 break;
             default:
                 console.error('invalid key in pagination');
-
         }
     });
+
 
     /**
      * Click event on next button in pagination
@@ -53,9 +54,9 @@
                 break;
             default:
                 console.error('invalid key in pagination');
-
         }
     });
+
 
     $('#ticket-tab').click(function () {
         _pageTab = "ticket";
@@ -66,7 +67,8 @@
         updatePageNumber();
     });
 
-    //search event handling
+
+    /** search event handling */
     $("#ticketSearchField").keyup(function () {
         var searchResults = searchTickets($("#ticketSearchField").val());
         if (searchResults[0] == 'no results') {
@@ -77,7 +79,7 @@
     });
 
 
-    //Date pickers for advanced search
+    /** Date pickers for advanced search*/
     $(function () {
         $("#startDatePicker").datepicker({
             dateFormat: "yy-mm-dd"
@@ -87,14 +89,16 @@
         });
     });
 
-    //simple validation (if dates are inserted)
+
+    /** simple validation (if dates are inserted)*/
     $("#startDatePicker, #endDatePicker").change(function () {
         if ($("#startDatePicker").val() && $('#endDatePicker').val()) {
             $('#timeTravelTrigger').removeAttr('disabled');
         }
     });
 
-    //renewing all ajax calls
+
+    /** renewing all ajax calls */
     $("#timeTravelTrigger").click(function () {
         var start = replaceAll('/', '-', $('#startDatePicker').val());
         var end = replaceAll('/', '-', $('#endDatePicker').val());
@@ -110,18 +114,21 @@
     });
 
 
+    /** set default time-travel values for last week */
     $("#setTimeWeek").click(function () {
         $("#startDatePicker").val(moment().weekday(-7).format('YYYY[-]M[-]D')); // last Monday
         $('#endDatePicker').val(moment().weekday(-2).format('YYYY[-]M[-]D')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
-
+    /** set default time-travel values for last month */
     $("#setTimeMonth").click(function () {
         $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('YYYY[-]M[-]D')); // last Monday
         $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('YYYY[-]M[-]D')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
 
+
+    /** Button event to post feed */
     $("#postFeed").click(function(){
         var post = $('#writtenFeed').val();
         if(post){
@@ -133,7 +140,7 @@
     });
 
 
-    // Attach a delegated event handler
+    /** Attach a delegated event handler */
     $( "#playerLeaderboard" ).on( "click", "a", function( event ) {
         event.preventDefault();
         $("#playerDetails").empty().append( $(this).text()+'\'s information');
@@ -194,7 +201,8 @@
         event.preventDefault();
         var title = $(this).text();
         $("#ticketDetails").empty().append(title+' related data:');
-        var ticket = findTicket(_openTicketsData,title);
-        $("#ticketInfo").empty().append('<ul class="list-group"><li class="list-group-item"> id: '+ticket[0].id+'</li><li class="list-group-item"> title: '+ticket[0].title+'</li><li class="list-group-item"> priority: '+ticket[0].priority+'</li><li class="list-group-item"> sla: '+ticket[0].sla+'</li><li class="list-group-item"> assigned to: '+ticket[0].user_id+'</li><li class="list-group-item"> team: '+ticket[0].assignedGroup_id+'</li><li class="list-group-item"> points: '+ticket[0].points+'</li><li class="list-group-item"> created at: '+ticket[0].created_at+'</li><li class="list-group-item"> updated at: '+ticket[0].updated_at+'</li></ul>');
+        var addressValue = $(this).attr("href");
+        addressValue = addressValue.replace("#","").trim();
+        renderTicketDetailsModal(addressValue);
     });
 }
