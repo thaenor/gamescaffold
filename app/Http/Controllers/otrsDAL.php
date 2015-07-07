@@ -105,7 +105,7 @@ order by ti.id";
         $otrsTicketLastId = getLastIDFromTickets();
         if($lastId === $otrsTicketLastId){
             Log::warning('Nothing to sync.');
-            return;
+            exit(1);
         }
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
         $data = (array_values(pg_fetch_all($result)));
@@ -116,23 +116,29 @@ order by ti.id";
         closeDB($dal);
     } catch(exception $e){
         Log::error('Error syncing both databases, more details: '.$e);
-        echo $e;
         exit(1);
     }
 }
 
 function updateChangedTickets($lastUpdateId){
-    $query = "SELECT th.id, th.ticket_id, tp.name AS priority, ts.name AS state, owner_id AS player_id,
-       g.id AS team_id, tt.name AS ticket_type
-FROM ticket_history th
-JOIN ticket_priority tp ON tp.id = th.priority_id
-JOIN ticket_state ts ON ts.id = th.state_id
--- JOIN users ON users.id = th.owner_id   NOT USED IN THE QUERY
-JOIN queue ON queue.id = th.queue_id
-JOIN ticket_type tt ON tt.id = th.type_id
-JOIN groups g ON g.id = queue.id
-WHERE th.id > $lastUpdateId
-ORDER BY th.id ASC";
+    $query = "SELECT th.id,
+    th.ticket_id,
+        tp.name AS priority,
+    ts.name AS state,
+    tt.name AS ticket_type,
+    owner_id AS player_id,
+    g.id AS team_id,
+    th.create_time,
+    th.change_time
+    FROM ticket_history th
+    JOIN ticket_priority tp ON tp.id = th.priority_id
+    JOIN ticket_state ts ON ts.id = th.state_id
+        -- JOIN users ON users.id = th.owner_id   NOT USED IN THE QUERY
+    JOIN queue ON queue.id = th.queue_id
+    JOIN ticket_type tt ON tt.id = th.type_id
+    JOIN groups g ON g.id = queue.id
+    WHERE th.id > $lastUpdateId
+    ORDER BY th.id ASC";
 
     try {
         $dal = connect();
@@ -206,23 +212,24 @@ function insertTicketToDB($element){
         $ticket->created_at = $element->cretime;
         $ticket->updated_at = $element->chgtime;
         $ticket->user_id = $element->user_id;
-        //tries to locate the user. If non existen, the data is imported
+        //tries to locate the user. If it does not exist, the data is imported
         $user = User::find($element->user_id);
         if(!$user){
             importUser($element->user_id);
         }
-        //tries to locate the group. If non existen, the data is imported
+        $ticket->assignedGroup_id = $element->group_id;
+        //tries to locate the group. If it does not exist, the data is imported
         $group = Group::find($element->group_id);
         if(!$group){
             importGroup($element->group_id);
         }
-        $ticket->assignedGroup_id = $element->group_id;
         //optional: importRelationUserGroup($element->user_id, $element->group_id);
-        $ticket->points = $ticket->updateTicketPoints($ticket);
+        $ticket->updateTicketPoints($ticket);
         $ticket->save();
+        echo 'ticket updated';
+        dump($ticket);
     } catch(Exception $e)  {
         Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
-        echo $e;
         exit(1);
     }
 }
@@ -234,19 +241,23 @@ function updateTicketToDB($object){
     $ticket->assignedGroup_id = $object->team_id;
     $group = Group::find($object->team_id);
     if(!$group){
+        echo '<br/> user needs to be imported <br/>';
         importGroup($object->team_id);
     }
     $ticket->user_id = $object->player_id;
     $user = User::find($object->player_id);
     if(!$user){
+        echo '<br/> group needs to be imported <br/>';
         importUser($object->player_id);
     }
     $ticket->priority = $object->priority;
     $ticket->state = $object->state;
-    //decrease old points in user and group leader board
-    $ticket->updateScorePoints($ticket->user_id, $ticket->assignedGroup_id, (-$ticket->points));
-    $ticket->points = $ticket->updateTicketPoints($ticket);
+    $ticket->created_at = $object->create_time;
+    $ticket->updated_at = $object->change_time;
+    $ticket->updateTicketPoints($ticket);
     $ticket->save();
+    echo 'ticket updated';
+    dump($ticket);
 }
 
 
