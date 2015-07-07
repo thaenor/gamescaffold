@@ -23,7 +23,7 @@ function getResolvedAndReopenedTicketData(start, end){
                 _reopenedTicketsData = data;
         }).fail(showAlertMessage('Getting the reopened tickets was a bad idea... I know'));*/
         renderPlayerLeaderBoard(resolvedData);
-        drawMorrisDonnutchart();
+        //drawMorrisDonnutchart();
     }).fail(showAlertMessage('Getting user score data was a bad idea!'));
 }
 
@@ -146,7 +146,7 @@ function renderPlayerDetailtModal(playerName){
                 break;
         }
 
-        if(el.percentage > 25) {
+        if(el.percentage > 40) {
             if (el.percentage <= 100) {
                 slaPenalty = ( el.points * (el.percentage / 100) );
                 slaPenalty = Math.ceil(slaPenalty);
