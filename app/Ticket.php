@@ -52,10 +52,8 @@ class Ticket extends Model {
      */
     public function updateScorePoints($player_id, $team_id, $points){
         //player and team have already been created if they didn't exist so we know for sure they're there
-        $player = User::find($player_id);
-        $team = Group::find($team_id);
-        $player->updateUser($points);
-        $team->updateTeam($points);
+        User::find($player_id)->updateUser($points);
+        Group::find($team_id)->updateTeam($points);
     }
 
     public function updateTicketPoints($ticket){
@@ -90,21 +88,22 @@ class Ticket extends Model {
                 $points += 1;
         }
 
-        if( $ticket->percentage > 25){
+        if( $ticket->percentage > 40){
             if($ticket->percentage < 100){
                 $points = $points * ($ticket->percentage/100);
                 $points = ceil($points);
             }
             else if($ticket->percentage > 100){
-                //set it to zero points but decrease HP
                 $points = $points - ($points * ($ticket->percentage/100));
                 $points = floor($points);
-                $user = User::find($ticket->user_id);
-                $user->takeDamage($ticket->percentage);
             }
         }
         $ticket->points = $points;
-        $ticket->updateScorePoints($ticket->user_id, $ticket->assignedGroup_id, $points);
+        if($ticket->state == "closed"){
+            $this->updateScorePoints($ticket->user_id, $ticket->assignedGroup_id, $points);
+        } else if($ticket->state == "ReOpen"){
+            $this->setTicketPenalties();
+        }
         $ticket->save();
     }
     
