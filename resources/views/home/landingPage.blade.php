@@ -253,7 +253,7 @@
                             <!-- END Morris chart -->
                         </section>
 
-                        <!-- Morris chart -->
+                        <!-- Morris chart - UNDER CONSTRUCTION
                         <section>
                             <div class="col-md-6 col-sm-12 col-xs-12 ">
                                 <div class="panel panel-default">
@@ -266,7 +266,7 @@
                                 </div>
                             </div>
                         </section>
-                        <!-- END Morris chart -->
+                         END Morris chart -->
                     </section>
                 </div>
 

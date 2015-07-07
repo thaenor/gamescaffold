@@ -60,8 +60,8 @@ class TicketController extends Controller {
         echo "sync done";
     }
 
-    public function calculatePoints(){
-        /*ini_set("memory_limit", "-1");
+    /*public function calculatePoints(){
+        ini_set("memory_limit", "-1");
         set_time_limit(0);
         echo 'working...<hr/> <img src="http://media1.giphy.com/media/4bAEIAB84zPwc/giphy.gif"/><br/>';
         try{
@@ -89,8 +89,8 @@ class TicketController extends Controller {
                 $ticket->updateTicketPoints($ticket);
             }
         }
-        return "done";*/
-    }
+        return "done";
+    }*/
     
 	/**
 	 * Display a listing of the resource.
