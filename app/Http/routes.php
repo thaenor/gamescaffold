@@ -27,7 +27,7 @@ Route::resource('articles', 'ArticleController');
 Route::resource('groups', 'GroupController');
 Route::resource('leagues', 'LeagueController');
 Route::resource('rewards', 'RewardController');
-Route::resource('users', 'UserController');
+//Route::resource('users', 'UserController');
 Route::resource('tickets', 'TicketController');
 
 //shhhh! Secret routes are not meant to be used by common mortals

@@ -12,6 +12,7 @@ use Carbon\Carbon;
 use App\Ticket;
 //use App\User;
 //use App\Group;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\App;
@@ -23,6 +24,11 @@ require('otrsDAL.php');
 
 class TicketController extends Controller {
 
+    public function __construct()
+    {
+        $this->middleware('auth', ['except' => 'index']);
+    }
+    
     /**
      * Manual migration method.
      * This is call and import, from OTRS,
@@ -100,7 +106,9 @@ class TicketController extends Controller {
 	public function index()
 	{
         $time = new DateTime('first day of this month');
-        $tickets = Ticket::where('created_at', '>=', $time )->get();
+        $start = Carbon::instance($time);
+        $end = Carbon::now();
+        $tickets = Ticket::getAllTicketsBetween($start,$end);
 		return view('tickets.index', compact('tickets'));
     }
 
