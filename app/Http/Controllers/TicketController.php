@@ -1,24 +1,17 @@
 <?php namespace App\Http\Controllers;
 
-use App\Commands\calculatePoints;
-use App\Commands\sync;
-use App\Group;
 use App\Http\Requests;
-//use App\Http\Controllers\Controller;
-//use Illuminate\Support\Facades\App;
-use App\League;
-use App\User;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\App;
 use Carbon\Carbon;
-use App\Ticket;
-//use App\User;
-//use App\Group;
 use DateTime;
+use App\Ticket;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use PhpSpec\Exception\Exception;
 
 require('otrsDAL.php');
 

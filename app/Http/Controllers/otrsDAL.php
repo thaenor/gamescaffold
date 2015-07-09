@@ -14,6 +14,7 @@ use App\Ticket;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 
 /**
  * Simple connectivity function to Postgres database. Returns connectivity variable.
@@ -105,7 +106,7 @@ order by ti.id";
         $otrsTicketLastId = getLastIDFromTickets();
         if($lastId === $otrsTicketLastId){
             Log::warning('Nothing to sync.');
-            exit(1);
+            return true;
         }
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
         $data = (array_values(pg_fetch_all($result)));
@@ -145,7 +146,7 @@ function updateChangedTickets($lastUpdateId){
         $result = pg_query($query) or die('Query failed: ' . pg_last_error());
         if(pg_fetch_result($result,0) === false){
             Log::warning('Nothing to sync.');
-            return;
+            return true;
         }
         $data = (array_values(pg_fetch_all($result)));
         $chunkOfData = array_chunk($data, 100);
@@ -157,7 +158,6 @@ function updateChangedTickets($lastUpdateId){
         return updateLastTicketHistoryId();
     } catch(exception $e){
         Log::error('Error syncing ticket updates, more details: '.$e);
-        echo $e;
         exit(1);
     }
 }
@@ -188,6 +188,11 @@ function insertChunkToDB($chunk){
     }
 }
 
+/**
+ * Just like insertChunkToDB but calls an update function rather
+ * than the insert function. The parameters are slightly different
+ * @param $chunk
+ */
 function updateChunkToDB($chunk){
     foreach($chunk as $element){
         $object = json_decode(json_encode($element), FALSE);
@@ -195,6 +200,10 @@ function updateChunkToDB($chunk){
     }
 }
 
+/**
+ * insert single ticket to DB using Eloquent
+ * @param $element
+ */
 function insertTicketToDB($element){
     try{
         $ticket = Ticket::find($element->id);
@@ -226,8 +235,6 @@ function insertTicketToDB($element){
         //optional: importRelationUserGroup($element->user_id, $element->group_id);
         $ticket->updateTicketPoints($ticket);
         $ticket->save();
-        echo 'ticket updated';
-        dump($ticket);
     } catch(Exception $e)  {
         Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
         exit(1);
@@ -241,13 +248,11 @@ function updateTicketToDB($object){
     $ticket->assignedGroup_id = $object->team_id;
     $group = Group::find($object->team_id);
     if(!$group){
-        echo '<br/> user needs to be imported <br/>';
         importGroup($object->team_id);
     }
     $ticket->user_id = $object->player_id;
     $user = User::find($object->player_id);
     if(!$user){
-        echo '<br/> group needs to be imported <br/>';
         importUser($object->player_id);
     }
     $ticket->priority = $object->priority;
@@ -256,8 +261,6 @@ function updateTicketToDB($object){
     $ticket->updated_at = $object->change_time;
     $ticket->updateTicketPoints($ticket);
     $ticket->save();
-    echo 'ticket updated';
-    dump($ticket);
 }
 
 
