@@ -23,7 +23,7 @@ $(document).ready(function () {
     getOpenTicketData();
     getGroupData();
     getResolvedAndReopenedTicketData();
-    getChallenges();
+    //getChallenges();
     getArticles();
     setInterval(function () {
         tabClicker();
@@ -31,12 +31,12 @@ $(document).ready(function () {
 
 });
 
-function getChallenges(){
+/*function getChallenges(){
     var link = generateLink('getChallengesCount');
     getAjaxData(link).done(function(result){
         $('#challengeCount').empty().append(result);
     }).fail(showAlertMessage('failed to get chalenges count'));
-}
+}*/
 
 function getArticles(){
     $('#articleList').empty();
@@ -60,7 +60,7 @@ function updatePageNumber() {
 function welcome(){
     var now = new Date();
     var greeting = "Good" + ((now.getHours() > 17) ? " evening." : " day.");
-    $('h1').append(' - ' + greeting);
+    $('#welcome').append(greeting + ' - ');
     $('#timeTravelTrigger').prop('disabled', true);
 }
 

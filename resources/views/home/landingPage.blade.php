@@ -38,43 +38,106 @@
 <body>
 <div id="outdated">
 </div>
-<!--  <div id="preloader">
-  		<div id="status">loading</div>
-  	</div>
--->
-<div class="col-sm-12 col-md-12 col-lg-12">
-    <img id="logo" src="assets/logo.png" class="hatch"/>
 
-    <h1>SGounter</h1>
-    <h2>Inc. hunter</h2>
-</div>
-
-<div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2"></div>
-
-<div class="col-md-7 col-sm-12 col-lg-7">
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <h4>Tickets betweeh <em><label id="startTimeLabel"></label></em> and <em><label
-                            id="endTimeLabel"></label></em></h4>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">
+                <img alt="brand" id="logo" src="assets/logo.png" class="hatch"/>
+            </a>
         </div>
 
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="disabled"><a href="http://localhost/users"><i class="glyphicon glyphicon-user"></i> My stats</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Backend access <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="http://localhost/tickets"><i class="glyphicon glyphicon-th-list"></i> all tickets</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="http://localhost/articles"><i class="glyphicon glyphicon-tasks"></i> all articles</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li><a href="http://localhost/groups"><i class="glyphicon glyphicon-eye-open"></i> all teams</a></li>
+                    </ul>
+                </li>
+            </ul>
 
-        <div class="panel-body">
-            <ul class="nav nav-tabs">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <!-- time travel -->
+                    <button class="btn btn-primary btn-lg navbar-btn" type="button" data-toggle="modal" data-target="#TimeTravelModal">
+                        Time travel
+                    </button>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li class="disabled"><a href="#">Login</a></li>
+                        <li role="separator" class="divider"></li>
+                        <li class="disabled"><a href="#">Logout</a></li>
+                    </ul>
+                </li>
+            </ul>
+        </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+</nav>
+
+
+
+<div class="col-lg-12">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            <div>
+                <div>
+                    <ul class="list-inline">
+                        <li>
+                            <h4><label id="welcome" class="text-muted"></label> Tickets betweeh <b><label id="startTimeLabel"></label></b> and <b><label
+                                            id="endTimeLabel"></label></b></h4>
+                        </li>
+                        <li class="pull-right hidden-xs">
+                            <div class="noti-box">
+                                <span class="icon-box bg-color-red set-icon">
+                                <i class="fa fa-envelope-o"></i>
+                                </span>
+                                <div class="text-box text-center">
+                                    <label id="ticketNumber" class="main-text"></label>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="pull-right hidden-xs">
+                            <div class="noti-box">
+                                <span class="icon-box bg-color-red set-icon">
+                                    <i class="glyphicon glyphicon-user"></i>
+                                </span>
+                                <div class="text-box text-center">
+                                    <label id="playersInLeague" class="main-text"></label>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <ul class="nav nav-pills nav-justified">
                 <li id="ticket-tab" class="active"><a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
-                <!--<li class=""><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
-                <li id="newsfeed-tab" class=""><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
+                <li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>
+                <li id="newsfeed-tab" class="disabled"><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
                 <li id="groupLeaderboard-tab" class=""><a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
                 <li id="player-leaderboard-tab" class=""><a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
                 <li id="graph-tab" class=""><a data-toggle="tab" href="#Graphs">Graphs</a></li>
             </ul>
+        </div>
 
-            <hr/>
+        <div class="well panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="ticketDisplayScreen">
-                    <h4>Tickets</h4>
-
-
                     <nav class="col-md-12 col-sm-12 col-lg-12">
                         <ul class="pager">
                             <li class="previous">
@@ -82,7 +145,7 @@
                                     <span>&larr;</span> Previous</a>
                             </li>
 
-                            <li>
+                            <li class="hidden-xs">
                                 <a class="pageNumber" href="#">
                                     <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
                             </li>
@@ -125,9 +188,12 @@
                             <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
                         </ul>
                     </div>
+                    <div class="well col-lg-7">
+                        This could be a place to display ticket data instead of the modal
+                    </div>
                 </div>
 
-<!--                <div class="tab-pane fade well" id="rewards">
+<!--                <div class="tab-pane fade" id="rewards">
                     <h4>Rewards</h4>
 
                     <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
@@ -138,7 +204,7 @@
                         laborum.</p>
                 </div> -->
 
-                <div class="tab-pane fade well" id="newsfeed">
+                <div class="tab-pane fade" id="newsfeed">
                     <h4>Newsfeed</h4>
 
                     <section>
@@ -180,7 +246,7 @@
                                             Previous</a>
                                     </li>
 
-                                    <li>
+                                    <li class="hidden-xs">
                                         <a class="pageNumber" href="#">
                                             <i class="glyphicon glyphicon-th-list"></i> Page: 1</a>
                                     </li>
@@ -233,7 +299,7 @@
                 </div>
 
                 <!-- TAB CONTENT FOR GRAHPS-->
-                <div class="tab-content fade well" id="Graphs">
+                <div class="tab-content fade" id="Graphs">
                     <section>
                         <section>
                             <!-- Morris chart -->
@@ -275,99 +341,12 @@
     </div>
 </div>
 
-<div class="well col-md-4 col-sm-4 col-lg-4 ">
-
-    <section class="col-md-12 col-sm-12 col-xs-12 hatch">
-        <div class="col-md-3 col-sm-6 col-xs-6">
-            <div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-red set-icon">
-                    <i class="fa fa-envelope-o"></i>
-                </span>
-
-                <div class="text-box">
-                    <p id="ticketNumber" class="main-text"></p>
-
-                    <p class="text-muted">tickets are open and waiting</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6 col-xs-6">
-            <div class="panel panel-back noti-box">
-                 <span class="icon-box bg-color-red set-icon">
-                   <i class="glyphicon glyphicon-user"></i>
-                 </span>
-
-                <div class="text-box">
-                    <p id="playersInLeague" class="main-text"></p>
-
-                    <p class="text-muted">Players in your league</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-3 col-sm-6 col-xs-6">
-            <div class="panel panel-back noti-box">
-                <span class="icon-box bg-color-brown set-icon">
-                    <i class="fa fa-rocket"></i>
-                </span>
-
-                <div class="text-box">
-                    <p id="challengeCount" class="main-text">3</p>
-
-                    <p class="text-muted">Challenges open Solve them now!</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <hr/>
-    <ul class="list-inline">
-        <li>
-            <a href="http://localhost/users"><i class="glyphicon glyphicon-user"></i> My stats</a>
-        </li>
-        <li>
-            <a href="http://localhost/tickets"><i class="glyphicon glyphicon-th-list"></i> all tickets</a>
-        </li>
-        <li>
-            <a href="http://localhost/articles"><i class="glyphicon glyphicon-tasks"></i> all articles</a>
-        </li>
-        <li>
-            <a href="http://localhost/groups"><i class="glyphicon glyphicon-eye-open"></i> all teams</a>
-        </li>
-    </ul>
-
-    <!-- time travel -->
-    <button class="btn btn-primary btn-danger hatch" type="button" data-toggle="collapse" data-target="#collapseExample"
-            aria-expanded="false" aria-controls="collapseExample">
-        Time travel
-    </button>
-
-    <div class="collapse" id="collapseExample">
-        <p>
-
-        <p/>
-
-        <div class="btn-group btn-group-sm" role="group">
-            <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
-            <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
-        </div>
-        <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
-
-        <p class="text-primary">Start Date:
-            <input type="text" id="startDatePicker">
-        </p>
-
-        <p class="text-primary">End Date:
-            <input type="text" id="endDatePicker">
-        </p>
-        <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
-
-    </div>
-    <!-- END time travel -->
-</div>
+<div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2"></div>
 
 
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
+<!--------------------------------------------------------------------------------------------------------------------->
 <!-- Modal for player info -->
 <div class="modal fade" id="playerInfo" tabindex="-1" role="dialog" aria-labelledby="playerModalLabel"
      aria-hidden="true">
@@ -418,6 +397,43 @@
         </div>
     </div>
 </div>
+<!-- END Modal for ticket info -->
+
+<!-- Modal for time travel panel -->
+<div class="modal fade" id="TimeTravelModal" tabindex="-1" role="dialog" aria-labelledby="TimeTravelModalLabel"
+aria-hidden="true">
+
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="TimeTravelModalLabel">Time Travel</h4>
+                <h5>Reload the dashboard to display data from a different time. </h5>
+            </div>
+            <div class="modal-body">
+                    <div class="btn-group btn-group-sm" role="group">
+                        <button id="setTimeWeek" type='button' class='btn btn-lg btn-default '>last week</button>
+                        <button id="setTimeMonth" type='button' class='btn btn-lg btn-default '>last month</button>
+                    </div>
+                    <p class="text-primary">Time travel the dashboard for this interval&hellip;</p>
+
+                    <p class="text-primary">Start Date:
+                        <input type="text" id="startDatePicker">
+                    </p>
+
+                    <p class="text-primary">End Date:
+                        <input type="text" id="endDatePicker">
+                    </p>
+                    <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal for time travel panel -->
 
 
 <footer class="col-md-12 col-sm-6 col-lg-12">
