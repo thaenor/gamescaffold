@@ -19,7 +19,7 @@
     <!-- FontAwesome Styles-->
     <link href="assets/css/font-awesome.css" rel="stylesheet">
     <!-- Morris Chart Styles-->
-    <link href="assets/js/morris/morris-0.4.3.min.css" rel="stylesheet">
+    <link href="assets/css/morris-0.4.3.min.css" rel="stylesheet">
     <!-- Custom Styles-->
     <link href="assets/css/custom-styles.css" rel="stylesheet">
     <!-- Google Fonts-->
@@ -92,7 +92,7 @@
 
 
 
-<div class="col-lg-12">
+<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
     <div class="panel panel-default">
         <div class="panel-heading">
             <div>
@@ -138,7 +138,7 @@
         <div class="well panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="ticketDisplayScreen">
-                    <nav class="col-md-12 col-sm-12 col-lg-12">
+                    <nav class="col-xs-12 col-md-7 col-sm-7 col-lg-7">
                         <ul class="pager">
                             <li class="previous">
                                 <a href="#">
