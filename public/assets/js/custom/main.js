@@ -31,6 +31,10 @@ $(document).ready(function () {
 
 });
 
+$(document).ajaxStop(function () {
+    drawMorrisDonnutChart();
+});
+
 /*function getChallenges(){
     var link = generateLink('getChallengesCount');
     getAjaxData(link).done(function(result){

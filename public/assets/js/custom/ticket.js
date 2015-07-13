@@ -19,7 +19,6 @@ function getResolvedAndReopenedTicketData(start, end){
         _resolvedTicketsData = resolvedData;
         /*link = generateLink('reOpened');
         getAjaxData(link).done(function(data){
-                //TODO: treat scenario where there is no open tickets
                 _reopenedTicketsData = data;
         }).fail(showAlertMessage('Getting the reopened tickets was a bad idea... I know'));*/
         renderPlayerLeaderBoard(resolvedData);
@@ -97,13 +96,13 @@ function findTicket(ticketArray, ticketId){
 }
 
 
-function drawMorrisDonnutchart(openTickets, ResolvedTickets, Pending){
+function drawMorrisDonnutChart(){
     Morris.Donut({
         element: 'donut-example',
         data: [
-            {label: "Open tickets", value: _openTicketsData},
-            {label: "Resolved tickets", value: _resolvedTicketsData},
-            {label: "In progress", value: _reopenedTicketsData}
+            {label: "Open tickets", value: _openTicketsData.length},
+            {label: "Resolved tickets", value: _resolvedTicketsData.length},
+            {label: "In progress", value: _openTicketsData.length}
         ]
     });
 }

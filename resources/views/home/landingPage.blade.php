@@ -135,7 +135,7 @@
             </ul>
         </div>
 
-        <div class="well panel-body">
+        <div class="panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="ticketDisplayScreen">
                     <nav class="col-xs-12 col-md-7 col-sm-7 col-lg-7">
@@ -155,42 +155,42 @@
                                 <a href="#">Next <span>&rarr;</span></a>
                             </li>
                         </ul>
+                        <!-- search bar -->
+                        <div class="col-md-6 col-sm-12 col-lg-6">
+                            <div class="input-group">
+                                <div class="input-group">
+                                    <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
+                                    <input class="form-control" id="ticketSearchField" placeholder="Search for..."
+                                           type="text">
+                                </div>
+                            </div>
+                            <!-- /input-group -->
+                        </div>
+                        <!-- END search bar -->
                     </nav>
 
-                    <!-- search bar -->
-                    <div class="col-md-6 col-sm-12 col-lg-6">
-                        <div class="input-group">
-                            <div class="input-group">
-                                <span class="input-group-addon glyphicon glyphicon-search" id="sizing-addon1"></span>
-                                <input class="form-control" id="ticketSearchField" placeholder="Search for..."
-                                       type="text">
-                            </div>
-                        </div>
-                        <!-- /input-group -->
-                    </div>
-                    <!-- END search bar -->
 
-                    <hr/>
 
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 hatch">
+                    <div class="row col-lg-7">
+                        <div>
                             <ul class="list-group pullUp" id="ticketList">
                                 <!-- LIST WITH TICKETS -->
                             </ul>
                         </div>
+                        <div class="col-md-5 col-lg-5 col-sm-5">
+                            <ul class="list-group">
+                                <li class="list-group-item list-group-item-heading">Legend</li>
+                                <li class="list-group-item list-group-item-danger">Red - Critical (P1)</li>
+                                <li class="list-group-item list-group-item-warning">Yellow - High (P2)</li>
+                                <li class="list-group-item list-group-item-info">Blue - Medium (P3) </li>
+                                <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
+                            </ul>
+                        </div>
+                        <div class="col-lg-7">
+                            This could be a place to display ticket data instead of the modal
+                        </div>
                     </div>
-                    <div class="col-md-5 col-lg-5 col-sm-5">
-                        <ul class="list-group">
-                            <li class="list-group-item list-group-item-heading">Legend</li>
-                            <li class="list-group-item list-group-item-danger">Red - Critical (P1)</li>
-                            <li class="list-group-item list-group-item-warning">Yellow - High (P2)</li>
-                            <li class="list-group-item list-group-item-info">Blue - Medium (P3) </li>
-                            <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
-                        </ul>
-                    </div>
-                    <div class="well col-lg-7">
-                        This could be a place to display ticket data instead of the modal
-                    </div>
+
                 </div>
 
 <!--                <div class="tab-pane fade" id="rewards">
@@ -319,7 +319,7 @@
                             <!-- END Morris chart -->
                         </section>
 
-                        <!-- Morris chart - UNDER CONSTRUCTION
+                        <!-- Morris chart -->
                         <section>
                             <div class="col-md-6 col-sm-12 col-xs-12 ">
                                 <div class="panel panel-default">
@@ -332,7 +332,7 @@
                                 </div>
                             </div>
                         </section>
-                         END Morris chart -->
+                        <!-- END Morris chart -->
                     </section>
                 </div>
 
