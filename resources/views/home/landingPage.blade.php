@@ -73,7 +73,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <li>
                     <!-- time travel -->
-                    <button class="btn btn-primary btn-lg navbar-btn" type="button" data-toggle="modal" data-target="#TimeTravelModal">
+                    <button class="btn btn-primary btn-danger btn-lg navbar-btn" type="button" data-toggle="modal" data-target="#TimeTravelModal">
                         Time travel
                     </button>
                 </li>
