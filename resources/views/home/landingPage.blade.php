@@ -451,6 +451,7 @@ aria-hidden="true">
 <script src="assets/js/morris/raphael-2.1.0.min.js"></script>
 <script src="assets/js/morris/morris.js"></script>
 <script src="assets/js/moment.js" charset="utf-8"></script>
+<script src="assets/js/toaster/jquery.toaster.js" charset="utf-8"></script>
 <!-- Extra js for Object Oriented implementation -->
 <script src="assets/js/custom/ajax.js" type="text/javascript"></script>
 <script src="assets/js/custom/group.js" type="text/javascript"></script>

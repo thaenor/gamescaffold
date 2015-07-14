@@ -110,7 +110,9 @@
             renderGroupLeaderBoard(data);
             $('#startTimeLabel').empty().append(start);
             $('#endTimeLabel').empty().append(end);
-        }).fail(showAlertMessage('error fetching remote data'));
+        }).fail(function(){
+            $.toaster({ priority : 'danger', title : 'Internal Error', message : 'Error fetching remote datae write something'});
+        });
     });
 
 
@@ -135,7 +137,7 @@
             //TODO: make ajax call to post feed
             $('#articleList').append('<li class="list-group-item">'+ 'You : ' +post + '</li>');
         } else {
-            showAlertMessage('Please write something before posting to newsfeed');
+            $.toaster({ priority : 'warning', title : 'Newsfeed', message : 'Please write something'});
         }
     });
 

@@ -17,7 +17,9 @@ function getGroupData(start,end){
         leaderBoardPagination(_groupJson);
         drawMorrisBarGraph();
         $('#notificationBox').empty().append('<p></p>');
-    }).fail(showAlertMessage('Getting team score blew up the server!'));
+    }).fail(function (){
+        $.toaster({ priority : 'danger', title : 'Internal Error', message : 'Getting team score blew up the server!'});
+    });
 }
 
 function renderGroupLeaderBoard(data) {

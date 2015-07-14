@@ -10,7 +10,9 @@ function getOpenTicketData(start,end){
         _openTicketsData = data;
         ticketPagination(data);
         renderEvents();
-    }).fail(showAlertMessage('Getting all the tickets data was a bust!'), showTicketErrorMessage());
+    }).fail(function(){
+        $.toaster({ priority : 'danger', title : 'Tickets', message : 'The server monkeys misplaced the tickets'})
+    });
 }
 
 function getResolvedAndReopenedTicketData(start, end){
@@ -23,17 +25,14 @@ function getResolvedAndReopenedTicketData(start, end){
         }).fail(showAlertMessage('Getting the reopened tickets was a bad idea... I know'));*/
         renderPlayerLeaderBoard(resolvedData);
         //drawMorrisDonnutchart();
-    }).fail(showAlertMessage('Getting user score data was a bad idea!'));
+    }).fail(function(){
+        $.toaster({ priority : 'warning', title : 'Leaderboard', message : 'We lost our leaderboard calculator, sorry!'});
+    });
 }
 
 
 function replaceAll(find, replace, str) {
     return str.replace(new RegExp(find, 'g'), replace);
-}
-
-
-function showTicketErrorMessage() {
-    $('#ticketList').empty().append('<div class="alert alert-danger" role="alert">Something went wrong... these aren\'t the tickets you are looking for...</div>');
 }
 
 

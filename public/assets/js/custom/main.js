@@ -32,6 +32,7 @@ $(document).ready(function () {
 });
 
 $(document).ajaxStop(function () {
+	$.toaster({ priority : 'info', title : 'Notice', message : 'ajax done'});
     drawMorrisDonnutChart();
 });
 
@@ -39,7 +40,9 @@ $(document).ajaxStop(function () {
     var link = generateLink('getChallengesCount');
     getAjaxData(link).done(function(result){
         $('#challengeCount').empty().append(result);
-    }).fail(showAlertMessage('failed to get chalenges count'));
+    }).fail(function(){
+        $.toaster({ priority : 'warning', title : 'Challenges', message : 'failed to count'});
+    });
 }*/
 
 function getArticles(){
@@ -48,7 +51,9 @@ function getArticles(){
     getAjaxData(link).done(function showArticles(data) {
         allArticles = data;
         displayArticles(data);
-    }).fail(showAlertMessage('no articles to show'));
+    }).fail(function(){
+        $.toaster({ priority : 'warning', title : 'Newsfeed', message : 'no articles to show'});
+    });
 }
 
 function displayArticles(data){
@@ -68,15 +73,22 @@ function welcome(){
     $('#timeTravelTrigger').prop('disabled', true);
 }
 
-function showAlertMessage(message){
-    var html = '<div class="alert alert-warning alert-dismissible fade in" role="alert" data-spy="affix" data-offset-top="60" data-offset-bottom="200">'+
-        '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
-        '<strong>Holy guacamole!</strong> '+message+' </div>';
-    $('#notificationBox').append(html);
-}
-
 function tabClicker(){
     var tabbedArray = ["ticket-tab", "newsfeed-tab", "groupLeaderboard-tab", "player-leaderboard-tab", "graph-tab"];
     var selectedTabIndex = Math.floor((Math.random() * tabbedArray.length));
     $("#" + tabbedArray[selectedTabIndex]).trigger("click");
 }
+
+/* these warning messages have been replaced with toaster - http://www.jqueryscript.net/other/jQuery-Bootstrap-Based-Toast-Notification-Plugin-toaster.html
+
+function showTicketErrorMessage() {
+ $('#ticketList').empty().append('<div class="alert alert-danger" role="alert">Something went wrong... these aren\'t the tickets you are looking for...</div>');
+ }
+
+ function showAlertMessage(message){
+ var html = '<div class="alert alert-warning alert-dismissible fade in" role="alert" data-spy="affix" data-offset-top="60" data-offset-bottom="200">'+
+ '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>'+
+ '<strong>Holy guacamole!</strong> '+message+' </div>';
+ $('#notificationBox').append(html);
+ }
+ */
