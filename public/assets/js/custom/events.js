@@ -4,12 +4,18 @@
  * jQuery event handling
  * */
 
- function renderEvents() {
+ /**
+ * appends html dynamic dates and the number of tickets open.
+ * Must only be run once all the ajax requests are completed
+ */
+ function appendPageElements(){
+     $('#startTimeLabel').append(moment().startOf('month').format('MMMM Do YYYY'));
+     $('#endTimeLabel').append(moment().format('MMMM Do YYYY'));
+     $('#ticketNumber').empty().append(_openTicketsData.length);
+ }
 
-    $('#startTimeLabel').append(moment().startOf('month').format('MMMM Do YYYY'));
-    $('#endTimeLabel').append(moment().format('MMMM Do YYYY'));
-    $('#ticketNumber').empty().append(_openTicketsData.length);
-    $('#notificationBox').empty().append('<p></p>');
+
+ function renderEvents() {
 
 
     /**
@@ -102,6 +108,9 @@
     $("#timeTravelTrigger").click(function () {
         var start = replaceAll('/', '-', $('#startDatePicker').val());
         var end = replaceAll('/', '-', $('#endDatePicker').val());
+        _pagination["ticket"] = 1;
+        _pagination["groupLeaderBoard"] = 1;
+        updatePageNumber();
         getOpenTicketData(start, end);
         var link = generateLink('resolved',start, end);
         getAjaxData(link).done(function(data){

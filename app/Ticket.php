@@ -71,21 +71,21 @@ class Ticket extends Model {
                 $points = 1;
                 break;
             default:
-                $points = 1;
+                $points = 0;
         }
 
         switch($ticket->type){
             case "Incident":
-                $points += 10;
+                $points += 7;
                 break;
             case "Service Request":
                 $points += 5;
                 break;
             case "Problem":
-                $points += 7;
+                $points += 10;
                 break;
             default:
-                $points += 1;
+                $points += 0;
         }
 
         if( $ticket->percentage > 40){

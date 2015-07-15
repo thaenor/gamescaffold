@@ -25,6 +25,7 @@ $(document).ready(function () {
     getResolvedAndReopenedTicketData();
     //getChallenges();
     getArticles();
+    renderEvents();
     setInterval(function () {
         tabClicker();
     }, 300000);
@@ -33,6 +34,7 @@ $(document).ready(function () {
 
 $(document).ajaxStop(function () {
 	$.toaster({ priority : 'info', title : 'Notice', message : 'ajax done'});
+    appendPageElements();
     drawMorrisDonnutChart();
 });
 

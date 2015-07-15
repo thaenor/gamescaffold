@@ -78,7 +78,7 @@
                     </button>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Dropdown <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
                     <ul class="dropdown-menu">
                         <li class="disabled"><a href="#">Login</a></li>
                         <li role="separator" class="divider"></li>
@@ -171,7 +171,7 @@
 
 
 
-                    <div class="row col-lg-7">
+                    <div class="row col-lg-12 col-md-12">
                         <div>
                             <ul class="list-group pullUp" id="ticketList">
                                 <!-- LIST WITH TICKETS -->
@@ -369,7 +369,7 @@
                                   <tbody id='playerlist'></tbody>
                                 </table> -->
             </div>
-            <div id="playerList" class="list-group"></div>
+            <div id="playerList" class="list-group col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>

@@ -8,8 +8,8 @@ function getOpenTicketData(start,end){
     var link = generateLink('open', start, end);
     getAjaxData(link).done(function(data) {
         _openTicketsData = data;
+        _openTicketsData.sort(sort_by('priority',false,function(a){return a.toUpperCase()}));
         ticketPagination(data);
-        renderEvents();
     }).fail(function(){
         $.toaster({ priority : 'danger', title : 'Tickets', message : 'The server monkeys misplaced the tickets'})
     });
@@ -35,6 +35,23 @@ function replaceAll(find, replace, str) {
     return str.replace(new RegExp(find, 'g'), replace);
 }
 
+
+var sort_by = function(field, reverse, primer){
+
+    var key = primer ?
+        function(x) {return primer(x[field])} :
+        function(x) {return x[field]};
+
+    reverse = !reverse ? 1 : -1;
+
+    return function (a, b) {
+        return a = key(a), b = key(b), reverse * ((a > b) - (b > a));
+    }
+};
+/*
+ // Sort by city, case-insensitive, A-Z
+ homes.sort(sort_by('city', false, function(a){return a.toUpperCase()}));
+* */
 
 /**
  * Draws a page in the tickets tab. Currently this displays _recPerPage records per page.
@@ -128,6 +145,9 @@ function renderPlayerDetailtModal(playerName){
                 lowCount++;
                 lowPointCount += 1;
                 break;
+            default:
+                console.log("Warning: default in priority switch case. This is not fatal");
+                break;
         }
         switch(el.type) {
             case "Incident":
@@ -142,6 +162,9 @@ function renderPlayerDetailtModal(playerName){
                 problemCount++;
                 problemPointCount += 5;
                 break;
+            default:
+                console.log("Warning: default in type switch case. This is not fatal");
+                break;
         }
 
         if(el.percentage > 40) {
@@ -152,9 +175,7 @@ function renderPlayerDetailtModal(playerName){
             }
             if (el.percentage > 100) {
                 slaPenalty = el.points - (el.points * (el.percentage / 100));
-                alert(slaPenalty);
                 slaPenalty = Math.floor(slaPenalty);
-                alert(slaPenalty);
                 slaOutput = "<li class='list-group-item list-group-item-danger'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> <abbr title='sla went KAPUT!'> blew up!1! </abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points Lost</span> </li>";
             }
         } /*else {
@@ -166,8 +187,8 @@ function renderPlayerDetailtModal(playerName){
         '<li class="list-group-item list-group-item-danger">' +criticalCount+ ' were P1-Critical <span class="badge">'+criticalPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-warning">'+ highCount + ' were P2 - High <span class="badge">'+highPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-info">'+ mediumCount + ' were P3 - Medium <span class="badge">'+mediumPointCount+' Points</span></li>'+
-        '<li class="list-group-item"> <u> point analysis based on type </u> </li>'+
         '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P1 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
+        '<li class="list-group-item"> <u> point analysis based on type </u> </li>'+
         '<li class="list-group-item list-group-item-danger">'+ incidentCount + ' were incidents <span class="badge">'+incidentPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were P2 - problems <span class="badge">'+problemPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were P2 - service requests <span class="badge">'+srPointCount+' Points</span></li> ' +
