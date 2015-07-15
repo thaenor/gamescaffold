@@ -138,7 +138,7 @@
         <div class="panel-body">
             <div class="tab-content">
                 <div class="tab-pane fade active in" id="ticketDisplayScreen">
-                    <nav class="col-xs-12 col-md-7 col-sm-7 col-lg-7">
+                    <nav class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
                         <ul class="pager">
                             <li class="previous">
                                 <a href="#">
