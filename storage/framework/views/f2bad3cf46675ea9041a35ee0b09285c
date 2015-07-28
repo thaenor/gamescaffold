@@ -1,0 +1,39 @@
+<?php $__env->startSection('content'); ?>
+    <div class="page-header">
+        <h1>Articles / Show </h1>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <form action="#">
+                <div class="form-group">
+                    <label for="nome">ID</label>
+                    <p class="form-control-static"><?php echo e($article->id); ?></p>
+                </div>
+                <div class="form-group">
+                     <label for="title">TITLE</label>
+                     <p class="form-control-static"><?php echo e($article->title); ?></p>
+                </div>
+                    <div class="form-group">
+                     <label for="body">BODY</label>
+                     <p class="form-control-static"><?php echo e($article->body); ?></p>
+                </div>
+                    <div class="form-group">
+                     <label for="author">AUTHOR</label>
+                     <p class="form-control-static"><?php echo e($article->author); ?></p>
+                </div>
+            </form>
+
+
+
+            <a class="btn btn-default" href="<?php echo e(route('articles.index')); ?>">Back</a>
+            <a class="btn btn-warning" href="<?php echo e(route('articles.edit', $article->id)); ?>">Edit</a>
+            <form action="#/$article->id" method="DELETE" style="display: inline;" onsubmit="if(confirm('Delete? Are you sure?')) { return true } else {return false };"><button class="btn btn-danger" type="submit">Delete</button></form>
+        </div>
+    </div>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

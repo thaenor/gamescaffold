@@ -1,0 +1,11 @@
+Pessoa = X points
+
+Ticket -> Y Points
+
+Ticket:
+	prioridade -> p[1, 5]		(1 = Urgent | 5 = low )
+	max_solution_time -> mst[Tempo Minimo para resolver um ticket] (0 = infinito)
+	created_at: 
+	updated_at:
+
+	(max_solution_time - Tempo que demorou a ser resolvido) / prioridade

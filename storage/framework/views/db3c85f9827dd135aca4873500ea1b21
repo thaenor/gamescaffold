@@ -1,0 +1,41 @@
+<?php $__env->startSection('content'); ?>
+    <div class="page-header">
+        <h1>Articles / Edit </h1>
+    </div>
+
+
+    <div class="row">
+        <div class="col-md-12">
+
+            <form action="<?php echo e(route('articles.update', $article->id)); ?>" method="POST">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="_token" value="<?php echo e(csrf_token()); ?>">
+
+                <div class="form-group">
+                    <label for="nome">ID</label>
+                    <p class="form-control-static"><?php echo e($article->id); ?></p>
+                </div>
+                <div class="form-group">
+                     <label for="title">TITLE</label>
+                     <input type="text" name="title" class="form-control" value="<?php echo e($article->title); ?>"/>
+                </div>
+                    <div class="form-group">
+                     <label for="body">BODY</label>
+                     <input type="text" name="body" class="form-control" value="<?php echo e($article->body); ?>"/>
+                </div>
+                    <div class="form-group">
+                     <label for="author">AUTHOR</label>
+                     <input type="text" name="author" class="form-control" value="<?php echo e($article->author); ?>"/>
+                </div>
+
+
+
+            <a class="btn btn-default" href="<?php echo e(route('articles.index')); ?>">Back</a>
+            <button class="btn btn-primary" type="submit" >Save</a>
+            </form>
+        </div>
+    </div>
+
+
+<?php $__env->stopSection(); ?>
+<?php echo $__env->make('layout', array_except(get_defined_vars(), array('__data', '__path')))->render(); ?>

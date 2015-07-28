@@ -257,7 +257,6 @@ function updateTicketToDB($object){
     }
     $ticket->priority = $object->priority;
     $ticket->state = $object->state;
-    $ticket->created_at = $object->create_time;
     $ticket->updated_at = $object->change_time;
     $ticket->updateTicketPoints($ticket);
     $ticket->save();

@@ -1,0 +1,777 @@
+[2015-07-02 16:07:11] local.ERROR: exception 'InvalidArgumentException' with message 'Command "make:job" is not defined.
+
+Did you mean one of these?
+    make:request
+    make:migration
+    make:controller
+    make:middleware
+    make:provider
+    make:model
+    make:command
+    make:console
+    make:event
+    make:scaffold' in C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php:549
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(192): Symfony\Component\Console\Application->find('make:job')
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
+[2015-07-02 16:11:49] local.ERROR: exception 'InvalidArgumentException' with message 'Command "make:job" is not defined.
+
+Did you mean one of these?
+    make:request
+    make:migration
+    make:controller
+    make:middleware
+    make:provider
+    make:model
+    make:command
+    make:console
+    make:event
+    make:scaffold' in C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php:549
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(192): Symfony\Component\Console\Application->find('make:job')
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
+[2015-07-02 16:27:32] local.ERROR: exception 'InvalidArgumentException' with message 'Command "make:job" is not defined.
+
+Did you mean one of these?
+    make:request
+    make:migration
+    make:controller
+    make:middleware
+    make:provider
+    make:model
+    make:command
+    make:console
+    make:event
+    make:scaffold' in C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php:549
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(192): Symfony\Component\Console\Application->find('make:job')
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
+[2015-07-02 17:19:23] local.ERROR: exception 'BadMethodCallException' with message 'Method [fetchResolvedTicketJsonDefault] does not exist.' in C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Controller.php:273
+Stack trace:
+#0 [internal function]: Illuminate\Routing\Controller->__call('fetchResolvedTi...', Array)
+#1 [internal function]: App\Http\Controllers\ApiController->fetchResolvedTicketJsonDefault()
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Controller.php(246): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(162): Illuminate\Routing\Controller->callAction('fetchResolvedTi...', Array)
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(107): Illuminate\Routing\ControllerDispatcher->call(Object(App\Http\Controllers\ApiController), Object(Illuminate\Routing\Route), 'fetchResolvedTi...')
+#5 [internal function]: Illuminate\Routing\ControllerDispatcher->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#7 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(108): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(67): Illuminate\Routing\ControllerDispatcher->callWithinStack(Object(App\Http\Controllers\ApiController), Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'fetchResolvedTi...')
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Route.php(204): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'App\\Http\\Contro...', 'fetchResolvedTi...')
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Route.php(134): Illuminate\Routing\Route->runWithCustomDispatcher(Object(Illuminate\Http\Request))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(701): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#14 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#16 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(703): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(670): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(628): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(214): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#22 [internal function]: Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#24 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(43): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#25 C:\xampp\htdocs\gamescaffold\app\Http\Middleware\VerifyCsrfToken.php(17): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): App\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(55): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\View\Middleware\ShareErrorsFromSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(61): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Session\Middleware\StartSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(36): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(40): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Cookie\Middleware\EncryptCookies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode.php(42): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode->handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#38 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#39 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(115): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#40 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(84): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#41 C:\xampp\htdocs\gamescaffold\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#42 {main}  
+[2015-07-02 17:19:37] local.ERROR: exception 'BadMethodCallException' with message 'Method [fetchResolvedTicketJsonDefault] does not exist.' in C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Controller.php:273
+Stack trace:
+#0 [internal function]: Illuminate\Routing\Controller->__call('fetchResolvedTi...', Array)
+#1 [internal function]: App\Http\Controllers\ApiController->fetchResolvedTicketJsonDefault()
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Controller.php(246): call_user_func_array(Array, Array)
+#3 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(162): Illuminate\Routing\Controller->callAction('fetchResolvedTi...', Array)
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(107): Illuminate\Routing\ControllerDispatcher->call(Object(App\Http\Controllers\ApiController), Object(Illuminate\Routing\Route), 'fetchResolvedTi...')
+#5 [internal function]: Illuminate\Routing\ControllerDispatcher->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#7 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(108): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(67): Illuminate\Routing\ControllerDispatcher->callWithinStack(Object(App\Http\Controllers\ApiController), Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'fetchResolvedTi...')
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Route.php(204): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'App\\Http\\Contro...', 'fetchResolvedTi...')
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Route.php(134): Illuminate\Routing\Route->runWithCustomDispatcher(Object(Illuminate\Http\Request))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(701): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#14 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#16 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(703): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(670): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(628): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(214): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#22 [internal function]: Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#24 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(43): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#25 C:\xampp\htdocs\gamescaffold\app\Http\Middleware\VerifyCsrfToken.php(17): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): App\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(55): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\View\Middleware\ShareErrorsFromSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(61): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#30 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Session\Middleware\StartSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#31 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(36): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#32 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#33 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(40): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#34 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Cookie\Middleware\EncryptCookies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#35 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode.php(42): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#36 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode->handle(Object(Illuminate\Http\Request), Object(Closure))
+#37 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#38 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#39 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(115): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#40 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(84): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#41 C:\xampp\htdocs\gamescaffold\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#42 {main}  
+[2015-07-02 18:44:48] local.ERROR: exception 'InvalidArgumentException' with message 'Command "make" is not defined.
+
+Did you mean one of these?
+    make:controller
+    make:middleware
+    make:migration
+    make:provider
+    make:scaffold
+    make:command
+    make:request
+    make:console
+    make:model
+    make:event' in C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php:549
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(192): Symfony\Component\Console\Application->find('make')
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
+[2015-07-02 19:02:19] local.ERROR: exception 'InvalidArgumentException' with message 'Command "CalculatePoints" is not defined.' in C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php:549
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(192): Symfony\Component\Console\Application->find('CalculatePoints')
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
+[2015-07-02 19:02:24] local.ERROR: exception 'InvalidArgumentException' with message 'Command "calculatePoints" is not defined.' in C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php:549
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(192): Symfony\Component\Console\Application->find('calculatePoints')
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 {main}  
+[2015-07-02 19:09:08] local.ERROR: exception 'InvalidArgumentException' with message 'View [tickets.] not found.' in C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php:140
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\View\FileViewFinder.php(77): Illuminate\View\FileViewFinder->findInPaths('tickets.', Array)
+#1 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\View\Factory.php(145): Illuminate\View\FileViewFinder->find('tickets.')
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\helpers.php(592): Illuminate\View\Factory->make('tickets/', Array, Array)
+#3 C:\xampp\htdocs\gamescaffold\app\Http\Controllers\TicketController.php(63): view('tickets/')
+#4 [internal function]: App\Http\Controllers\TicketController->calculatePoints()
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Controller.php(246): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(162): Illuminate\Routing\Controller->callAction('calculatePoints', Array)
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(107): Illuminate\Routing\ControllerDispatcher->call(Object(App\Http\Controllers\TicketController), Object(Illuminate\Routing\Route), 'calculatePoints')
+#8 [internal function]: Illuminate\Routing\ControllerDispatcher->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#10 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(108): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\ControllerDispatcher.php(67): Illuminate\Routing\ControllerDispatcher->callWithinStack(Object(App\Http\Controllers\TicketController), Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'calculatePoints')
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Route.php(204): Illuminate\Routing\ControllerDispatcher->dispatch(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request), 'App\\Http\\Contro...', 'calculatePoints')
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Route.php(134): Illuminate\Routing\Route->runWithCustomDispatcher(Object(Illuminate\Http\Request))
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(701): Illuminate\Routing\Route->run(Object(Illuminate\Http\Request))
+#17 [internal function]: Illuminate\Routing\Router->Illuminate\Routing\{closure}(Object(Illuminate\Http\Request))
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#19 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(703): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(670): Illuminate\Routing\Router->runRouteWithinStack(Object(Illuminate\Routing\Route), Object(Illuminate\Http\Request))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Routing\Router.php(628): Illuminate\Routing\Router->dispatchToRoute(Object(Illuminate\Http\Request))
+#24 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(214): Illuminate\Routing\Router->dispatch(Object(Illuminate\Http\Request))
+#25 [internal function]: Illuminate\Foundation\Http\Kernel->Illuminate\Foundation\Http\{closure}(Object(Illuminate\Http\Request))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\VerifyCsrfToken.php(43): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#28 C:\xampp\htdocs\gamescaffold\app\Http\Middleware\VerifyCsrfToken.php(17): Illuminate\Foundation\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#29 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): App\Http\Middleware\VerifyCsrfToken->handle(Object(Illuminate\Http\Request), Object(Closure))
+#30 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\View\Middleware\ShareErrorsFromSession.php(55): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#31 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\View\Middleware\ShareErrorsFromSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#32 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Session\Middleware\StartSession.php(61): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#33 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Session\Middleware\StartSession->handle(Object(Illuminate\Http\Request), Object(Closure))
+#34 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse.php(36): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#35 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse->handle(Object(Illuminate\Http\Request), Object(Closure))
+#36 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Cookie\Middleware\EncryptCookies.php(40): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#37 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Cookie\Middleware\EncryptCookies->handle(Object(Illuminate\Http\Request), Object(Closure))
+#38 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode.php(42): Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#39 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(125): Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode->handle(Object(Illuminate\Http\Request), Object(Closure))
+#40 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(Illuminate\Http\Request))
+#41 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(Illuminate\Http\Request))
+#42 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(115): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#43 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Http\Kernel.php(84): Illuminate\Foundation\Http\Kernel->sendRequestThroughRouter(Object(Illuminate\Http\Request))
+#44 C:\xampp\htdocs\gamescaffold\public\index.php(53): Illuminate\Foundation\Http\Kernel->handle(Object(Illuminate\Http\Request))
+#45 {main}  
+[2015-07-02 22:27:21] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Commands\Ticket' not found' in C:\xampp\htdocs\gamescaffold\app\Commands\calculatePoints.php:33
+Stack trace:
+#0 {main}  
+[2015-07-02 22:43:18] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Call to undefined function App\Commands\syncDBs()' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:37
+Stack trace:
+#0 {main}  
+[2015-07-02 22:44:21] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'App\Commands\sync::handle(): Failed opening required 'otrsDAL.php' (include_path='.;C:\xampp\php\PEAR')' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:34
+Stack trace:
+#0 {main}  
+[2015-07-02 22:44:56] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'App\Commands\sync::handle(): Failed opening required '../Http/Controllers/otrsDAL.php' (include_path='.;C:\xampp\php\PEAR')' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:34
+Stack trace:
+#0 {main}  
+[2015-07-02 22:45:21] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'App\Commands\sync::handle(): Failed opening required '../Http/Controllers/otrsDAL.php' (include_path='.;C:\xampp\php\PEAR')' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:34
+Stack trace:
+#0 {main}  
+[2015-07-02 22:48:45] local.ERROR: exception 'Symfony\Component\Process\Exception\ProcessTimedOutException' with message 'The process ""C:\xampp\php\php.exe" artisan queue:work  --queue="default" --delay=0 --memory=128 --sleep=3 --tries=0 --env=local" exceeded the timeout of 60 seconds.' in C:\xampp\htdocs\gamescaffold\vendor\symfony\process\Symfony\Component\Process\Process.php:1219
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\process\Symfony\Component\Process\Process.php(356): Symfony\Component\Process\Process->checkTimeout()
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\process\Symfony\Component\Process\Process.php(210): Symfony\Component\Process\Process->wait()
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Listener.php(94): Symfony\Component\Process\Process->run(Object(Closure))
+#3 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Listener.php(78): Illuminate\Queue\Listener->runProcess(Object(Symfony\Component\Process\Process), 128)
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\ListenCommand.php(71): Illuminate\Queue\Listener->listen(NULL, 'default', 0, 128, 60)
+#5 [internal function]: Illuminate\Queue\Console\ListenCommand->fire()
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#8 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\ListenCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 {main}  
+[2015-07-02 22:48:59] local.ERROR: Error syncing both databases, more details: exception 'ErrorException' with message 'pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: No route to host (0x00002751/10065)
+	Is the server running on host "10.200.10.54" and accepting
+	TCP/IP connections on port 5432?' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:27
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_connect(): U...', 'C:\\xampp\\htdocs...', 27, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(27): pg_connect('host=10.200.10....')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(104): connect()
+#3 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(38): syncDBs(206831)
+#4 [internal function]: App\Commands\sync->handle()
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#7 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#9 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#19 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#22 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#29 {main}  
+[2015-07-02 22:49:00] local.ERROR: Error syncing both databases, more details: exception 'ErrorException' with message 'pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: No route to host (0x00002751/10065)
+	Is the server running on host "10.200.10.54" and accepting
+	TCP/IP connections on port 5432?' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:27
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_connect(): U...', 'C:\\xampp\\htdocs...', 27, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(27): pg_connect('host=10.200.10....')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(104): connect()
+#3 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(38): syncDBs(206831)
+#4 [internal function]: App\Commands\sync->handle()
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#7 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#9 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#19 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#22 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#29 {main}  
+[2015-07-02 22:49:00] local.ERROR: Error syncing both databases, more details: exception 'ErrorException' with message 'pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: No route to host (0x00002751/10065)
+	Is the server running on host "10.200.10.54" and accepting
+	TCP/IP connections on port 5432?' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:27
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_connect(): U...', 'C:\\xampp\\htdocs...', 27, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(27): pg_connect('host=10.200.10....')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(104): connect()
+#3 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(38): syncDBs(206831)
+#4 [internal function]: App\Commands\sync->handle()
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#7 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#9 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#19 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#22 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#29 {main}  
+[2015-07-02 22:49:01] local.ERROR: Error syncing both databases, more details: exception 'ErrorException' with message 'pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: No route to host (0x00002751/10065)
+	Is the server running on host "10.200.10.54" and accepting
+	TCP/IP connections on port 5432?' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:27
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_connect(): U...', 'C:\\xampp\\htdocs...', 27, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(27): pg_connect('host=10.200.10....')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(104): connect()
+#3 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(38): syncDBs(206831)
+#4 [internal function]: App\Commands\sync->handle()
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#7 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#9 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#19 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#22 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#29 {main}  
+[2015-07-02 22:49:01] local.ERROR: Error syncing both databases, more details: exception 'ErrorException' with message 'pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: No route to host (0x00002751/10065)
+	Is the server running on host "10.200.10.54" and accepting
+	TCP/IP connections on port 5432?' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:27
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_connect(): U...', 'C:\\xampp\\htdocs...', 27, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(27): pg_connect('host=10.200.10....')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(104): connect()
+#3 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(38): syncDBs(206831)
+#4 [internal function]: App\Commands\sync->handle()
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#7 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#9 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#19 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#22 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#29 {main}  
+[2015-07-02 22:50:01] local.ERROR: Error syncing both databases, more details: exception 'ErrorException' with message 'pg_connect(): Unable to connect to PostgreSQL server: could not connect to server: No route to host (0x00002751/10065)
+	Is the server running on host "10.200.10.54" and accepting
+	TCP/IP connections on port 5432?' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:27
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_connect(): U...', 'C:\\xampp\\htdocs...', 27, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(27): pg_connect('host=10.200.10....')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(104): connect()
+#3 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(38): syncDBs(206831)
+#4 [internal function]: App\Commands\sync->handle()
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#7 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#8 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#9 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#18 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#19 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#22 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#29 {main}  
+[2015-07-02 22:51:31] local.ERROR: exception 'Symfony\Component\Process\Exception\ProcessTimedOutException' with message 'The process ""C:\xampp\php\php.exe" artisan queue:work  --queue="default" --delay=0 --memory=128 --sleep=3 --tries=0 --env=local" exceeded the timeout of 60 seconds.' in C:\xampp\htdocs\gamescaffold\vendor\symfony\process\Symfony\Component\Process\Process.php:1219
+Stack trace:
+#0 C:\xampp\htdocs\gamescaffold\vendor\symfony\process\Symfony\Component\Process\Process.php(356): Symfony\Component\Process\Process->checkTimeout()
+#1 C:\xampp\htdocs\gamescaffold\vendor\symfony\process\Symfony\Component\Process\Process.php(210): Symfony\Component\Process\Process->wait()
+#2 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Listener.php(94): Symfony\Component\Process\Process->run(Object(Closure))
+#3 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Listener.php(78): Illuminate\Queue\Listener->runProcess(Object(Symfony\Component\Process\Process), 128)
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\ListenCommand.php(71): Illuminate\Queue\Listener->listen(NULL, 'default', 0, 128, 60)
+#5 [internal function]: Illuminate\Queue\Console\ListenCommand->fire()
+#6 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#8 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#10 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#11 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\ListenCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#12 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#14 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#15 {main}  
+[2015-07-02 22:51:57] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Commands\Storage' not found' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:44
+Stack trace:
+#0 {main}  
+[2015-07-02 22:51:59] local.WARNING: Nothing to sync.  
+[2015-07-02 22:51:59] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Commands\Storage' not found' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:44
+Stack trace:
+#0 {main}  
+[2015-07-02 22:52:01] local.WARNING: Nothing to sync.  
+[2015-07-02 22:52:01] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Commands\Storage' not found' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:44
+Stack trace:
+#0 {main}  
+[2015-07-02 22:52:03] local.WARNING: Nothing to sync.  
+[2015-07-02 22:52:03] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Commands\Storage' not found' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:44
+Stack trace:
+#0 {main}  
+[2015-07-02 22:52:05] local.WARNING: Nothing to sync.  
+[2015-07-02 22:52:05] local.ERROR: exception 'Symfony\Component\Debug\Exception\FatalErrorException' with message 'Class 'App\Commands\Storage' not found' in C:\xampp\htdocs\gamescaffold\app\Commands\sync.php:44
+Stack trace:
+#0 {main}  
+[2015-07-02 22:52:55] local.WARNING: Nothing to sync.  
+[2015-07-02 22:53:00] local.WARNING: Nothing to sync.  
+[2015-07-02 22:53:00] local.WARNING: Nothing to sync.  
+[2015-07-02 22:53:02] local.WARNING: Nothing to sync.  
+[2015-07-02 22:53:02] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
+[2015-07-02 22:53:04] local.WARNING: Nothing to sync.  
+[2015-07-02 22:53:04] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
+[2015-07-02 22:53:05] local.WARNING: Nothing to sync.  
+[2015-07-02 22:53:05] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
+[2015-07-02 22:53:07] local.WARNING: Nothing to sync.  
+[2015-07-02 22:53:07] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
+[2015-07-02 22:54:20] local.WARNING: Nothing to sync.  
+[2015-07-02 22:54:20] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
+[2015-07-02 22:54:22] local.WARNING: Nothing to sync.  
+[2015-07-02 22:54:22] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
+[2015-07-02 22:54:24] local.WARNING: Nothing to sync.  
+[2015-07-02 22:54:24] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
+[2015-07-02 22:54:25] local.WARNING: Nothing to sync.  
+[2015-07-02 22:54:25] local.ERROR: Error syncing ticket updates, more details: exception 'ErrorException' with message 'pg_query(): Query failed: ERROR:  syntax error at or near "ORDER"
+LINE 11: ORDER BY th.id DESC
+         ^' in C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php:139
+Stack trace:
+#0 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(2, 'pg_query(): Que...', 'C:\\xampp\\htdocs...', 139, Array)
+#1 C:\xampp\htdocs\gamescaffold\app\Commands\otrsDAL.php(139): pg_query('SELECT th.id, t...')
+#2 C:\xampp\htdocs\gamescaffold\app\Commands\sync.php(46): updateChangedTickets('')
+#3 [internal function]: App\Commands\sync->handle()
+#4 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#5 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(202): Illuminate\Container\Container->call(Array)
+#6 [internal function]: Illuminate\Bus\Dispatcher->Illuminate\Bus\{closure}(Object(App\Commands\sync))
+#7 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(141): call_user_func(Object(Closure), Object(App\Commands\sync))
+#8 [internal function]: Illuminate\Pipeline\Pipeline->Illuminate\Pipeline\{closure}(Object(App\Commands\sync))
+#9 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Pipeline\Pipeline.php(101): call_user_func(Object(Closure), Object(App\Commands\sync))
+#10 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Bus\Dispatcher.php(215): Illuminate\Pipeline\Pipeline->then(Object(Closure))
+#11 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\CallQueuedHandler.php(42): Illuminate\Bus\Dispatcher->dispatchNow(Object(App\Commands\sync), Object(Closure))
+#12 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\Job.php(126): Illuminate\Queue\CallQueuedHandler->call(Object(Illuminate\Queue\Jobs\DatabaseJob), Array)
+#13 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Jobs\DatabaseJob.php(48): Illuminate\Queue\Jobs\Job->resolveAndFire(Array)
+#14 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(207): Illuminate\Queue\Jobs\DatabaseJob->fire()
+#15 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Worker.php(159): Illuminate\Queue\Worker->process('database', Object(Illuminate\Queue\Jobs\DatabaseJob), '0', '0')
+#16 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(110): Illuminate\Queue\Worker->pop(NULL, 'default', '0', '3', '0')
+#17 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Queue\Console\WorkCommand.php(70): Illuminate\Queue\Console\WorkCommand->runWorker(NULL, 'default', '0', '128', false)
+#18 [internal function]: Illuminate\Queue\Console\WorkCommand->fire()
+#19 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Container\Container.php(526): call_user_func_array(Array, Array)
+#20 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(115): Illuminate\Container\Container->call(Array)
+#21 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Command\Command.php(257): Illuminate\Console\Command->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#22 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Console\Command.php(101): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#23 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(874): Illuminate\Console\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#24 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(195): Symfony\Component\Console\Application->doRunCommand(Object(Illuminate\Queue\Console\WorkCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#25 C:\xampp\htdocs\gamescaffold\vendor\symfony\console\Symfony\Component\Console\Application.php(126): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#26 C:\xampp\htdocs\gamescaffold\vendor\laravel\framework\src\Illuminate\Foundation\Console\Kernel.php(94): Symfony\Component\Console\Application->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#27 C:\xampp\htdocs\gamescaffold\artisan(36): Illuminate\Foundation\Console\Kernel->handle(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#28 {main}  
