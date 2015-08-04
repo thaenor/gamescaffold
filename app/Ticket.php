@@ -3,7 +3,10 @@
 use DateTime;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use kintParser;
+use Psy\Exception\Exception;
 
 class Ticket extends Model {
 
@@ -118,6 +121,25 @@ class Ticket extends Model {
                 $team->updateTeam($t->assignedGroup_id, $t->points);
             }
         } else {
+            exit(1);
+        }
+    }
+
+    public static function sync()
+    {
+        try{
+            $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
+            syncDBs($lastTicketId); //202325
+        } catch(exception $e){
+            Log::error('Overall sync error: '.$e);
+            exit(1);
+        }
+        try{
+            $lastId = Storage::disk('local')->get('lastid.txt');
+            $newLastId = updateChangedTickets($lastId);
+            Storage::disk('local')->put('lastid.txt', $newLastId);
+        } catch(exception $e){
+            Log::error('error updating ticket state: '.$e);
             exit(1);
         }
     }

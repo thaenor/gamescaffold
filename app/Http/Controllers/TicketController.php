@@ -41,21 +41,7 @@ class TicketController extends Controller {
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Routing\Redirector
      */
     public function sync(){
-        try{
-            $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
-            syncDBs($lastTicketId); //202325
-        } catch(exception $e){
-            Log::error('Overall sync error: '.$e);
-            exit(1);
-        }
-        try{
-            $lastId = Storage::disk('local')->get('lastid.txt');
-            $newLastId = updateChangedTickets($lastId);
-            Storage::disk('local')->put('lastid.txt', $newLastId);
-        } catch(exception $e){
-            Log::error('error updating ticket state: '.$e);
-            exit(1);
-        }
+        Ticket::sync();
         echo "sync done";
     }
 
