@@ -130,7 +130,8 @@ function updateChangedTickets($lastUpdateId){
     owner_id AS player_id,
     g.id AS team_id,
     th.create_time,
-    th.change_time
+    th.change_time,
+    t.percentage AS percentage
     FROM ticket_history th
     JOIN ticket_priority tp ON tp.id = th.priority_id
     JOIN ticket_state ts ON ts.id = th.state_id
@@ -138,6 +139,7 @@ function updateChangedTickets($lastUpdateId){
     JOIN queue ON queue.id = th.queue_id
     JOIN ticket_type tt ON tt.id = th.type_id
     JOIN groups g ON g.id = queue.id
+    JOIN ticket t ON t.id = th.ticket_id
     WHERE th.id > $lastUpdateId
     ORDER BY th.id ASC";
 
@@ -257,6 +259,7 @@ function updateTicketToDB($object){
     }
     $ticket->priority = $object->priority;
     $ticket->state = $object->state;
+    $ticket->percentage = $object->percentage;
     $ticket->updated_at = $object->change_time;
     $ticket->updateTicketPoints($ticket);
     $ticket->save();
