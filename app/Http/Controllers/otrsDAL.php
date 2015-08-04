@@ -152,7 +152,7 @@ function updateChangedTickets($lastUpdateId){
         }
         $data = (array_values(pg_fetch_all($result)));
         $chunkOfData = array_chunk($data, 100);
-        Storage::disk('local')->put('lastIdToCalculate.txt', $chunkOfData[0][0]['id']);
+        //Storage::disk('local')->put('lastIdToCalculate.txt', $chunkOfData[0][0]['id']);
         foreach ($chunkOfData as $chunk) {
             updateChunkToDB($chunk);
         }

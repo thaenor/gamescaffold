@@ -37,7 +37,7 @@ class Ticket extends Model {
      * @return mixed
      */
     public static function getOpenTicketsBetween ($start, $end){
-        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','=','open')->get();
+        return Ticket::where('created_at', '>=', $start)->where('created_at', '<=', $end)->where('state','!=','closed','AND','state','!=','resolved')->get();
     }
 
     public static function getAllOpenTickets(){
@@ -136,11 +136,24 @@ class Ticket extends Model {
         }
         try{
             $lastId = Storage::disk('local')->get('lastid.txt');
-            $newLastId = updateChangedTickets($lastId);
+            updateChangedTickets($lastId);
+            $newLastId = updateLastTicketHistoryId();
             Storage::disk('local')->put('lastid.txt', $newLastId);
         } catch(exception $e){
             Log::error('error updating ticket state: '.$e);
             exit(1);
+        }
+    }
+
+    public static function resetPoints()
+    {
+        $allGroups = Group::all()->get();
+        foreach($allGroups as $group){
+            $group->points = 0;
+        }
+        $allUsers = User::all()->get();
+        foreach($allUsers as $user){
+            $user->points = 0;
         }
     }
 }
