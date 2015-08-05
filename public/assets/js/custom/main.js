@@ -7,7 +7,7 @@ var _barGraphDesignJson = [];
 var _pageTab = "ticket";
 var _pagination = [];
 _pagination["ticket"] = 1;
-_pagination["groupLeaderBoard"] = 1; //means the player leaderboard tab
+_pagination["groupLeaderBoard"] = 1;
 
 var _recPerPage = 10;
 var _groupJson;
@@ -35,7 +35,7 @@ $(document).ready(function () {
 });
 
 $(document).ajaxStop(function () {
-	$.toaster({ priority : 'info', title : 'Notice', message : 'ajax done'});
+	$.toaster({ priority : 'info', title : 'Notice', message : 'Information Refreshed'});
     var lenghtOfOpenTicketsArray = _openTicketsData.length;
     $('#ticketNumber').empty().append(lenghtOfOpenTicketsArray);
     _maxPageOpenTickets = lenghtOfOpenTicketsArray / _recPerPage;
@@ -84,7 +84,8 @@ function welcome(){
 function tabClicker(){
     var tabbedArray = ["ticket-tab", "newsfeed-tab", "groupLeaderboard-tab", "player-leaderboard-tab", "graph-tab"];
     var selectedTabIndex = Math.floor((Math.random() * tabbedArray.length));
-    $("#" + tabbedArray[selectedTabIndex]).trigger("click");
+    var buttonToClick = "#" + tabbedArray[selectedTabIndex];
+    $(buttonToClick).trigger("click");
 }
 
 /* these warning messages have been replaced with toaster - http://www.jqueryscript.net/other/jQuery-Bootstrap-Based-Toast-Notification-Plugin-toaster.html
