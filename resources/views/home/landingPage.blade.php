@@ -239,7 +239,7 @@
                             </div>
 
 
-                            <nav>
+                            <nav id="groupLeaderBoardNav">
                                 <ul class="pager">
                                     <li class="previous">
                                         <a href="#">

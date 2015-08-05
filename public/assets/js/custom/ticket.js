@@ -64,6 +64,10 @@ function ticketPagination(tickets) {
         startRec = Math.max(page - 1, 0) * _recPerPage,
         endRec = Math.min(startRec + _recPerPage, tickets.length);
     var recordsToShow = tickets.slice(startRec, endRec);
+    if(recordsToShow.empty()){
+        $('#ticketList').empty().append("Sorry, there are no tickets to display.");
+        return;
+    }
     $.each(recordsToShow, function (i, currentTicket) {
         if(currentTicket.priority =="1 Critical"){
             $('#ticketList').append('<li class="list-group-item list-group-item-danger"> <a data-toggle="modal" data-target="#ticketModal" href="#'+currentTicket.id+'">' + currentTicket.title + '</a> <span class="pull-right">' + currentTicket.created_at + '</span> <span class="badge">'+currentTicket.percentage+'%</span> </li>');
@@ -127,6 +131,10 @@ function renderPlayerDetailtModal(playerName){
     var ticketsOwnedByPlayer = findPlayers(_resolvedTicketsData,playerName);
     var criticalCount= 0, criticalPointCount= 0, highCount= 0, highPointCount= 0, mediumCount= 0, mediumPointCount= 0, lowCount= 0, lowPointCount=0;
     var incidentCount= 0, incidentPointCount= 0, problemCount= 0, problemPointCount= 0, serviceRequestCount= 0, srPointCount= 0, slaPenalty=0, slaOutput = "";
+    if(ticketsOwnedByPlayer.empty()){
+        $('#playerList').empty().append('Sorry, no players to display');
+        return;
+    }
     $.each(ticketsOwnedByPlayer, function(index,el){
         switch (el.priority){
             case '1 Critical':

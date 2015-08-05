@@ -43,6 +43,7 @@ function reDisplayGroupLeaderBoard(array) {
         $('#grouplist').append('<tr> <td class="success">' + el[0] + '</td>' + '<td class="info">' + el[1] + '</td> </tr>');
         fillBarGraphData(el[0], el[1]);
     });
+    $('#groupLeaderBoardNav').hide();
 }
 
 function showGroupLeaderBoardError() {
