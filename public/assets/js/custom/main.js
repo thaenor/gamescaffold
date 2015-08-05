@@ -7,7 +7,7 @@ var _barGraphDesignJson = [];
 var _pageTab = "ticket";
 var _pagination = [];
 _pagination["ticket"] = 1;
-_pagination["groupLeaderBoard"] = 1;
+_pagination["groupLeaderBoard"] = 1; //means the player leaderboard tab
 
 var _recPerPage = 10;
 var _groupJson;
@@ -15,6 +15,8 @@ var _openTicketsData;
 var _resolvedTicketsData;
 var _reopenedTicketsData;
 var allArticles;
+var _maxPageOpenTickets;
+var _maxPagePlayerLeaderboard;
 
 
 $(document).ready(function () {
@@ -34,7 +36,10 @@ $(document).ready(function () {
 
 $(document).ajaxStop(function () {
 	$.toaster({ priority : 'info', title : 'Notice', message : 'ajax done'});
-    appendPageElements();
+    var lenghtOfOpenTicketsArray = _openTicketsData.length;
+    $('#ticketNumber').empty().append(lenghtOfOpenTicketsArray);
+    _maxPageOpenTickets = lenghtOfOpenTicketsArray / _recPerPage;
+    _maxPagePlayerLeaderboard = _resolvedTicketsData.length / _recPerPage;
     drawMorrisDonnutChart();
 });
 
@@ -73,6 +78,7 @@ function welcome(){
     var greeting = "Good" + ((now.getHours() > 17) ? " evening." : " day.");
     $('#welcome').append(greeting + ' - ');
     $('#timeTravelTrigger').prop('disabled', true);
+    appendPageElements();
 }
 
 function tabClicker(){

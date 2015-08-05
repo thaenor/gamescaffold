@@ -11,7 +11,7 @@ function getOpenTicketData(start,end){
         _openTicketsData.sort(sort_by('priority',false,function(a){return a.toUpperCase()}));
         ticketPagination(data);
     }).fail(function(){
-        $.toaster({ priority : 'danger', title : 'Tickets', message : 'The server monkeys misplaced the tickets'})
+        $.toaster({ priority : 'danger', title : 'Tickets', message : 'No open tickets to show.'})
     });
 }
 

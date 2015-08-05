@@ -6,6 +6,7 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
+    <meta http-equiv="refresh" content="300">
 
     <title>Celfocus Gamification</title>
     <!-- includes at head-->
@@ -57,7 +58,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="disabled"><a href="http://localhost/users"><i class="glyphicon glyphicon-user"></i> My stats</a></li>
+                <li class="disabled"><a href="#"><i class="glyphicon glyphicon-user"></i> My stats</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Backend access <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -99,7 +100,7 @@
                 <div>
                     <ul class="list-inline">
                         <li>
-                            <h4><label id="welcome" class="text-muted"></label> Tickets betweeh <b><label id="startTimeLabel"></label></b> and <b><label
+                            <h4><label id="welcome" class="text-muted"></label> Tickets between <b><label id="startTimeLabel"></label></b> and <b><label
                                             id="endTimeLabel"></label></b></h4>
                         </li>
                         <li class="pull-right hidden-xs">
@@ -127,7 +128,7 @@
             </div>
             <ul class="nav nav-pills nav-justified">
                 <li id="ticket-tab" class="active"><a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
-                <li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>
+                <!--<li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
                 <li id="newsfeed-tab" class="disabled"><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
                 <li id="groupLeaderboard-tab" class=""><a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
                 <li id="player-leaderboard-tab" class=""><a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
@@ -186,9 +187,9 @@
                                 <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
                             </ul>
                         </div>
-                        <div class="col-lg-7">
-                            This could be a place to display ticket data instead of the modal
-                        </div>
+                        <!--<div class="col-lg-7">
+                        This div might be used to display more information
+                        </div>-->
                     </div>
 
                 </div>

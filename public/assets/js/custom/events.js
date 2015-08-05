@@ -11,7 +11,7 @@
  function appendPageElements(){
      $('#startTimeLabel').append(moment().startOf('month').format('MMMM Do YYYY'));
      $('#endTimeLabel').append(moment().format('MMMM Do YYYY'));
-     $('#ticketNumber').empty().append(_openTicketsData.length);
+     //$('#ticketNumber').empty().append(_openTicketsData.length);
  }
 
 
@@ -29,9 +29,17 @@
         updatePageNumber();
         switch (_pageTab) {
             case 'ticket':
+                if(_pagination[_pageTab] >= _maxPageOpenTickets){
+                    _pagination[_pageTab]--;
+                    $.toaster({ priority : 'warning', title : 'Notice', message : 'no more pages to show'});
+                }
                 ticketPagination(_openTicketsData);
                 break;
             case 'groupLeaderBoard':
+                if(_pagination[_pageTab] >= _maxPagePlayerLeaderboard){
+                    _pagination[_pageTab]--;
+                    $.toaster({ priority : 'warning', title : 'Notice', message : 'no more pages to show'});
+                }
                 _barGraphDesignJson = [];
                 leaderBoardPagination(_groupJson);
                 drawMorrisBarGraph();
@@ -48,6 +56,10 @@
      */
     $(".previous").click(function () {
         _pagination[_pageTab]--;
+        if(_pagination[_pageTab] <= 0){
+            _pagination[_pageTab]++;
+            $.toaster({ priority : 'warning', title : 'Notice', message : 'no more pages to show'});
+        }
         updatePageNumber();
         switch (_pageTab) {
             case 'ticket':
@@ -76,6 +88,9 @@
 
     /** search event handling */
     $("#ticketSearchField").keyup(function () {
+        _pagination["ticket"] = 1;
+        _pagination["groupLeaderBoard"] = 1;
+        updatePageNumber();
         var searchResults = searchTickets($("#ticketSearchField").val());
         if (searchResults[0] == 'no results') {
             $('#ticketList').empty().append("<p class=\"well\">Sorry, these aren't the tickets you are looking for</p>");
@@ -120,7 +135,7 @@
             $('#startTimeLabel').empty().append(start);
             $('#endTimeLabel').empty().append(end);
         }).fail(function(){
-            $.toaster({ priority : 'danger', title : 'Internal Error', message : 'Error fetching remote datae write something'});
+            $.toaster({ priority : 'danger', title : 'Internal Error', message : 'No closed/resolved tickets received'});
         });
     });
 
