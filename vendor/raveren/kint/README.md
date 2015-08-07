@@ -25,14 +25,13 @@ Just to list some of the most useful features:
  * Some variable content types have an alternative display - for example you will be able see `JSON` in its raw form - but also as an associative array:
   ![Kint displays data intelligently](http://i.imgur.com/9P57Ror.png)
   There are more than ten custom variable type displays inbuilt and more are added periodically.
-----
 
 
 ## Installation and Usage
 
 One of the main goals of Kint is to be **zero setup**. 
 
-[Download the archive](https://github.com/raveren/kint/releases/download/1.0.0/kint.zip) and simply
+[Download the archive](https://github.com/raveren/kint/releases/download/1.0.2/kint.zip) and simply
 ```php
 <?php
 require '/kint/Kint.class.php';
@@ -42,7 +41,7 @@ require '/kint/Kint.class.php';
 
 ```json
 "require": {
-   "raveren/kint": "1.0.x-dev"
+   "raveren/kint": "^1.0"
 }
 ```
 

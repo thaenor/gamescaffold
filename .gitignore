@@ -1,0 +1,9 @@
+/vendor
+/node_modules
+*.lnk
+/bootstrap/compiled.php
+.env.*.php
+.env.php
+.env
+.idea
+DB_backups/
