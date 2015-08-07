@@ -34,14 +34,12 @@ class ApiController extends Controller {
      */
     public function fetchOpenTicketJson($startTime, $endTime){
         $this->validateInputs($startTime,$endTime);
-        $tickets = Ticket::getOpenTicketsBetween($startTime, $endTime);
-        return $this->filterTickets($tickets);
+        return $tickets = Ticket::getOpenTicketsBetween($startTime, $endTime);
     }
 
     public function fetchClosedTicketJson($startTime, $endTime){
         $this->validateInputs($startTime,$endTime);
-        $tickets = Ticket::getClosedTicketsBetween($startTime, $endTime);
-        return $this->filterTickets($tickets);
+        return $tickets = Ticket::getClosedTicketsBetween($startTime, $endTime);
     }
 
     public function fetchReOpenedTicketJson($startTime, $endTime){
@@ -69,8 +67,7 @@ class ApiController extends Controller {
      */
     public function fetchOpenTicketJsonDefault(){
         $start = new Carbon('first day of this month');
-        $tickets = Ticket::getOpenTicketsBetween($start, Carbon::now());
-        return $this->filterTickets($tickets);
+        return $tickets = Ticket::getOpenTicketsBetween($start, Carbon::now());
     }
 
     public function fetchReopenedTicketJsonDefault(){
@@ -81,8 +78,7 @@ class ApiController extends Controller {
 
     public function fetchClosedTicketJsonDefault(){
         $start = new Carbon('first day of this month');
-        $tickets = Ticket::getClosedTicketsBetween($start,Carbon::now());
-        return $this->filterTickets($tickets);
+        return $tickets = Ticket::getClosedTicketsBetween($start,Carbon::now());
     }
 
     public function fetchArticles(){

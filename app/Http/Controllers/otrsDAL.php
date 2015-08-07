@@ -72,7 +72,8 @@ function getLastIDFromTickets(){
  */
 function syncDBs($lastId){
 
-    $query = "select ti.id,
+    $query = "
+select ti.id,
 	ti.title,
 	ti.user_id,
 	/*us.first_name,
@@ -89,17 +90,20 @@ function syncDBs($lastId){
 	/*ti.type_id,*/
 	type.name AS type_of_ticket,
 	ti.create_time AS cretime,
-	ti.change_time AS chgtime
+	ti.change_time AS chgtime,
+	dynamicval.value_text AS externalid
 from ticket ti
-JOIN ticket_type type ON ti.type_id = type.id
-JOIN sla sl ON ti.sla_id=sl.id
-JOIN ticket_priority tp ON ti.ticket_priority_id=tp.id
-JOIN ticket_state ts ON ti.ticket_state_id=ts.id
-JOIN users us ON ti.user_id=us.id
-JOIN queue q ON ti.queue_id = q.id
-JOIN groups g ON q.group_id = g.id
-WHERE ti.id >= '$lastId'
-order by ti.id";
+LEFT JOIN ticket_type type ON ti.type_id = type.id
+LEFT JOIN sla sl ON ti.sla_id=sl.id
+LEFT JOIN ticket_priority tp ON ti.ticket_priority_id=tp.id
+LEFT JOIN ticket_state ts ON ti.ticket_state_id=ts.id
+LEFT JOIN users us ON ti.user_id=us.id
+LEFT JOIN queue q ON ti.queue_id = q.id
+INNER JOIN groups g ON q.group_id = g.id
+LEFT JOIN (SELECT object_id, value_text FROM  dynamic_field_value WHERE field_id in (16,17)) dynamicval ON ti.id = dynamicval.object_id
+WHERE ti.id >= $lastId
+order by ti.id;
+";
 
     try {
         $dal = connect();
@@ -122,26 +126,36 @@ order by ti.id";
 }
 
 function updateChangedTickets($lastUpdateId){
-    $query = "SELECT th.id,
+    $query = "
+SELECT th.id AS history_id,
     th.ticket_id,
-        tp.name AS priority,
+    tp.name AS priority,
     ts.name AS state,
     tt.name AS ticket_type,
     owner_id AS player_id,
     g.id AS team_id,
-    th.create_time,
     th.change_time,
-    t.percentage AS percentage
+    t.percentage AS percentage,
+    dynamicval.value_text AS externalid
     FROM ticket_history th
-    JOIN ticket_priority tp ON tp.id = th.priority_id
-    JOIN ticket_state ts ON ts.id = th.state_id
-        -- JOIN users ON users.id = th.owner_id   NOT USED IN THE QUERY
-    JOIN queue ON queue.id = th.queue_id
-    JOIN ticket_type tt ON tt.id = th.type_id
-    JOIN groups g ON g.id = queue.id
-    JOIN ticket t ON t.id = th.ticket_id
-    WHERE th.id > $lastUpdateId
-    ORDER BY th.id ASC";
+    LEFT JOIN ticket_priority tp ON tp.id = th.priority_id
+    LEFT JOIN ticket_state ts ON ts.id = th.state_id
+    LEFT JOIN queue ON queue.id = th.queue_id
+    LEFT JOIN ticket_type tt ON tt.id = th.type_id
+    INNER JOIN groups g ON g.id = queue.group_id
+    LEFT JOIN ticket t ON t.id = th.ticket_id
+    LEFT JOIN (
+SELECT a.object_id, a.value_text from dynamic_field_value a inner join
+(
+SELECT object_id, max(id) id
+FROM  dynamic_field_value
+WHERE field_id in (16,17)
+group by object_id
+) b on a.id=b.id
+    ) dynamicval ON th.ticket_id = dynamicval.object_id
+    WHERE th.id >= $lastUpdateId
+    ORDER BY th.id ASC;
+    ";
 
     try {
         $dal = connect();
@@ -223,6 +237,7 @@ function insertTicketToDB($element){
         $ticket->created_at = $element->cretime;
         $ticket->updated_at = $element->chgtime;
         $ticket->user_id = $element->user_id;
+        $ticket->external_id = $element->externalid;
         //tries to locate the user. If it does not exist, the data is imported
         $user = User::find($element->user_id);
         if(!$user){
@@ -261,6 +276,7 @@ function updateTicketToDB($object){
     $ticket->state = $object->state;
     $ticket->percentage = $object->percentage;
     $ticket->updated_at = $object->change_time;
+    $ticket->external_id = $object->externalid;
     $ticket->updateTicketPoints($ticket);
     $ticket->save();
 }

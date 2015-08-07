@@ -64,8 +64,8 @@ function ticketPagination(tickets) {
         startRec = Math.max(page - 1, 0) * _recPerPage,
         endRec = Math.min(startRec + _recPerPage, tickets.length);
     var recordsToShow = tickets.slice(startRec, endRec);
-    if(recordsToShow.empty()){
-        $('#ticketList').empty().append("Sorry, there are no tickets to display.");
+    if(recordsToShow.length <= 0){
+        $.toaster({ priority : 'warning', title : 'No tickets to show', message : ''});
         return;
     }
     $.each(recordsToShow, function (i, currentTicket) {
@@ -131,8 +131,8 @@ function renderPlayerDetailtModal(playerName){
     var ticketsOwnedByPlayer = findPlayers(_resolvedTicketsData,playerName);
     var criticalCount= 0, criticalPointCount= 0, highCount= 0, highPointCount= 0, mediumCount= 0, mediumPointCount= 0, lowCount= 0, lowPointCount=0;
     var incidentCount= 0, incidentPointCount= 0, problemCount= 0, problemPointCount= 0, serviceRequestCount= 0, srPointCount= 0, slaPenalty=0, slaOutput = "";
-    if(ticketsOwnedByPlayer.empty()){
-        $('#playerList').empty().append('Sorry, no players to display');
+    if(ticketsOwnedByPlayer.length <= 0){
+        $.toaster({ priority : 'warning', title : 'No players to show', message : ''});
         return;
     }
     $.each(ticketsOwnedByPlayer, function(index,el){
@@ -230,6 +230,7 @@ function renderTicketDetailsModal(ticketId){
         $("#ticketInfo").empty().append('<ul class="list-group">' +
         '<li class="list-group-item"> id: #'+ticket.id+'</li>' +
         '<li class="list-group-item"> title: '+ticket.title+'</li>' +
+        '<li class="list-group-item"> status: '+ticket.state+'</li>'+
         '<li class="list-group-item"> <b> type: '+ticket.type+'</b> </li>' +
         '<li class="list-group-item"> <b> priority: '+ticket.priority+'</b> </li>' +
         '<li class="list-group-item"> <b> sla: '+ticket.sla+' </b> <span class="badge">'+displayTicketPercentage(ticket.percentage)+'%</span> </li>' +
@@ -238,6 +239,7 @@ function renderTicketDetailsModal(ticketId){
         '<li class="list-group-item"> points: '+ticket.points+'</li>' +
         '<li class="list-group-item"> created at: '+ticket.created_at+'</li>' +
         '<li class="list-group-item"> updated at: '+ticket.updated_at+'</li>' +
+        '<li class="list-group-item"> external ID: '+ticket.external_id+'</li>' +
         '</ul>');
     } else{
         $("#ticketInfo").empty().append('No ticket found');

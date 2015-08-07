@@ -63,7 +63,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
         if($this->experience > 100){
             $this->level++;
             $this->save();
-            $articleUpdater->postAutomatedMessageLevelUp($this->id,$this->level);
+            //$articleUpdater->postAutomatedMessageLevelUp($this->id,$this->level);
         }
     }
 
@@ -80,7 +80,7 @@ class User extends Model implements AuthenticatableContract, CanResetPasswordCon
             $this->points -= 50;
             $this->health_points = 100;
             $this->save();
-            $articleUpdater->postAutomatedMessageDead($this->full_name);
+            //$articleUpdater->postAutomatedMessageDead($this->full_name);
         }
     }
 }

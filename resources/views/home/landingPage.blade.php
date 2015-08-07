@@ -168,6 +168,8 @@
                             <!-- /input-group -->
                         </div>
                         <!-- END search bar -->
+                        <label class="text-muted">click a ticket to view in more detail.
+                        Dates displayed refer to the creation of each ticket</label>
                     </nav>
 
 
@@ -427,6 +429,8 @@ aria-hidden="true">
                         <input type="text" id="endDatePicker">
                     </p>
                     <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
+                <label class="text-secundary text-muted">After clicking 'Go' you can close the window, we'll do the work for you in the background (just please be patient)</label>
+
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

@@ -2,6 +2,15 @@
 
 use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class Article
+ * @package App
+ *
+ * This class was created for a functionality (newsfeed) that was later abandoned.
+ * Automated messages were generated to the newsfeed notifying of level ups and relevant information
+ * This was removed to increase performance, as this was called when tickets were being imported and
+ * having their points calculated
+ */
 class Article extends Model {
 
     public function user()
