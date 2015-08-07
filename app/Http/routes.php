@@ -29,7 +29,7 @@ Route::resource('leagues', 'LeagueController');
 Route::resource('rewards', 'RewardController');
 //Route::resource('users', 'UserController');
 Route::resource('tickets', 'TicketController');
-
+Route::resource('soap', 'SoapController');
 //shhhh! Secret routes are not meant to be used by common mortals
 Route::group(array('prefix' => 'secretRoute'), function()
 {
