@@ -106,7 +106,7 @@ function searchTickets(searchString) {
 }
 
 function findTicket(ticketArray, ticketId){
-    var id = parseInt(ticketId);
+    var id = ticketId;
     for(var i=0; i<ticketArray.length; i++){
         if(ticketArray[i].id === id){
             return ticketArray[i];
@@ -198,8 +198,8 @@ function renderPlayerDetailtModal(playerName){
         '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P1 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
         '<li class="list-group-item"> <u> point analysis based on type </u> </li>'+
         '<li class="list-group-item list-group-item-danger">'+ incidentCount + ' were incidents <span class="badge">'+incidentPointCount+' Points</span></li>'+
-        '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were P2 - problems <span class="badge">'+problemPointCount+' Points</span></li>'+
-        '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were P2 - service requests <span class="badge">'+srPointCount+' Points</span></li> ' +
+        '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were problems <span class="badge">'+problemPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were service requests <span class="badge">'+srPointCount+' Points</span></li> ' +
         '<li class="list-group-item"> <u>warnings</u> </li>'+
         slaOutput+'</ul>'
     );
@@ -235,6 +235,7 @@ function renderTicketDetailsModal(ticketId){
         '<li class="list-group-item"> <b> priority: '+ticket.priority+'</b> </li>' +
         '<li class="list-group-item"> <b> sla: '+ticket.sla+' </b> <span class="badge">'+displayTicketPercentage(ticket.percentage)+'%</span> </li>' +
         '<li class="list-group-item"> <b> assigned to: '+ticket.user_id+' </b> </li>' +
+        '<li class="list-group-item"> <b> total time to solve: '+ticket.sla_time+' minutes</b> </li>' +
         '<li class="list-group-item"> team: '+ticket.assignedGroup_id+'</li>' +
         '<li class="list-group-item"> points: '+ticket.points+'</li>' +
         '<li class="list-group-item"> created at: '+ticket.created_at+'</li>' +

@@ -58,15 +58,15 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="disabled"><a href="http://localhost/users"><i class="glyphicon glyphicon-user"></i> My stats</a></li>
+                <li class="disabled"><a href="#"><i class="glyphicon glyphicon-user"></i> My stats</a></li>
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Backend access <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li><a href="http://localhost/tickets"><i class="glyphicon glyphicon-th-list"></i> all tickets</a></li>
+                        <li><a href="/tickets"><i class="glyphicon glyphicon-th-list"></i> all tickets</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="http://localhost/articles"><i class="glyphicon glyphicon-tasks"></i> all articles</a></li>
+                        <li><a href="/articles"><i class="glyphicon glyphicon-tasks"></i> all articles</a></li>
                         <li role="separator" class="divider"></li>
-                        <li><a href="http://localhost/groups"><i class="glyphicon glyphicon-eye-open"></i> all teams</a></li>
+                        <li><a href="/groups"><i class="glyphicon glyphicon-eye-open"></i> all teams</a></li>
                     </ul>
                 </li>
             </ul>
@@ -81,9 +81,9 @@
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Settings <span class="caret"></span></a>
                     <ul class="dropdown-menu">
-                        <li class="disabled"><a href="#">Login</a></li>
+                        <li class="button"><a href="/auth/login">Login</a></li>
                         <li role="separator" class="divider"></li>
-                        <li class="disabled"><a href="#">Logout</a></li>
+                        <li class="disabled"><a href="/auth/login">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -106,7 +106,7 @@
                         <li class="pull-right hidden-xs">
                             <div class="noti-box">
                                 <span class="icon-box bg-color-red set-icon">
-                                <i class="fa fa-envelope-o"></i>
+                                <i class="glyphicon glyphicon-bell"></i>
                                 </span>
                                 <div class="text-box text-center">
                                     <label id="ticketNumber" class="main-text"></label>
@@ -180,7 +180,7 @@
                                 <!-- LIST WITH TICKETS -->
                             </ul>
                         </div>
-                        <div class="col-md-5 col-lg-5 col-sm-5">
+                        <div class="col-md-2 col-lg-2 col-sm-2 pull-right">
                             <ul class="list-group">
                                 <li class="list-group-item list-group-item-heading">Legend</li>
                                 <li class="list-group-item list-group-item-danger">Red - Critical (P1)</li>

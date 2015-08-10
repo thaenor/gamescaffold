@@ -77,7 +77,8 @@ tickets.points,
 tickets.percentage,
 tickets.created_at,
 tickets.updated_at,
-tickets.external_id
+tickets.external_id,
+tickets.sla_time
 FROM `tickets`
 INNER JOIN users ON users.id = tickets.user_id
 INNER JOIN groups ON groups.id = tickets.assignedGroup_id

@@ -39,7 +39,7 @@ $(document).ajaxStop(function () {
     var lenghtOfOpenTicketsArray = _openTicketsData.length;
     $('#ticketNumber').empty().append(lenghtOfOpenTicketsArray);
     _maxPageOpenTickets = lenghtOfOpenTicketsArray / _recPerPage;
-    _maxPagePlayerLeaderboard = _resolvedTicketsData.length / _recPerPage;
+    _maxPagePlayerLeaderboard = _groupJson.length/_recPerPage;
     drawMorrisDonnutChart();
 });
 

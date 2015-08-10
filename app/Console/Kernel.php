@@ -89,7 +89,7 @@ class Kernel extends ConsoleKernel {
                     $ticket->updateTicketPoints($ticket);
                     $ticket->save();
                 }
-                Log::info('Sucessfully retrieved new tickets.');
+                //Log::info('Sucessfully retrieved new tickets.');
             } catch(exception $e){
                 Log::warning('Something could be going wrong with the webservice communication - '.$e);
             }

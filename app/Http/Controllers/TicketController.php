@@ -19,6 +19,7 @@ class TicketController extends Controller {
 
     public function __construct()
     {
+    	//remove the ['except' => 'index'] to make the index ticket page require login
         $this->middleware('auth', ['except' => 'index']);
     }
     

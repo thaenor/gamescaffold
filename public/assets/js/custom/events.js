@@ -123,20 +123,26 @@
     $("#timeTravelTrigger").click(function () {
         var start = replaceAll('/', '-', $('#startDatePicker').val());
         var end = replaceAll('/', '-', $('#endDatePicker').val());
-        _pagination["ticket"] = 1;
-        _pagination["groupLeaderBoard"] = 1;
-        updatePageNumber();
-        getOpenTicketData(start, end);
-        var link = generateLink('resolved',start, end);
-        getAjaxData(link).done(function(data){
-            _resolvedTicketsData = data;
-            renderPlayerLeaderBoard(data);
-            renderGroupLeaderBoard(data);
-            $('#startTimeLabel').empty().append(start);
-            $('#endTimeLabel').empty().append(end);
-        }).fail(function(){
-            $.toaster({ priority : 'danger', title : 'Internal Error', message : 'No closed/resolved tickets received'});
-        });
+        var now = new Date();
+        if(Date.parse(start) < Date.parse(end) && Date.parse(start) < now) {
+            _pagination["ticket"] = 1;
+            _pagination["groupLeaderBoard"] = 1;
+            updatePageNumber();
+            getOpenTicketData(start, end);
+            var link = generateLink('resolved',start, end);
+            getAjaxData(link).done(function(data){
+                _resolvedTicketsData = data;
+                renderPlayerLeaderBoard(data);
+                renderGroupLeaderBoard(data);
+                $('#startTimeLabel').empty().append(start);
+                $('#endTimeLabel').empty().append(end);
+            }).fail(function(){
+                $.toaster({ priority : 'danger', title : 'Internal Error', message : 'No closed/resolved tickets received'});
+            });
+        }else{
+            alert('You set the "End Date" lower than the start date, or the start date is in the future. Please make sure the dates are correct');
+        }
+        
     });
 
 
@@ -166,14 +172,14 @@
     });
 
 
-    /** Attach a delegated event handler */
+    /** Event that triggers modal with player points details. Attach a delegated event handler */
     $( "#playerLeaderboard" ).on( "click", "a", function( event ) {
         event.preventDefault();
         $("#playerDetails").empty().append( $(this).text()+'\'s information');
         renderPlayerDetailtModal($(this).text());
     });
 
-
+    /** Event that triggers modal with ticket details */
     $("#ticketList").on("click","a",function(event){
         event.preventDefault();
         var title = $(this).text();
