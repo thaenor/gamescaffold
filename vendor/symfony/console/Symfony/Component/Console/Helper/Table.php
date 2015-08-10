@@ -165,7 +165,7 @@ class Table
         if ($row instanceof TableSeparator) {
             $this->rows[] = $row;
 
-            return $this;
+            return;
         }
 
         if (!is_array($row)) {

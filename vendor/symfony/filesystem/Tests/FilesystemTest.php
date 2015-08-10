@@ -673,7 +673,7 @@ class FilesystemTest extends FilesystemTestCase
      */
     public function testRenameThrowsExceptionOnError()
     {
-        $file = $this->workspace.DIRECTORY_SEPARATOR.uniqid('fs_test_', true);
+        $file = $this->workspace.DIRECTORY_SEPARATOR.uniqid();
         $newPath = $this->workspace.DIRECTORY_SEPARATOR.'new_file';
 
         $this->filesystem->rename($file, $newPath);

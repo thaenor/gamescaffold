@@ -25,9 +25,7 @@ class Kint_Objects_Smarty extends KintObject
 			'Assigned'          => $assigned,
 			'Assigned globally' => $globalAssigns,
 			'Configuration'     => array(
-				'Compiled files stored in' => isset($variable->compile_dir)
-					? $variable->compile_dir
-					: $variable->getCompileDir(),
+				'Compiled files stored in' => $variable->compile_dir,
 			)
 		);
 

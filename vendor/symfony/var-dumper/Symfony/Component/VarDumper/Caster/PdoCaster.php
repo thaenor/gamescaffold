@@ -78,21 +78,21 @@ class PdoCaster
             }
         }
 
-        $prefix = "\0~\0";
+        $m = "\0~\0";
         $a += array(
-            $prefix.'inTransaction' => method_exists($c, 'inTransaction'),
-            $prefix.'errorInfo' => $c->errorInfo(),
-            $prefix.'attributes' => $attr,
+            $m.'inTransaction' => method_exists($c, 'inTransaction'),
+            $m.'errorInfo' => $c->errorInfo(),
+            $m.'attributes' => $attr,
         );
 
-        if ($a[$prefix.'inTransaction']) {
-            $a[$prefix.'inTransaction'] = $c->inTransaction();
+        if ($a[$m.'inTransaction']) {
+            $a[$m.'inTransaction'] = $c->inTransaction();
         } else {
-            unset($a[$prefix.'inTransaction']);
+            unset($a[$m.'inTransaction']);
         }
 
-        if (!isset($a[$prefix.'errorInfo'][1], $a[$prefix.'errorInfo'][2])) {
-            unset($a[$prefix.'errorInfo']);
+        if (!isset($a[$m.'errorInfo'][1], $a[$m.'errorInfo'][2])) {
+            unset($a[$m.'errorInfo']);
         }
 
         $c->setAttribute(\PDO::ATTR_ERRMODE, $errmode);
@@ -102,11 +102,11 @@ class PdoCaster
 
     public static function castPdoStatement(\PDOStatement $c, array $a, Stub $stub, $isNested)
     {
-        $prefix = "\0~\0";
-        $a[$prefix.'errorInfo'] = $c->errorInfo();
+        $m = "\0~\0";
+        $a[$m.'errorInfo'] = $c->errorInfo();
 
-        if (!isset($a[$prefix.'errorInfo'][1], $a[$prefix.'errorInfo'][2])) {
-            unset($a[$prefix.'errorInfo']);
+        if (!isset($a[$m.'errorInfo'][1], $a[$m.'errorInfo'][2])) {
+            unset($a[$m.'errorInfo']);
         }
 
         return $a;

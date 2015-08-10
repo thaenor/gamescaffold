@@ -136,7 +136,6 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
         "Laralib\L5scaffold\GeneratorsServiceProvider",
-        'Artisaninweb\SoapWrapper\ServiceProvider',
 
 		/*
 		 * Application Service Providers...
@@ -194,7 +193,6 @@ return [
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
 		'View'      => 'Illuminate\Support\Facades\View',
-		'SoapWrapper' => 'Artisaninweb\SoapWrapper\Facades\SoapWrapper',
 
 	],
 

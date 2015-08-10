@@ -179,7 +179,7 @@ class BinaryFileResponseTest extends ResponseTestCase
 
         $file = new FakeFile($realpath, __DIR__.'/File/Fixtures/test');
 
-        BinaryFileResponse::trustXSendfileTypeHeader();
+        BinaryFileResponse::trustXSendFileTypeHeader();
         $response = new BinaryFileResponse($file);
         $reflection = new \ReflectionObject($response);
         $property = $reflection->getProperty('file');

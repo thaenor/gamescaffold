@@ -144,6 +144,8 @@ class CubeHandler extends AbstractProcessingHandler
                 'Content-Length: ' . strlen('['.$data.']'))
         );
 
-        Curl\Util::execute($ch, 5, false);
+        if (curl_exec($this->httpConnection) === false) {
+            throw new \RuntimeException(sprintf('Curl error (code %s): %s', curl_errno($ch), curl_error($ch)));
+        }
     }
 }

@@ -6,7 +6,6 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta http-equiv="refresh" content="300">
 
     <title>Celfocus Gamification</title>
     <!-- includes at head-->
@@ -100,7 +99,7 @@
                 <div>
                     <ul class="list-inline">
                         <li>
-                            <h4><label id="welcome" class="text-muted"></label> Tickets between <b><label id="startTimeLabel"></label></b> and <b><label
+                            <h4><label id="welcome" class="text-muted"></label> Tickets betweeh <b><label id="startTimeLabel"></label></b> and <b><label
                                             id="endTimeLabel"></label></b></h4>
                         </li>
                         <li class="pull-right hidden-xs">
@@ -128,7 +127,7 @@
             </div>
             <ul class="nav nav-pills nav-justified">
                 <li id="ticket-tab" class="active"><a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
-                <!--<li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
+                <li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>
                 <li id="newsfeed-tab" class="disabled"><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
                 <li id="groupLeaderboard-tab" class=""><a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
                 <li id="player-leaderboard-tab" class=""><a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
@@ -168,8 +167,6 @@
                             <!-- /input-group -->
                         </div>
                         <!-- END search bar -->
-                        <label class="text-muted">click a ticket to view in more detail.
-                        Dates displayed refer to the creation of each ticket</label>
                     </nav>
 
 
@@ -189,9 +186,9 @@
                                 <li class="list-group-item list-group-item-success">Green - Low (P4)</li>
                             </ul>
                         </div>
-                        <!--<div class="col-lg-7">
-                        This div might be used to display more information
-                        </div>-->
+                        <div class="col-lg-7">
+                            This could be a place to display ticket data instead of the modal
+                        </div>
                     </div>
 
                 </div>
@@ -241,7 +238,7 @@
                             </div>
 
 
-                            <nav id="groupLeaderBoardNav">
+                            <nav>
                                 <ul class="pager">
                                     <li class="previous">
                                         <a href="#">
@@ -429,8 +426,6 @@ aria-hidden="true">
                         <input type="text" id="endDatePicker">
                     </p>
                     <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
-                <label class="text-secundary text-muted">After clicking 'Go' you can close the window, we'll do the work for you in the background (just please be patient)</label>
-
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>

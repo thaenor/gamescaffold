@@ -13,8 +13,6 @@ namespace Symfony\Component\HttpFoundation\Tests;
 
 use Symfony\Component\HttpFoundation\Cookie;
 
-require_once __DIR__.'/ClockMock.php';
-
 /**
  * CookieTest.
  *

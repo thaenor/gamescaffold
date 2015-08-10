@@ -5,8 +5,7 @@
  * https://github.com/raveren/kint
  */
 
-if ( defined( 'KINT_DIR' ) ) return;
-
+if ( !class_exists( 'Kint', false ) ) return;
 
 define( 'KINT_DIR', dirname( __FILE__ ) . '/' );
 define( 'KINT_PHP53', version_compare( PHP_VERSION, '5.3.0' ) >= 0 );

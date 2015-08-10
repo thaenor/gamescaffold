@@ -131,13 +131,6 @@ abstract class PHPUnit_Framework_Assert
                 $checkForNonObjectIdentity
             );
         } elseif (is_string($haystack)) {
-            if (!is_string($needle)) {
-                throw PHPUnit_Util_InvalidArgumentHelper::factory(
-                    1,
-                    'string'
-                );
-            }
-
             $constraint = new PHPUnit_Framework_Constraint_StringContains(
                 $needle,
                 $ignoreCase
@@ -200,13 +193,6 @@ abstract class PHPUnit_Framework_Assert
                 )
             );
         } elseif (is_string($haystack)) {
-            if (!is_string($needle)) {
-                throw PHPUnit_Util_InvalidArgumentHelper::factory(
-                    1,
-                    'string'
-                );
-            }
-
             $constraint = new PHPUnit_Framework_Constraint_Not(
                 new PHPUnit_Framework_Constraint_StringContains(
                     $needle,
