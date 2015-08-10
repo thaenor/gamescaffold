@@ -13,7 +13,7 @@ function renderPlayerLeaderBoard() {
             playerArray[currentTicket.user_id] = 0;
             playerCounter++;
         }
-        playerArray[currentTicket.user_id] += currentTicket.points;
+        playerArray[currentTicket.user_id] += parseInt(currentTicket.points);
         //console.log("player: "+currentTicket.user_id+" solved ticket with "+currentTicket.points+" priority"+currentTicket.priority+" type"+currentTicket.type+" sla "+currentTicket.sla_time+"%");
     });
     playerArray ? (showPlayerLeaderBoard(playerArray), countPlayers(playerCounter)) : $.toaster({ priority : 'danger', title : 'Warning', message : 'no players exist'});

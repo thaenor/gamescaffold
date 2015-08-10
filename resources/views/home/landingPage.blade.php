@@ -169,7 +169,7 @@
                         </div>
                         <!-- END search bar -->
                         <label class="text-muted">click a ticket to view in more detail.
-                        Dates displayed refer to the creation of each ticket</label>
+                        The scope of data is filtered by both date of creation or last update</label>
                     </nav>
 
 

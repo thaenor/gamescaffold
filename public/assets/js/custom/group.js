@@ -29,7 +29,7 @@ function renderGroupLeaderBoard(data) {
             teamsArray[currentTicket.assignedGroup_id] = 0;
         }
 
-        teamsArray[currentTicket.assignedGroup_id] += currentTicket.points;
+        teamsArray[currentTicket.assignedGroup_id] += parseInt(currentTicket.points);
     });
     teamsArray ? reDisplayGroupLeaderBoard(teamsArray) : showGroupLeaderBoardError();
 }
