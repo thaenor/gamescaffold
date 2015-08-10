@@ -98,7 +98,8 @@ ORDER BY `id` DESC
     }
 
     public static function getAllTicketsBetween($start, $end){
-        return Ticket::whereBetween('created_at', [$start, $end])->get();
+        return Ticket::whereBetween('created_at', [$start, $end])
+            ->orWhereBetween('updated_at',[$start,$end])->get();
     }
 
     /**

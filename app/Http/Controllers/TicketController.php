@@ -88,7 +88,7 @@ class TicketController extends Controller {
         $start = Carbon::instance($time);
         $end = Carbon::now();
         $tickets = Ticket::getAllTicketsBetween($start,$end);
-        if($tickets){
+        if($tickets == []){
             return ('There are no tickets to view this month. Please use the dashboard (time travel) to browse information');
         }
 		return view('tickets.index', compact('tickets'));
