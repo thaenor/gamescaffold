@@ -19,28 +19,16 @@ class Ticket extends Model {
      */
     public static function getClosedTicketsBetween($start, $end){
         return DB::select(DB::raw("
-SELECT tickets.id,
-tickets.title,
-tickets.state,
-tickets.type,
-tickets.priority,
-tickets.sla,
-users.full_name AS user_id,
-groups.title AS assignedGroup_id,
-tickets.points,
-tickets.percentage,
-tickets.created_at,
-tickets.updated_at,
-tickets.external_id
-FROM `tickets`
-INNER JOIN users ON users.id = tickets.user_id
-INNER JOIN groups ON groups.id = tickets.assignedGroup_id
-WHERE(
-    (tickets.created_at > '$start' AND tickets.created_at < '$end')
-    OR (tickets.updated_at > '$start' AND tickets.updated_at < '$end')
-    )
-AND (state = 'closed' OR state = 'Resolved')
-ORDER BY `id` DESC
+            select * from (
+            SELECT 
+            tickets.id, tickets.title, tickets.state, tickets.type, tickets.priority, tickets.sla, users.full_name AS user_id, groups.title AS assignedGroup_id, tickets.points, tickets.percentage, tickets.created_at, tickets.updated_at, tickets.external_id
+            FROM tickets
+            INNER JOIN users ON users.id = user_id
+            INNER JOIN groups ON groups.id = assignedGroup_id
+            WHERE tickets.created_at > '$start' AND tickets.created_at < '$end'
+            OR tickets.updated_at > '$start' AND tickets.updated_at < '$end'
+            ) as t 
+            WHERE state = 'closed' OR state = 'Resolved'
         "));
     }
 
@@ -65,32 +53,16 @@ ORDER BY `id` DESC
      */
     public static function getOpenTicketsBetween ($start, $end){
         return DB::select(DB::raw("
-        SELECT tickets.id,
-tickets.title,
-tickets.state,
-tickets.type,
-tickets.priority,
-tickets.sla,
-users.full_name AS user_id,
-groups.title AS assignedGroup_id,
-tickets.points,
-tickets.percentage,
-tickets.created_at,
-tickets.updated_at,
-tickets.external_id,
-tickets.sla_time
-FROM `tickets`
-INNER JOIN users ON users.id = tickets.user_id
-INNER JOIN groups ON groups.id = tickets.assignedGroup_id
-WHERE(
-    (tickets.created_at > '$start' AND tickets.created_at < '$end')
-    OR (tickets.updated_at > '$start' AND tickets.updated_at < '$end')
-    )
-AND (state != 'Resolved'
-    OR state != 'closed'
-    OR state != 'Cancelled'
-    OR state != 'Solution Rejected')
-ORDER BY `id` DESC
+            select * from (
+            SELECT 
+            tickets.id, tickets.title, tickets.state, tickets.type, tickets.priority, tickets.sla, users.full_name AS user_id, groups.title AS assignedGroup_id, tickets.points, tickets.percentage, tickets.created_at, tickets.updated_at, tickets.external_id
+            FROM tickets
+            INNER JOIN users ON users.id = user_id
+            INNER JOIN groups ON groups.id = assignedGroup_id
+            WHERE tickets.created_at > '$start' AND tickets.created_at < '$end'
+            OR tickets.updated_at > '$start' AND tickets.updated_at < '$end'
+            ) as t 
+            WHERE state = 'open' OR state = 'Work in Progress' OR state = 'Solution Rejected'
         "));
     }
 
