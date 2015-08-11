@@ -28,9 +28,15 @@ $(document).ready(function () {
     //getChallenges();
     getArticles();
     renderEvents();
+    /** Automation made simple. This clicks a random tab every 5 minutes */
     setInterval(function () {
         tabClicker();
     }, 300000);
+    //changes page every 2 minutes
+    setInterval(function () {
+        var randomBoolean = !(+new Date()%2);
+        (randomBoolean) ? $('.next').first().find('a:first').click() : $('.previous').first().find('a:first').click();
+    }), 120000);
 
 });
 
@@ -82,10 +88,10 @@ function welcome(){
 }
 
 function tabClicker(){
-    var tabbedArray = ["ticket-tab", "newsfeed-tab", "groupLeaderboard-tab", "player-leaderboard-tab", "graph-tab"];
+    var tabbedArray = ["#ticket-tab", "#newsfeed-tab", "#groupLeaderboard-tab", "#player-leaderboard-tab", "#graph-tab"];
     var selectedTabIndex = Math.floor((Math.random() * tabbedArray.length));
-    var buttonToClick = "#" + tabbedArray[selectedTabIndex];
-    $(buttonToClick).trigger("click");
+    var buttonToClick = tabbedArray[selectedTabIndex];
+$(buttonToClick).click();
 }
 
 /* these warning messages have been replaced with toaster - http://www.jqueryscript.net/other/jQuery-Bootstrap-Based-Toast-Notification-Plugin-toaster.html

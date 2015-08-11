@@ -126,13 +126,13 @@
                     </ul>
                 </div>
             </div>
-            <ul class="nav nav-pills nav-justified">
-                <li id="ticket-tab" class="active"><a data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
+            <ul class="nav nav-pills nav-justified" id="mainMenuNav">
+                <li class="active"><a id="ticket-tab" data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
                 <!--<li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
-                <li id="newsfeed-tab" class="disabled"><a data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
-                <li id="groupLeaderboard-tab" class=""><a data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
-                <li id="player-leaderboard-tab" class=""><a data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
-                <li id="graph-tab" class=""><a data-toggle="tab" href="#Graphs">Graphs</a></li>
+                <li class="disabled"><a id="newsfeed-tab" data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
+                <li class=""><a id="groupLeaderboard-tab" data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
+                <li class=""><a id="player-leaderboard-tab" data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
+                <li class=""><a id="graph-tab" data-toggle="tab" href="#Graphs">Graphs</a></li>
             </ul>
         </div>
 

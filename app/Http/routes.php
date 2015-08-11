@@ -37,6 +37,10 @@ Route::group(array('prefix' => 'secretRoute'), function()
     Route::get('sync', ['middleware' => 'auth', 'uses' => 'TicketController@sync']);
     //Route::get('calculate','TicketController@calculatePoints');
     //Route::get('manualmigration','TicketController@manualMigration');
+    Route::get('FranciscoMegaSantos', function()
+    {
+        return view('secretRoute.pacman.pacman');
+    });
 });
 
 //API routes, suitable to be called through ajax
