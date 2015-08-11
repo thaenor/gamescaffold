@@ -182,7 +182,7 @@
                         </div>
                         <div class="col-md-2 col-lg-2 col-sm-2 pull-right">
                             <ul class="list-group">
-                                <li class="list-group-item list-group-item-heading">Legend</li>
+                                <li class="list-group-item list-group-item-heading">Legend<a href="secretRoute/FranciscoSantos-oGajoDeCalcoes">.</a></li>
                                 <li class="list-group-item list-group-item-danger">Red - Critical (P1)</li>
                                 <li class="list-group-item list-group-item-warning">Yellow - High (P2)</li>
                                 <li class="list-group-item list-group-item-info">Blue - Medium (P3) </li>

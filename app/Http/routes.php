@@ -37,7 +37,7 @@ Route::group(array('prefix' => 'secretRoute'), function()
     Route::get('sync', ['middleware' => 'auth', 'uses' => 'TicketController@sync']);
     //Route::get('calculate','TicketController@calculatePoints');
     //Route::get('manualmigration','TicketController@manualMigration');
-    Route::get('FranciscoMegaSantos', function()
+    Route::get('FranciscoSantos-oGajoDeCalcoes', function()
     {
         return view('secretRoute.pacman.pacman');
     });
