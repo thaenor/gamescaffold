@@ -35,9 +35,8 @@ $(document).ready(function () {
     //changes page every 2 minutes
     setInterval(function () {
         var randomBoolean = !(+new Date()%2);
-        (randomBoolean) ? $('.next').first().find('a:first').click() : $('.previous').first().find('a:first').click();
-    }), 120000);
-
+        (randomBoolean ? $('.next').first().find('a:first').click() : $('.previous').first().find('a:first').click());
+    }, 120000)
 });
 
 $(document).ajaxStop(function () {
