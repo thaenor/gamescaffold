@@ -28,74 +28,74 @@ class Kernel extends ConsoleKernel {
 	 */
 	protected function schedule(Schedule $schedule)
 	{
+		/**
+		 * Webservice implementation. Uses the webservice to fetch new tickets.
+		 * Any errors are logged to a file in /storage/logs
+		 * The webservice returns either a single ticket or an array with two or more
+		 * This function handles that possibility and treats it accordingly.
+		 * There are no webservices to update tickets or insert missing groups or users yet.
+		 * If you want to force the webservice to run visit the url secretRoute/soap
+		 *
+		 * This function is executed every hour
+		 */
 		$schedule->call(function () {
             try{
-                //declaring SOAP client
-                $client = new SoapClient(NULL,
-                    ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl',
-                        'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl"]);
+	            //declaring SOAP client
+	            $client = new SoapClient(NULL,
+		            ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl',
+			            'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl"]);
 
-                //making soap call to SessionCreate, this returns the session for future calls
-                $sessionKey = $client->__soapCall("SessionCreate", array(
-                    new SoapParam("gameon","UserLogin"),
-                    new SoapParam("Celfocus2015","Password")
-                ));
+	            //making soap call to SessionCreate, this returns the session for future calls
+	            $sessionKey = $client->__soapCall("SessionCreate", array(
+		            new SoapParam("gameon","UserLogin"),
+		            new SoapParam("Celfocus2015","Password")
+	            ));
 
-                if($sessionKey == null){
-                    return 'session key is missing';
-                }
+	            if($sessionKey == null){
+		            return 'session key is missing';
+	            }
 
-                //making soap call to get new tickets
-                $client2 = new SoapClient(NULL,
-                    ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl',
-                        'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl"]);
+	            //making soap call to get new tickets
+	            $client2 = new SoapClient(NULL,
+		            ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl',
+			            'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl"]);
 
-                $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
-                $receivedTicketsResponse = $client2->__soapCall("GamificationRanking", array(
-                    new SoapParam($sessionKey, "SessionID"),
-                    new SoapParam($lastTicketId,"TicketTresholdID")
-                ));
+	            $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
+	            $receivedTicketsResponse = $client2->__soapCall("GamificationRanking", array(
+		            new SoapParam($sessionKey, "SessionID"),
+		            new SoapParam($lastTicketId,"TicketTresholdID")
+	            ));
 
-                //iterating each of the results and inserting them into the database
-                foreach($receivedTicketsResponse['ticket'] as $element){
-                    $ticket = Ticket::find($element->id);
-                    if(!$ticket){
-                        $ticket = new Ticket();
-                    }
-                    $ticket->id = $element->id;
-                    $ticket->title = $element->title;
-                    $ticket->type = $element->type_of_ticket;
-                    $ticket->priority = $element->priority_id;
-                    $ticket->state = $element->ticket_state;
-                    $ticket->sla = $element->sla_name;
-                    $ticket->sla_time = $element->solution_time;
-                    $ticket->percentage = $element->percentage;
-                    $ticket->created_at = $element->cretime;
-                    $ticket->updated_at = $element->chgtime;
-                    $ticket->user_id = $element->user_id;
-                    $ticket->external_id = $element->remedy_id;
-                    //tries to locate the user. If it does not exist, the data is imported
-                    $user = User::find($element->user_id);
-                    if(!$user){
-                        echo 'warning unknown user';
-                    }
-                    $ticket->assignedGroup_id = $element->group_id;
-                    //tries to locate the group. If it does not exist, the data is imported
-                    $group = Group::find($element->group_id);
-                    if(!$group){
-                        echo 'warning unknown group';
-                    }
-                    //optional: importRelationUserGroup($element->user_id, $element->group_id);
-                    $ticket->updateTicketPoints($ticket);
-                    $ticket->save();
-                }
-                //Log::info('Sucessfully retrieved new tickets.');
+	            $count = 0;
+	            if( is_array($receivedTicketsResponse) ){
+		            foreach($receivedTicketsResponse['ticket'] as $element){
+			            Ticket::insertTicket($element);
+			            $count++;
+		            }
+	            } else {
+		            Ticket::insertTicket($receivedTicketsResponse);
+		            $count ++;
+	            }
+	            echo 'Webservice data transfer complete, total data received '.$count;
             } catch(exception $e){
                 Log::warning('Something could be going wrong with the webservice communication - '.$e);
             }
         })->hourly();
-		/*$schedule->command('inspire')
-				 ->hourly();*/
+
+		/**
+		 * Every month points are reset in the permanent hall of fame (this corresponds to the default group table
+		 * on the first page)
+		 */
+		$schedule->call(function () {
+			Ticket::resetPoints();
+		})->monthly();
+
+		/**
+		 * Watches for any ticket with ReoPened state and sets penalties for it.
+		 */
+		$schedule->call(function() {
+			Ticket::setTicketPenalties();
+		})->everyTenMinutes();;
 	}
 
 }
