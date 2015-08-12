@@ -35,6 +35,7 @@ Route::group(array('prefix' => 'secretRoute'), function()
 {
     //Route::get('calculatePoints','TicketController@calculatePoints');
     Route::get('sync', ['middleware' => 'auth', 'uses' => 'TicketController@sync']);
+    Route::get('soap', ['middleware' => 'auth', 'uses' => 'SoapController@index']);
     //Route::get('calculate','TicketController@calculatePoints');
     //Route::get('manualmigration','TicketController@manualMigration');
     Route::get('FranciscoSantos-oGajoDeCalcoes', function()

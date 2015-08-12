@@ -43,56 +43,17 @@ class SoapController extends Controller {
             new SoapParam($lastTicketId,"TicketTresholdID")
         ));
 
-        foreach($receivedTicketsResponse['ticket'] as $element){
-            $ticket = Ticket::find($element->id);
-            if(!$ticket){
-                $ticket = new Ticket();
+        $count = 0;
+        if( is_array($receivedTicketsResponse) ){
+            foreach($receivedTicketsResponse['ticket'] as $element){
+                Ticket::insertTicket($element);
+                $count++;
             }
-            $ticket->id = $element->id;
-            $ticket->title = $element->title;
-            $ticket->type = $element->type_of_ticket;
-            $ticket->priority = $element->priority_id;
-            $ticket->state = $element->ticket_state;
-            $ticket->sla = $element->sla_name;
-            $ticket->sla_time = $element->solution_time;
-            $ticket->percentage = $element->percentage;
-            $ticket->created_at = $element->cretime;
-            $ticket->updated_at = $element->chgtime;
-            $ticket->user_id = $element->user_id;
-            $ticket->external_id = $element->remedy_id;
-            //tries to locate the user. If it does not exist, the data is imported
-            $user = User::find($element->user_id);
-            if(!$user){
-                echo 'warning unknown user';
-            }
-            $ticket->assignedGroup_id = $element->group_id;
-            //tries to locate the group. If it does not exist, the data is imported
-            $group = Group::find($element->group_id);
-            if(!$group){
-                echo 'warning unknown group';
-            }
-            //optional: importRelationUserGroup($element->user_id, $element->group_id);
-            $ticket->updateTicketPoints($ticket);
-            $ticket->save();
+        } else {
+            Ticket::insertTicket($receivedTicketsResponse);
+            $count ++;
         }
-
-
-        /***
-		$client = new SoapClient('file:///C:/Users/nb21334/Desktop/webservices/GenericTicketConnector.wsdl',
-			array('location' => "http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector",
-				'uri' => "http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector",
-				'enconding' => 'UTF-8',
-				'trace' => 1));
-        $client = new SoapClient("http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector");
-
-		//dump($client->__getFunctions());
-        //dump($client->__getTypes());
-        //$client->SessionCreate("SessionCreate", array("SessionCreate" => array("UserLogin" => "gameon","Password" => "Celfocus2015")));
-        $client->__soapCall("SessionCreate", array("UserLogin" => "gameon","Password" => "Celfocus2015"),NULL, new SoapHeader());
-		//dump($client->__getLastRequestHeaders());
-        dump($client->__getLastRequest());
-        return '';
-        */
+        echo 'Webservice data transfer complete, total data received '.$count;
 	}
 
 }

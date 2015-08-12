@@ -55,7 +55,7 @@ class Ticket extends Model {
         return DB::select(DB::raw("
             select * from (
             SELECT 
-            tickets.id, tickets.title, tickets.state, tickets.type, tickets.priority, tickets.sla, users.full_name AS user_id, groups.title AS assignedGroup_id, tickets.points, tickets.percentage, tickets.created_at, tickets.updated_at, tickets.external_id
+            tickets.id, tickets.title, tickets.state, tickets.type, tickets.priority, tickets.sla, tickets.sla_time, users.full_name AS user_id, groups.title AS assignedGroup_id, tickets.points, tickets.percentage, tickets.created_at, tickets.updated_at, tickets.external_id
             FROM tickets
             INNER JOIN users ON users.id = user_id
             INNER JOIN groups ON groups.id = assignedGroup_id
@@ -137,7 +137,7 @@ class Ticket extends Model {
         $ticket->save();
     }
     
-    public function setTicketPenalties(){
+    public static function setTicketPenalties(){
         $player = new User();
         $team = new Group();
         $carbon = new DateTime('first day of this month');
@@ -173,6 +173,39 @@ class Ticket extends Model {
             Log::error('error updating ticket state: '.$e);
             exit(1);
         }
+    }
+
+	public static function insertTicket($element)
+	{
+		$ticket = Ticket::find($element->id);
+		if(!$ticket){
+			$ticket = new Ticket();
+		}
+		$ticket->id = $element->id;
+		$ticket->title = $element->title;
+		$ticket->type = $element->type_of_ticket;
+		$ticket->priority = $element->priority_id;
+		$ticket->state = $element->ticket_state;
+		$ticket->sla = $element->sla_name;
+		$ticket->sla_time = $element->solution_time;
+		$ticket->percentage = $element->percentage;
+		$ticket->created_at = $element->cretime;
+		$ticket->updated_at = $element->chgtime;
+		$ticket->user_id = $element->user_id;
+		$ticket->external_id = $element->remedy_id;
+		//tries to locate the user. If it does not exist, the data is imported
+		$user = User::find($element->user_id);
+		if(!$user){
+			Log::warning('We received an unknown user with id- '.$element->user_id);
+		}
+		$ticket->assignedGroup_id = $element->group_id;
+		//tries to locate the group. If it does not exist, the data is imported
+		$group = Group::find($element->group_id);
+		if(!$group){
+			Log::warning('We received an unknown group with id - '.$element->group_id);
+		}
+		$ticket->updateTicketPoints($ticket);
+		$ticket->save();
     }
 
     public static function resetPoints()

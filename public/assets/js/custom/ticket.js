@@ -235,7 +235,7 @@ function renderTicketDetailsModal(ticketId){
         '<li class="list-group-item"> <b> priority: '+ticket.priority+'</b> </li>' +
         '<li class="list-group-item"> <b> sla: '+ticket.sla+' </b> <span class="badge">'+displayTicketPercentage(ticket.percentage)+'%</span> </li>' +
         '<li class="list-group-item"> <b> assigned to: '+ticket.user_id+' </b> </li>' +
-        '<li class="list-group-item"> <b> total time to solve: '+ticket.sla_time+' minutes</b> </li>' +
+        '<li class="list-group-item"> total time to solve: '+ticket.sla_time+' minutes </li>' +
         '<li class="list-group-item"> team: '+ticket.assignedGroup_id+'</li>' +
         '<li class="list-group-item"> points: '+ticket.points+'</li>' +
         '<li class="list-group-item"> created at: '+ticket.created_at+'</li>' +
