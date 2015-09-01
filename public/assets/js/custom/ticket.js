@@ -94,7 +94,9 @@ function ticketPagination(tickets) {
 function searchTickets(searchString) {
     var searchResults = [];
     $.each(_openTicketsData, function (index, currentTicket) {
-        if (currentTicket.title.includes(searchString)) {
+        var lowerCaseTitle = currentTicket.title.toLowerCase();
+        searchString.toLowerCase();
+        if (lowerCaseTitle.indexOf(searchString) != -1) {
             searchResults.push(currentTicket);
         }
     });
@@ -106,7 +108,6 @@ function searchTickets(searchString) {
 }
 
 function findTicket(ticketArray, ticketId){
-    var id = ticketId;
     for(var i=0; i<ticketArray.length; i++){
         if(ticketArray[i].id === id){
             return ticketArray[i];
@@ -210,6 +211,89 @@ function renderPlayerDetailtModal(playerName){
      '<tr> <td> P4 Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');*/
 }
 
+function renderTeamDetailModal(teamName){
+    var ticketsOwnedByTeam = findTeamTickets(_resolvedTicketsData,teamName);
+    var criticalCount= 0, criticalPointCount= 0, highCount= 0, highPointCount= 0, mediumCount= 0, mediumPointCount= 0, lowCount= 0, lowPointCount=0;
+    var incidentCount= 0, incidentPointCount= 0, problemCount= 0, problemPointCount= 0, serviceRequestCount= 0, srPointCount= 0, slaPenalty=0, slaOutput = "";
+    if(ticketsOwnedByTeam.length <= 0){
+        $.toaster({ priority : 'warning', title : 'No team data to show', message : ''});
+        return;
+    }
+    $.each(ticketsOwnedByTeam, function(index,el){
+        switch (el.priority){
+            case '1 Critical':
+                criticalCount++;
+                criticalPointCount += 10;
+                break;
+            case '2 High':
+                highCount++;
+                highPointCount += 8;
+                break;
+            case '3 Medium':
+                mediumCount++;
+                mediumPointCount += 3;
+                break;
+            case '4 Low':
+                lowCount++;
+                lowPointCount += 1;
+                break;
+            default:
+                console.log("Warning: default in priority switch case. This is not fatal");
+                break;
+        }
+        switch(el.type) {
+            case "Incident":
+                incidentCount++;
+                incidentPointCount += 10;
+                break;
+            case "Service Request":
+                serviceRequestCount++;
+                srPointCount += 3;
+                break;
+            case "Problem":
+                problemCount++;
+                problemPointCount += 5;
+                break;
+            default:
+                console.log("Warning: default in type switch case. This is not fatal");
+                break;
+        }
+
+        if(el.percentage > 40) {
+            if (el.percentage <= 100) {
+                slaPenalty = ( el.points * (el.percentage / 100) );
+                slaPenalty = Math.ceil(slaPenalty);
+                slaOutput += "<li class='list-group-item list-group-item-warning'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> is <abbr title='means the sla is getting big'>growing mold</abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points can still be earned!</span> </li>";
+            }
+            if (el.percentage > 100) {
+                slaPenalty = el.points - (el.points * (el.percentage / 100));
+                slaPenalty = Math.floor(slaPenalty);
+                slaOutput = "<li class='list-group-item list-group-item-danger'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> <abbr title='sla went KAPUT!'> blew up!1! </abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points Lost</span> </li>";
+            }
+        } /*else {
+         slaOutput += "<li class='list-group-item list-group-item-info'> ticket is <abbr title='means the sla is still small'>primed</abbr> - "+el.percentage+"% </li>";
+         }*/
+    });
+    $('#teamList').empty().append('A total of '+ticketsOwnedByTeam.length+' tickets solved of which <ul>'+
+        '<li class="list-group-item"> <u> point analysis based on priority </u> </li>'+
+        '<li class="list-group-item list-group-item-danger">' +criticalCount+ ' were P1-Critical <span class="badge">'+criticalPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-warning">'+ highCount + ' were P2 - High <span class="badge">'+highPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-info">'+ mediumCount + ' were P3 - Medium <span class="badge">'+mediumPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P1 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
+        '<li class="list-group-item"> <u> point analysis based on type </u> </li>'+
+        '<li class="list-group-item list-group-item-danger">'+ incidentCount + ' were incidents <span class="badge">'+incidentPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were problems <span class="badge">'+problemPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were service requests <span class="badge">'+srPointCount+' Points</span></li> ' +
+        '<li class="list-group-item"> <u>warnings</u> </li>'+
+        slaOutput+'</ul>'
+    );
+
+    /*$('#playerlist').empty().append('<tr> <td> P1 Critical </td> <td>'+criticalCount+'</td><td>'+criticalPointCount+'</td> </tr>' +
+     '<tr> <td> P2 High </td><td>'+highCount+'</td><td>'+highPointCount+'</td></tr>' +
+     '<tr> <td> P3 Medium </td><td>'+mediumCount+'</td><td>'+mediumPointCount+'</td></tr>' +
+     '<tr> <td> P4 Low </td><td>'+lowCount+'</td><td>'+lowPointCount+'</td></tr>');*/
+}
+
 
 function displayTicketPercentage(percentage){
     var output = "";
@@ -225,7 +309,7 @@ function displayTicketPercentage(percentage){
 
 function renderTicketDetailsModal(ticketId){
     var ticket = findTicket(_openTicketsData,ticketId);
-
+    var timeToSolveInDays = parseInt(ticket.sla_time)/1440;
     if( ticket != false){
         $("#ticketInfo").empty().append('<ul class="list-group">' +
         '<li class="list-group-item"> id: #'+ticket.id+'</li>' +
@@ -235,7 +319,7 @@ function renderTicketDetailsModal(ticketId){
         '<li class="list-group-item"> <b> priority: '+ticket.priority+'</b> </li>' +
         '<li class="list-group-item"> <b> sla: '+ticket.sla+' </b> <span class="badge">'+displayTicketPercentage(ticket.percentage)+'%</span> </li>' +
         '<li class="list-group-item"> <b> assigned to: '+ticket.user_id+' </b> </li>' +
-        '<li class="list-group-item"> total time to solve: '+ticket.sla_time+' minutes </li>' +
+        '<li class="list-group-item"> total time to solve: '+timeToSolveInDays+' days ( '+ticket.sla_time+' minutes) </li>' +
         '<li class="list-group-item"> team: '+ticket.assignedGroup_id+'</li>' +
         '<li class="list-group-item"> points: '+ticket.points+'</li>' +
         '<li class="list-group-item"> created at: '+ticket.created_at+'</li>' +

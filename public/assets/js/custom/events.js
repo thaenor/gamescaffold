@@ -17,6 +17,11 @@
 
  function renderEvents() {
 
+    // Back to top
+     $('a.top').click(function () {
+         $(document.body).animate({scrollTop: 0}, 800);
+         return false;
+     });
 
     /**
      * Click event on next button in pagination
@@ -25,6 +30,7 @@
      * see what each one holds
      */
     $(".next").click(function () {
+        event.preventDefault();
         _pagination[_pageTab]++;
         updatePageNumber();
         switch (_pageTab) {
@@ -55,6 +61,7 @@
      *
      */
     $(".previous").click(function () {
+        event.preventDefault();
         _pagination[_pageTab]--;
         if(_pagination[_pageTab] <= 0){
             _pagination[_pageTab]++;
@@ -188,4 +195,11 @@
         addressValue = addressValue.replace("#","").trim();
         renderTicketDetailsModal(addressValue);
     });
+
+     /**Event that triggers modal with team details*/
+     $("#table-teamleaderboard").on("click","a",function(event){
+         event.preventDefault();
+         $("#teamDetails").empty().append( $(this).text()+'\'s information');
+         renderTeamDetailModal($(this).text());
+     })
 }

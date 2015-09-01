@@ -40,7 +40,7 @@ function reDisplayGroupLeaderBoard(array) {
     $('.hidden-sm').remove();
     var orderedTeams = sortByPoints(array);
     $.each(orderedTeams, function (index, el) {
-        $('#grouplist').append('<tr> <td class="success">' + el[0] + '</td>' + '<td class="info">' + el[1] + '</td> </tr>');
+        $('#grouplist').append('<tr> <td class="success"> <a data-toggle="modal" data-target="#TeamInfo">' + el[0] + '</a></td>' + '<td class="info">' + el[1] + '</td> </tr>');
         fillBarGraphData(el[0], el[1]);
     });
     $('#groupLeaderBoardNav').hide();
@@ -72,6 +72,16 @@ function leaderBoardPagination(groups) {
         fillBarGraphData(currentGroup.title, currentGroup.points);
     });
 }
+
+
+function findTeamTickets(array, teamToFind){
+    var foundMatches = [];
+    for (var i=0; i < array.length; i++)
+        if(array[i].assignedGroup_id === teamToFind)
+            foundMatches.push(array[i]);
+    return foundMatches;
+}
+
 
 
 /**

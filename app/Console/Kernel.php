@@ -3,7 +3,10 @@
 use App\Ticket;
 use App\Group;
 use App\User;
+use Carbon\Carbon;
+use Exception;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use SoapClient;
 use SoapParam;
 use Illuminate\Console\Scheduling\Schedule;
@@ -77,6 +80,7 @@ class Kernel extends ConsoleKernel {
 		            $count ++;
 	            }
 	            echo 'Webservice data transfer complete, total data received '.$count;
+	            Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
             } catch(exception $e){
                 Log::warning('Something could be going wrong with the webservice communication - '.$e);
             }
@@ -93,9 +97,9 @@ class Kernel extends ConsoleKernel {
 		/**
 		 * Watches for any ticket with ReoPened state and sets penalties for it.
 		 */
-		$schedule->call(function() {
-			Ticket::setTicketPenalties();
-		})->everyTenMinutes();;
+		//$schedule->call(function() {
+		//	Ticket::setTicketPenalties();
+		//})->everyTenMinutes();
 	}
 
 }

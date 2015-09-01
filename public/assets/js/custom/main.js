@@ -20,6 +20,15 @@ var _maxPagePlayerLeaderboard;
 
 
 $(document).ready(function () {
+    jQuery.ajaxSetup({
+        beforeSend: function() {
+            $('#loader').show();
+        },
+        complete: function(){
+            $('#loader').hide();
+        },
+        success: function() {}
+    });
     //$("body > *").not("body > #preloader").hide();
     welcome();
     getOpenTicketData();
@@ -87,7 +96,7 @@ function welcome(){
 }
 
 function tabClicker(){
-    var tabbedArray = ["#ticket-tab", "#newsfeed-tab", "#groupLeaderboard-tab", "#player-leaderboard-tab", "#graph-tab"];
+    var tabbedArray = ["#ticket-tab", /*"#newsfeed-tab",*/ "#groupLeaderboard-tab", "#player-leaderboard-tab", "#graph-tab"];
     var selectedTabIndex = Math.floor((Math.random() * tabbedArray.length));
     var buttonToClick = tabbedArray[selectedTabIndex];
 $(buttonToClick).click();

@@ -129,7 +129,7 @@
             <ul class="nav nav-pills nav-justified" id="mainMenuNav">
                 <li class="active"><a id="ticket-tab" data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
                 <!--<li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
-                <li class="disabled"><a id="newsfeed-tab" data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
+                <li class=""><a id="newsfeed-tab" data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
                 <li class=""><a id="groupLeaderboard-tab" data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
                 <li class=""><a id="player-leaderboard-tab" data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
                 <li class=""><a id="graph-tab" data-toggle="tab" href="#Graphs">Graphs</a></li>
@@ -176,6 +176,9 @@
 
                     <div class="row col-lg-12 col-md-12">
                         <div>
+                            <ul class="list-group pullUp">
+                                <li class="list-group-item"> Title <span class="pull-right"> Creation date </span></li>
+                            </ul>
                             <ul class="list-group pullUp" id="ticketList">
                                 <!-- LIST WITH TICKETS -->
                             </ul>
@@ -262,7 +265,7 @@
 
 
                             <div class="panel-body">
-                                <div id="table-resp" class="table-responsive">
+                                <div id="table-teamleaderboard" class="table-responsive">
                                     <table class="table">
                                         <thead>
                                         <tr>
@@ -380,6 +383,35 @@
     </div>
 </div>
 
+<!-- Modal for team info -->
+<div class="modal fade" id="TeamInfo" tabindex="-1" role="dialog" aria-labelledby="TeamModalLabel"
+     aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div id="teamDetails" class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="teamModalLabel">Team details</h4>
+            </div>
+            <div class="modal-body">
+                <!--                <table class="table">
+                                  <thead>
+                                    <tr>
+                                      <th>Priority</th>
+                                      <th>Tickets</th>
+                                      <th>Points</th>
+                                    </tr>
+                                  </thead>
+                                  <tbody id='playerlist'></tbody>
+                                </table> -->
+            </div>
+            <div id="teamList" class="list-group col-lg-12 col-md-12 col-sm-12 col-xs-12"></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
 
 <!-- Modal for ticket info -->
 <div class="modal fade" id="ticketModal" tabindex="-1" role="dialog" aria-labelledby="ticketModalLabel"
@@ -429,6 +461,7 @@ aria-hidden="true">
                         <input type="text" id="endDatePicker">
                     </p>
                     <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
+                    <div id='loader'><img src="assets/loader.gif"/></div>
                 <label class="text-secundary text-muted">After clicking 'Go' you can close the window, we'll do the work for you in the background (just please be patient)</label>
 
             </div>
@@ -440,8 +473,9 @@ aria-hidden="true">
 </div>
 <!-- END Modal for time travel panel -->
 
-
+<a class="top" href="#">Back to top</a>
 <footer class="col-md-12 col-sm-6 col-lg-12">
+    last synchronization time: {{$lastsynctime}} <br />
     Copyright by Celfocus. Gamification page. All rights reserved.
 </footer>
 <!-- js includes before closing body -->
