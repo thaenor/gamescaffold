@@ -1,5 +1,6 @@
 <?php namespace App\Console;
 
+use App\Http\Controllers\SoapController;
 use App\Ticket;
 use App\Group;
 use App\User;
@@ -43,32 +44,8 @@ class Kernel extends ConsoleKernel {
 		 */
 		$schedule->call(function () {
             try{
-	            //declaring SOAP client
-	            $client = new SoapClient(NULL,
-		            ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl',
-			            'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl"]);
-
-	            //making soap call to SessionCreate, this returns the session for future calls
-	            $sessionKey = $client->__soapCall("SessionCreate", array(
-		            new SoapParam("gameon","UserLogin"),
-		            new SoapParam("Celfocus2015","Password")
-	            ));
-
-	            if($sessionKey == null){
-		            return 'session key is missing';
-	            }
-
-	            //making soap call to get new tickets
-	            $client2 = new SoapClient(NULL,
-		            ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl',
-			            'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl"]);
-
 	            $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
-	            $receivedTicketsResponse = $client2->__soapCall("GamificationRanking", array(
-		            new SoapParam($sessionKey, "SessionID"),
-		            new SoapParam($lastTicketId,"TicketTresholdID")
-	            ));
-
+	            $receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
 	            $count = 0;
 	            if( is_array($receivedTicketsResponse) ){
 		            foreach($receivedTicketsResponse['ticket'] as $element){
@@ -79,12 +56,41 @@ class Kernel extends ConsoleKernel {
 		            Ticket::insertTicket($receivedTicketsResponse);
 		            $count ++;
 	            }
-	            echo 'Webservice data transfer complete, total data received '.$count;
+	            //echo 'Webservice data transfer complete, total data received '.$count;
 	            Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
+	            //echo 'Webservice data transfer complete, total data received '.$count;
             } catch(exception $e){
                 Log::warning('Something could be going wrong with the webservice communication - '.$e);
             }
         })->hourly();
+
+		$schedule->call(function () {
+			$startOfLastMonth = new Carbon('first day of last month');
+			$startOfLastMonth->hour = 0;
+			$startOfLastMonth->minute = 0;
+			$startOfLastMonth->second = 0;
+			$lastTicketId = Ticket::where('state','open', 'Work in Progress')->where('created_at','>',$startOfLastMonth)
+				->orderBy('created_at','asc')
+				->first()->id;
+			$receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
+			$count = 0;
+			if($receivedTicketsResponse != null){
+				$count = 0;
+				if( is_array($receivedTicketsResponse) ){
+					foreach($receivedTicketsResponse['ticket'] as $element){
+						Ticket::insertTicket($element);
+						$count++;
+					}
+				} else {
+					Ticket::insertTicket($receivedTicketsResponse);
+					$count ++;
+				}
+			}else{
+				Log::warning('invalid response from webservices');
+			}
+			Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
+			//Log::info ('Webservice data update complete, total data received '.$count);
+		})->hourly();
 
 		/**
 		 * Every month points are reset in the permanent hall of fame (this corresponds to the default group table

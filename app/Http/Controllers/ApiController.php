@@ -67,6 +67,7 @@ class ApiController extends Controller {
      */
     public function fetchOpenTicketJsonDefault(){
         $start = new Carbon('first day of this month');
+	    $start->hour=0; $start->minute=0; $start->second=0;
         return $tickets = Ticket::getOpenTicketsBetween($start, Carbon::now());
     }
 
@@ -78,6 +79,7 @@ class ApiController extends Controller {
 
     public function fetchClosedTicketJsonDefault(){
         $start = new Carbon('first day of this month');
+	    $start->hour=0; $start->minute=0; $start->second=0;
         return $tickets = Ticket::getClosedTicketsBetween($start,Carbon::now());
     }
 

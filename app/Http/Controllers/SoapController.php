@@ -5,7 +5,9 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use App\Ticket;
 use App\User;
+use Carbon\Carbon;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Psy\Exception\Exception;
 use SoapClient;
 use Illuminate\Http\Request;
@@ -17,43 +19,49 @@ class SoapController extends Controller {
 
 	public function index()
 	{
-        //declaring SOAP client
-        $client = new SoapClient(NULL,
-            ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl',
-            'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl"]);
-
-        //making soap call to SessionCreate, this returns the session for future calls
-        $sessionKey = $client->__soapCall("SessionCreate", array(
-            new SoapParam("gameon","UserLogin"),
-            new SoapParam("Celfocus2015","Password")
-        ));
-
-        if($sessionKey == null){
-            return 'session key is missing';
-        }
-
-        //making soap call to get new tickets
-        $client2 = new SoapClient(NULL,
-            ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl',
-            'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/Gamification?wsdl"]);
-
-        $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
-        $receivedTicketsResponse = $client2->__soapCall("GamificationRanking", array(
-            new SoapParam($sessionKey, "SessionID"),
-            new SoapParam($lastTicketId,"TicketTresholdID")
-        ));
-
-        $count = 0;
-        if( is_array($receivedTicketsResponse) ){
-            foreach($receivedTicketsResponse['ticket'] as $element){
-                Ticket::insertTicket($element);
-                $count++;
-            }
-        } else {
-            Ticket::insertTicket($receivedTicketsResponse);
-            $count ++;
-        }
+		$lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
+		$receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
+		$count = 0;
+		if( is_array($receivedTicketsResponse) ){
+			foreach($receivedTicketsResponse['ticket'] as $element){
+				Ticket::insertTicket($element);
+				$count++;
+			}
+		} else {
+			Ticket::insertTicket($receivedTicketsResponse);
+			$count ++;
+		}
+		//echo 'Webservice data transfer complete, total data received '.$count;
+		Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
         echo 'Webservice data transfer complete, total data received '.$count;
 	}
 
+	public function update()
+	{
+		$startOfLastMonth = new Carbon('first day of last month');
+		$startOfLastMonth->hour = 0;
+		$startOfLastMonth->minute = 0;
+		$startOfLastMonth->second = 0;
+		$lastTicketId = Ticket::where('state','open', 'Work in Progress')->where('created_at','>',$startOfLastMonth)
+			->orderBy('created_at','asc')
+			->first()->id;
+		$receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
+		$count = 0;
+		if($receivedTicketsResponse != null){
+			$count = 0;
+			if( is_array($receivedTicketsResponse) ){
+				foreach($receivedTicketsResponse['ticket'] as $element){
+					Ticket::insertTicket($element);
+					$count++;
+				}
+			} else {
+				Ticket::insertTicket($receivedTicketsResponse);
+				$count ++;
+			}
+		}else{
+			echo 'webservices returned null';
+		}
+		Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
+		echo 'Webservice data update complete, total data received '.$count;
+    }
 }

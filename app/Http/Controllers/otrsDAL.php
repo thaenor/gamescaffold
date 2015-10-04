@@ -165,7 +165,7 @@ group by object_id
             return true;
         }
         $data = (array_values(pg_fetch_all($result)));
-        $chunkOfData = array_chunk($data, 100);
+        $chunkOfData = array_chunk($data, 500);
         //Storage::disk('local')->put('lastIdToCalculate.txt', $chunkOfData[0][0]['id']);
         foreach ($chunkOfData as $chunk) {
             updateChunkToDB($chunk);
@@ -173,7 +173,7 @@ group by object_id
         closeDB($dal);
         return updateLastTicketHistoryId();
     } catch(exception $e){
-        Log::error('Error syncing ticket updates, more details: '.$e);
+        Log::error('Error syncing ticket updates with otrs dev.');
         exit(1);
     }
 }
@@ -221,51 +221,50 @@ function updateChunkToDB($chunk){
  * @param $element
  */
 function insertTicketToDB($element){
-    try{
-        $ticket = Ticket::find($element->id);
-        if(!$ticket){
-            $ticket = new Ticket();
-        }
-        $ticket->id = $element->id;
-        $ticket->title = $element->title;
-        $ticket->type = $element->type_of_ticket;
-        $ticket->priority = $element->priority;
-        $ticket->state = $element->ticket_state;
-        $ticket->sla = $element->sla_name;
-        $ticket->sla_time = $element->solution_time;
-        $ticket->percentage = $element->percentage;
-        $ticket->created_at = $element->cretime;
-        $ticket->updated_at = $element->chgtime;
-        $ticket->user_id = $element->user_id;
-        $ticket->external_id = $element->externalid;
-        //tries to locate the user. If it does not exist, the data is imported
-        $user = User::find($element->user_id);
-        if(!$user){
-            importUser($element->user_id);
-        }
-        $ticket->assignedGroup_id = $element->group_id;
-        //tries to locate the group. If it does not exist, the data is imported
-        $group = Group::find($element->group_id);
-        if(!$group){
-            importGroup($element->group_id);
-        }
-        //optional: importRelationUserGroup($element->user_id, $element->group_id);
-        $ticket->updateTicketPoints($ticket);
-        $ticket->save();
-    } catch(Exception $e)  {
-        Log::error('Error inserting chunk of tickets, execution stopped. more details on why:  '.$e);
-        exit(1);
+    $ticket = Ticket::find($element->id);
+    if(!$ticket){
+        $ticket = new Ticket();
     }
+    $ticket->id = $element->id;
+    $ticket->title = $element->title;
+    $ticket->type = $element->type_of_ticket;
+    $ticket->priority = $element->priority;
+    $ticket->state = $element->ticket_state;
+    $ticket->sla = $element->sla_name;
+    $ticket->sla_time = $element->solution_time;
+    $ticket->percentage = $element->percentage;
+    $ticket->created_at = $element->cretime;
+    $ticket->updated_at = $element->chgtime;
+    $ticket->user_id = $element->user_id;
+    $ticket->external_id = $element->externalid;
+    //tries to locate the user. If it does not exist, the data is imported
+    $user = User::find($element->user_id);
+    if(!$user){
+        importUser($element->user_id);
+    }
+    $ticket->assignedGroup_id = $element->group_id;
+    //tries to locate the group. If it does not exist, the data is imported
+    $group = Group::find($element->group_id);
+    if(!$group){
+        importGroup($element->group_id);
+    }
+    //optional: importRelationUserGroup($element->user_id, $element->group_id);
+    $ticket->updateTicketPoints($ticket);
+    $ticket->save();
 }
 
 
 function updateTicketToDB($object){
     $ticket = Ticket::find($object->ticket_id);
+    if(!$ticket){
+        Log::warning('we have received and id to update of '.$object->ticket_id.'but the ticket was not found. This
+        is not a fatal error, but you might want to look into it.');
+    }
     $ticket->type = $object->ticket_type;
     $ticket->assignedGroup_id = $object->team_id;
-    $group = Group::find($object->team_id);
+    $group = Group::find($object->team_id); //attempts to verify if group exists
     if(!$group){
-        importGroup($object->team_id);
+        importGroup($object->team_id); //imports info if not
     }
     $ticket->user_id = $object->player_id;
     $user = User::find($object->player_id);
@@ -277,8 +276,9 @@ function updateTicketToDB($object){
     $ticket->percentage = $object->percentage;
     $ticket->updated_at = $object->change_time;
     $ticket->external_id = $object->externalid;
-    $ticket->updateTicketPoints($ticket);
+    dd($ticket);
     $ticket->save();
+    $ticket->updateTicketPoints($ticket);
 }
 
 

@@ -29,7 +29,7 @@
      * Please refer to the global variables to
      * see what each one holds
      */
-    $(".next").click(function () {
+    $(".next").click(function (event) {
         event.preventDefault();
         _pagination[_pageTab]++;
         updatePageNumber();
@@ -60,7 +60,7 @@
      * Click event on next button in pagination
      *
      */
-    $(".previous").click(function () {
+    $(".previous").click(function (event) {
         event.preventDefault();
         _pagination[_pageTab]--;
         if(_pagination[_pageTab] <= 0){
@@ -131,7 +131,7 @@
         var start = replaceAll('/', '-', $('#startDatePicker').val());
         var end = replaceAll('/', '-', $('#endDatePicker').val());
         var now = new Date();
-        if(Date.parse(start) < Date.parse(end) && Date.parse(start) < now) {
+        if( Date.parse(start) < Date.parse(end) && Date.parse(start) < now) {
             _pagination["ticket"] = 1;
             _pagination["groupLeaderBoard"] = 1;
             updatePageNumber();
@@ -155,14 +155,14 @@
 
     /** set default time-travel values for last week */
     $("#setTimeWeek").click(function () {
-        $("#startDatePicker").val(moment().weekday(-7).format('YYYY[-]M[-]D')); // last Monday
-        $('#endDatePicker').val(moment().weekday(-2).format('YYYY[-]M[-]D')); //Last Friday
+        $("#startDatePicker").val(moment().weekday(-7).format('YYYY[-]MM[-]D')); // last Monday
+        $('#endDatePicker').val(moment().weekday(-2).format('YYYY[-]MM[-]D')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
     /** set default time-travel values for last month */
     $("#setTimeMonth").click(function () {
-        $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('YYYY[-]M[-]D')); // last Monday
-        $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('YYYY[-]M[-]D')); //Last Friday
+        $("#startDatePicker").val(moment().subtract(1, 'months').startOf('month').format('YYYY[-]MM[-]DD'));
+        $('#endDatePicker').val(moment().subtract(1, 'months').endOf('month').format('YYYY[-]MM[-]DD'));
         $('#timeTravelTrigger').prop('disabled', false);
     });
 

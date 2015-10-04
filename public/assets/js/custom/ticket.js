@@ -109,7 +109,7 @@ function searchTickets(searchString) {
 
 function findTicket(ticketArray, ticketId){
     for(var i=0; i<ticketArray.length; i++){
-        if(ticketArray[i].id === id){
+        if(ticketArray[i].id === ticketId){
             return ticketArray[i];
         }
     }
@@ -137,71 +137,69 @@ function renderPlayerDetailtModal(playerName){
         return;
     }
     $.each(ticketsOwnedByPlayer, function(index,el){
-        switch (el.priority){
-            case '1 Critical':
-                criticalCount++;
-                criticalPointCount += 10;
-                break;
-            case '2 High':
-                highCount++;
-                highPointCount += 8;
-                break;
-            case '3 Medium':
-                mediumCount++;
-                mediumPointCount += 3;
-                break;
-            case '4 Low':
-                lowCount++;
-                lowPointCount += 1;
-                break;
-            default:
-                console.log("Warning: default in priority switch case. This is not fatal");
-                break;
-        }
-        switch(el.type) {
-            case "Incident":
-                incidentCount++;
-                incidentPointCount += 10;
-                break;
-            case "Service Request":
-                serviceRequestCount++;
-                srPointCount += 3;
-                break;
-            case "Problem":
-                problemCount++;
-                problemPointCount += 5;
-                break;
-            default:
-                console.log("Warning: default in type switch case. This is not fatal");
-                break;
-        }
-
         if(el.percentage > 40) {
             if (el.percentage <= 100) {
                 slaPenalty = ( el.points * (el.percentage / 100) );
                 slaPenalty = Math.ceil(slaPenalty);
-                slaOutput += "<li class='list-group-item list-group-item-warning'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> is <abbr title='means the sla is getting big'>growing mold</abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points can still be earned!</span> </li>";
+                slaOutput += "<li class='list-group-item list-group-item-warning'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> is <abbr title='means the sla is getting big'>growing mold</abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points earned</span> </li>";
             }
             if (el.percentage > 100) {
                 slaPenalty = el.points - (el.points * (el.percentage / 100));
                 slaPenalty = Math.floor(slaPenalty);
                 slaOutput = "<li class='list-group-item list-group-item-danger'> <em> the ticket <abbr title='"+el.title+"'>" +el.id+ "</abbr> <abbr title='sla went KAPUT!'> blew up!1! </abbr> </em> - "+el.percentage+"% <span class='badge'>"+slaPenalty+" Points Lost</span> </li>";
             }
-        } /*else {
-            slaOutput += "<li class='list-group-item list-group-item-info'> ticket is <abbr title='means the sla is still small'>primed</abbr> - "+el.percentage+"% </li>";
-        }*/
+        } else {
+            switch (el.priority){
+                case '1 Critical':
+                    criticalCount++;
+                    criticalPointCount += 10;
+                    break;
+                case '2 High':
+                    highCount++;
+                    highPointCount += 8;
+                    break;
+                case '3 Medium':
+                    mediumCount++;
+                    mediumPointCount += 3;
+                    break;
+                case '4 Low':
+                    lowCount++;
+                    lowPointCount += 1;
+                    break;
+                default:
+                    console.log("Warning: default in priority switch case. This is not fatal");
+                    break;
+            }
+            switch(el.type) {
+                case "Incident":
+                    incidentCount++;
+                    incidentPointCount += 10;
+                    break;
+                case "Service Request":
+                    serviceRequestCount++;
+                    srPointCount += 3;
+                    break;
+                case "Problem":
+                    problemCount++;
+                    problemPointCount += 5;
+                    break;
+                default:
+                    console.log("Warning: default in type switch case. This is not fatal");
+                    break;
+            }
+         }
     });
     $('#playerList').empty().append('A total of '+ticketsOwnedByPlayer.length+' tickets solved of which <ul>'+
         '<li class="list-group-item"> <u> point analysis based on priority </u> </li>'+
         '<li class="list-group-item list-group-item-danger">' +criticalCount+ ' were P1-Critical <span class="badge">'+criticalPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-warning">'+ highCount + ' were P2 - High <span class="badge">'+highPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-info">'+ mediumCount + ' were P3 - Medium <span class="badge">'+mediumPointCount+' Points</span></li>'+
-        '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P1 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
+        '<li class="list-group-item list-group-item-success">'+ lowCount + ' were P4 - Low <span class="badge">'+lowPointCount+' Points</span></li>'+
         '<li class="list-group-item"> <u> point analysis based on type </u> </li>'+
         '<li class="list-group-item list-group-item-danger">'+ incidentCount + ' were incidents <span class="badge">'+incidentPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-warning">'+ problemCount + ' were problems <span class="badge">'+problemPointCount+' Points</span></li>'+
         '<li class="list-group-item list-group-item-success">'+ serviceRequestCount + ' were service requests <span class="badge">'+srPointCount+' Points</span></li> ' +
-        '<li class="list-group-item"> <u>warnings</u> </li>'+
+        '<li class="list-group-item"> <u>warnings</u> (tickets with penalty) </li>'+
         slaOutput+'</ul>'
     );
 
