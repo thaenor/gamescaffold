@@ -7,19 +7,27 @@
 function getGroupData(start,end){
     var link = generateLink('groups', start, end);
     getAjaxData(link).done(function(data){
-        _groupJson = data;
+        _groupJson = removeEntriesWithZero(data).clean();
         //sort groups by points. So highest scoring comes first
         _groupJson.sort(function (a, b) {
             return parseFloat(b.points) -
                 parseFloat(a.points)
         });
-        //TODO: remove elements with zero
         leaderBoardPagination(_groupJson);
         drawMorrisBarGraph();
-        $('#notificationBox').empty().append('<p></p>');
+        //$('#notificationBox').empty().append('<p></p>');
     }).fail(function (){
         $.toaster({ priority : 'danger', title : 'Internal Error', message : 'Getting team score blew up the server!'});
     });
+}
+
+function removeEntriesWithZero(array){
+    $.each(array, function(index, element){
+       if(parseInt(element.points) === 0){
+           delete array[index];
+       }
+    });
+    return array;
 }
 
 function renderGroupLeaderBoard(data) {
@@ -28,22 +36,25 @@ function renderGroupLeaderBoard(data) {
         if (teamsArray[currentTicket.assignedGroup_id] == null) {
             teamsArray[currentTicket.assignedGroup_id] = 0;
         }
-
-        teamsArray[currentTicket.assignedGroup_id] += parseInt(currentTicket.points);
+        //if (currentTicket.points != fooCalculator(currentTicket)){
+        //    console.log("ticket: "+currentTicket.points+" foo: "+fooCalculator(currentTicket)+" priority
+        // "+currentTicket.priority+" sla "+ currentTicket.percentage+ " type "+currentTicket.type);
+        //}
+        teamsArray[currentTicket.assignedGroup_id] += fooCalculator(currentTicket);
     });
     teamsArray ? reDisplayGroupLeaderBoard(teamsArray) : showGroupLeaderBoardError();
 }
 
 
 function reDisplayGroupLeaderBoard(array) {
-    $('#grouplist').empty();
-    $('.hidden-sm').remove();
+    $('#teamLeaderboard').empty();
+    //$('.hidden-sm').remove();
     var orderedTeams = sortByPoints(array);
     $.each(orderedTeams, function (index, el) {
-        $('#grouplist').append('<tr> <td class="success"> <a data-toggle="modal" data-target="#TeamInfo">' + el[0] + '</a></td>' + '<td class="info">' + el[1] + '</td> </tr>');
+        $('#teamLeaderboard').append('<tr> <td class="success"> <a data-toggle="modal" data-target="#TeamInfo">' + el[0] + '</a></td>' + '<td class="info">' + el[1] + '</td> </tr>');
         fillBarGraphData(el[0], el[1]);
     });
-    $('#groupLeaderBoardNav').hide();
+    //$('#groupLeaderBoardNav').hide();
 }
 
 function showGroupLeaderBoardError() {

@@ -1,6 +1,7 @@
 <?php namespace App;
 
 use DateTime;
+use Exception;
 use Illuminate\Database\Eloquent\Model;
 use Carbon\Carbon;
 use Illuminate\Support\Facades\DB;
@@ -8,7 +9,6 @@ use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
 use kintParser;
-use Psy\Exception\Exception;
 use SoapClient;
 use SoapParam;
 
@@ -29,11 +29,20 @@ class Ticket extends Model {
             INNER JOIN users ON users.id = user_id
             INNER JOIN groups ON groups.id = assignedGroup_id
             WHERE tickets.created_at > '$start' AND tickets.created_at < '$end'
-            OR tickets.updated_at > '$start' AND tickets.updated_at < '$end'
             ) as t 
             WHERE state = 'closed' OR state = 'Resolved'
         "));
     }
+    /*
+     * WARNING - INFORMATION:
+     * This is a backup query to include both created_at and updated_at fields. This will make more tickets appear in
+     *  the
+     * dashboard. It will filter creation and "last update" dates
+     * Add this
+     * OR tickets.updated_at > '$start' AND tickets.updated_at < '$end'
+     * right after the line that says
+     * WHERE tickets.created_at > '$start' AND tickets.created_at < '$end'
+     * */
 
     /**
      * Get all tickets with reopened status between a starting and an ending point
@@ -63,20 +72,34 @@ class Ticket extends Model {
             INNER JOIN users ON users.id = user_id
             INNER JOIN groups ON groups.id = assignedGroup_id
             WHERE tickets.created_at > '$start' AND tickets.created_at < '$end'
-            OR tickets.updated_at > '$start' AND tickets.updated_at < '$end'
             ) as t 
             WHERE state = 'open' OR state = 'Work in Progress' OR state = 'Solution Rejected'
         "));
     }
+    /*
+     * WARNING - INFORMATION:
+     * This is a backup query to include both created_at and updated_at fields. This will make more tickets appear in
+     *  the
+     * dashboard. It will filter creation and "last update" dates
+     * Add this
+     * OR tickets.updated_at > '$start' AND tickets.updated_at < '$end'
+     * right after the line that says
+     * WHERE tickets.created_at > '$start' AND tickets.created_at < '$end'
+     * */
+
 
     public static function getAllOpenTickets(){
         return Ticket::where('state','=','open')->get();
     }
 
     public static function getAllTicketsBetween($start, $end){
-        return Ticket::whereBetween('created_at', [$start, $end])
-            ->orWhereBetween('updated_at',[$start,$end])->get();
+        return Ticket::whereBetween('created_at', [$start, $end]);
     }
+    /*WARNING - INFORMATION: Replace the following line if you want to include the "last update" dates in the dashboard
+    results
+     * return Ticket::whereBetween('created_at', [$start, $end])
+     *->orWhereBetween('updated_at',[$start,$end])->get();
+     * */
 
     /**
      * This is the start of the point calculation method.
@@ -133,9 +156,9 @@ class Ticket extends Model {
         }
         $ticket->points = $points;
         if($ticket->state == "closed"){
-            $this->updateScorePoints($ticket->user_id, $ticket->assignedGroup_id, $points);
+            //$this->updateScorePoints($ticket->user_id, $ticket->assignedGroup_id, $points);
         } else if($ticket->state == "ReOpen"){
-            $this->setTicketPenalties();
+            //$this->setTicketPenalties();
         }
         $ticket->save();
     }
@@ -193,23 +216,29 @@ class Ticket extends Model {
 		//tries to locate the user. If it does not exist, the data is imported
 		$user = User::find($element->user_id);
 		if(!$user){
-			//attempt to fall back to DEV server and retrieve data
-			try{
-				Ticket::fallbackUserImport($element->user_id);
-			} catch(exception $e){
-				Log::warning('We received an unknown user with id- '.$element->user_id);
-			}
+            Log::warning('We received an unknown user with id- '.$element->user_id);
+            $user = "unknown";
+            //attempt to fall back to DEV server and retrieve data
+            /*try{
+                Ticket::fallbackUserImport($element->user_id);
+            } catch(exception $e){
+                return true;
+                throw new Exception('error inserting ticket, unknown user id '.$element->user_id);
+            }*/
 		}
 		$ticket->assignedGroup_id = $element->group_id;
 		//tries to locate the group. If it does not exist, the data should be imported (pending wsdl server development)
 		$group = Group::find($element->group_id);
 		if(!$group){
-			//attempt to fall back to DEV server and retrieve data
-			try{
-				Ticket::fallbackGroupImport($element->group_id);
-			} catch(exception $e){
-				Log::warning('We received an unknown user with id- '.$element->user_id);
-			}
+            Log::warning('We received an unknown user with id- '.$element->user_id);
+			$group = "unknown";
+            //attempt to fall back to DEV server and retrieve data
+            /*try{
+                Ticket::fallbackGroupImport($element->group_id);
+            } catch(exception $e){
+                return true;
+                throw new Exception('error inserting ticket, unknown user id '.$element->user_id);
+            }   */
 		}
         $ticket->save();
 		$ticket->updateTicketPoints($ticket);
@@ -217,20 +246,22 @@ class Ticket extends Model {
 
     public static function resetPoints()
     {
-        $allGroups = Group::all()->get();
+        $allGroups = Group::all();
         foreach($allGroups as $group){
             $group->points = 0;
+            $group->save();
         }
-        $allUsers = User::all()->get();
+        $allUsers = User::all();
         foreach($allUsers as $user){
             $user->points = 0;
+            $user->save();
         }
     }
 
     public static function requestGamificationWebservice($thresholdID)
     {
+        //declaring SOAP client
         try{
-            //declaring SOAP client
             $client = new SoapClient(NULL,
                 ['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl',
                     'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl"]);
@@ -241,7 +272,7 @@ class Ticket extends Model {
             ));
             if($sessionKey == null){
                 //session key is missing sending to signify error
-                Log::warning("there was invalid response from the gamification webservices couldnt request session ID");
+                Log::warning("invalid response from the gamification webservices couldnt request session ID");
                 return null;
             }
             //making soap call to get new tickets
@@ -253,63 +284,77 @@ class Ticket extends Model {
                 new SoapParam($sessionKey, "SessionID"),
                 new SoapParam($thresholdID,"TicketTresholdID")
             ));
-            if($receivedTicketsResponse == null){
-                Log::warning("there was invalid response from the gamification webservices");
-                return null;
-            } else{
-                return $receivedTicketsResponse;
-            }
-
-        } catch(exception $e){
-            Log::warning('Something could be going wrong with the webservice communication - '.$e);
+        }catch (exception $e){
+            Log::warning("Connection to OTRS WSDL failed.");
+        }
+        if($receivedTicketsResponse == null){
+            Log::warning("there was invalid response from the gamification webservices");
+            return null;
+        } else{
+            return $receivedTicketsResponse;
         }
     }
 
 	public static function fallbackUserImport($id)
 	{
-		$dbconn = pg_connect("host=10.200.10.54 port=5432 dbname=otrs user=otrsro password=otrs-ro123.")
-		//$dbconn = pg_connect("host=localhost port=5432 dbname=postgres user=otrspg password=root")
-		or die('Could not connect: ' . pg_last_error());
-		$query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u WHERE u.id=$id";
-		$result = pg_query($query) or die('Query failed: ' . pg_last_error());
-		$resultData = pg_fetch_object($result);
-		if($resultData == false){
-			return;
-		}
-		$resultData = json_decode(json_encode($resultData), FALSE);
-		$user = new User();
-		$user->id = $resultData->id;
-		$user->name = $resultData->login;
-		$user->email= $resultData->login . "@novabase.com";
-		$user->league_id = 1;
-		$user->password = bcrypt('password');
-		if($resultData->title){ $user->title = $resultData->title; }
-		else { $user->title = "novice"; }
-		$user->full_name = $resultData->first_name . " " . $resultData->last_name;
-		$user->points = 0;
-		$user->health_points = 100;
-		$user->experience = 0;
-		$user->level = 1;
-		$user->save();
+        $dbconn = pg_connect("host=10.200.10.54 port=5432 dbname=otrs user=otrsro password=otrs-ro123.");
+        //$dbconn = pg_connect("host=localhost port=5432 dbname=postgres user=otrspg password=root")
+        //or die('Could not connect: ' . pg_last_error());
+        if($dbconn == false){
+            throw new Exception('OTRS DEV server is down');
+        }
+        try{
+            $query = "SELECT u.id, u.login, u.first_name, u.last_name, u.title FROM users u WHERE u.id=$id";
+            $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+            $resultData = pg_fetch_object($result);
+            if($resultData == false){
+                return;
+            }
+            $resultData = json_decode(json_encode($resultData), FALSE);
+            $user = new User();
+            $user->id = $resultData->id;
+            $user->name = $resultData->login;
+            $user->email= $resultData->login . "@novabase.com";
+            $user->league_id = 1;
+            $user->password = bcrypt('password');
+            if($resultData->title){ $user->title = $resultData->title; }
+            else { $user->title = "novice"; }
+            $user->full_name = $resultData->first_name . " " . $resultData->last_name;
+            $user->points = 0;
+            $user->health_points = 100;
+            $user->experience = 0;
+            $user->level = 1;
+            $user->save();
+        }catch(exception $e){
+            Log::warning("Connection to OTRS DEV server failed, make sure server(10.200.10.54) is up.");
+        }
 	}
 
 	public static function fallbackGroupImport($id)
 	{
-		$dbconn = pg_connect("host=10.200.10.54 port=5432 dbname=otrs user=otrsro password=otrs-ro123.")
-		//$dbconn = pg_connect("host=localhost port=5432 dbname=postgres user=otrspg password=root")
-		or die('Could not connect: ' . pg_last_error());
-		$query = "SELECT id ,name, comments  FROM groups WHERE id=$id";
-		$result = pg_query($query) or die('Query failed: ' . pg_last_error());
-		$resultData = pg_fetch_object($result);
-		if($resultData == false){
-			return;
-		}
-		$resultData = json_decode(json_encode($resultData), FALSE);
-		$group = new Group();
-		$group->id = $resultData->id;
-		$group->title = $resultData->name;
-		$group->variant_name = $resultData->comments;
-		$group->points = 0;
-		$group->save();
+
+            $dbconn = pg_connect("host=10.200.10.54 port=5432 dbname=otrs user=otrsro password=otrs-ro123.");
+            //$dbconn = pg_connect("host=localhost port=5432 dbname=postgres user=otrspg password=root")
+            //or die('Could not connect: ' . pg_last_error());
+            if($dbconn == false){
+                throw new Exception('OTRS DEV server is down');
+            }
+        try{
+            $query = "SELECT id ,name, comments  FROM groups WHERE id=$id";
+            $result = pg_query($query) or die('Query failed: ' . pg_last_error());
+            $resultData = pg_fetch_object($result);
+            if($resultData == false){
+                return;
+            }
+            $resultData = json_decode(json_encode($resultData), FALSE);
+            $group = new Group();
+            $group->id = $resultData->id;
+            $group->title = $resultData->name;
+            $group->variant_name = $resultData->comments;
+            $group->points = 0;
+            $group->save();
+        }catch(exception $e){
+            Log::warning("Connection to OTRS DEV server failed, make sure server(10.200.10.54) is up.");
+        }
 	}
 }

@@ -13,7 +13,11 @@ function renderPlayerLeaderBoard() {
             playerArray[currentTicket.user_id] = 0;
             playerCounter++;
         }
-        playerArray[currentTicket.user_id] += parseInt(currentTicket.points);
+        //if (currentTicket.points != fooCalculator(currentTicket)){
+        //    console.log("ticket: "+currentTicket.points+" foo: "+fooCalculator(currentTicket)+" priority
+        // "+currentTicket.priority+" sla "+ currentTicket.percentage+ " type "+currentTicket.type);
+        //}
+        playerArray[currentTicket.user_id] += fooCalculator(currentTicket);
         //console.log("player: "+currentTicket.user_id+" solved ticket with "+currentTicket.points+" priority"+currentTicket.priority+" type"+currentTicket.type+" sla "+currentTicket.sla_time+"%");
     });
     playerArray ? (showPlayerLeaderBoard(playerArray), countPlayers(playerCounter)) : $.toaster({ priority : 'danger', title : 'Warning', message : 'no players exist'});

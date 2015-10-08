@@ -6,7 +6,7 @@
     <meta content="IE=edge" http-equiv="X-UA-Compatible">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="yes" name="apple-mobile-web-app-capable">
-    <meta http-equiv="refresh" content="300">
+    <!--<meta http-equiv="refresh" content="300">-->
 
     <title>Celfocus Gamification</title>
     <!-- includes at head-->
@@ -130,14 +130,18 @@
                 <li class="active"><a id="ticket-tab" data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
                 <!--<li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
                 <li class=""><a id="newsfeed-tab" data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
-                <li class=""><a id="groupLeaderboard-tab" data-toggle="tab" href="#Gleaderboard">Group Leaderboard</a></li>
+                <li class=""><a id="hofteams-tab" data-toggle="tab" href="#HoFleaderboard">Team's Hall
+                        of Fame</a></li>
                 <li class=""><a id="player-leaderboard-tab" data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
+                <li class=""><a id="team-leaderboard-tab" data-toggle="tab" href="#Tleaderboard">Team
+                        Leaderboard</a></li>
                 <li class=""><a id="graph-tab" data-toggle="tab" href="#Graphs">Graphs</a></li>
             </ul>
         </div>
 
         <div class="panel-body">
             <div class="tab-content">
+                <!-- TAB CONTENT FOR open ticket list-->
                 <div class="tab-pane fade active in" id="ticketDisplayScreen">
                     <nav class="col-xs-12 col-md-12 col-sm-12 col-lg-12">
                         <ul class="pager">
@@ -198,7 +202,7 @@
                     </div>
 
                 </div>
-
+                <!-- TAB CONTENT FOR rewards - in development-->
 <!--                <div class="tab-pane fade" id="rewards">
                     <h4>Rewards</h4>
 
@@ -210,6 +214,7 @@
                         laborum.</p>
                 </div> -->
 
+                <!-- TAB CONTENT FOR newsfeed-->
                 <div class="tab-pane fade" id="newsfeed">
                     <h4>Newsfeed</h4>
 
@@ -230,9 +235,10 @@
 
                 </div>
 
-                <div class="tab-pane fade" id="Gleaderboard">
+                <!-- TAB CONTENT FOR Hall of Fame for teams-->
+                <div class="tab-pane fade" id="HoFleaderboard">
                     <h4>Leaderboard</h4>
-                    <!-- group leaderboard -->
+                    <!-- HoF leaderboard -->
 
                     <div class="col-md-12">
                         <!--    Context Classes  -->
@@ -240,7 +246,7 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading" id="leaderboard">
-                                Group leaderboard
+                                Team's Hall of Fame
                             </div>
 
 
@@ -265,7 +271,7 @@
 
 
                             <div class="panel-body">
-                                <div id="table-teamleaderboard" class="table-responsive">
+                                <div id="HoF-teamleaderboard" class="table-responsive">
                                     <table class="table">
                                         <thead>
                                         <tr>
@@ -286,6 +292,7 @@
                     <!-- END group leaderboard -->
                 </div>
 
+                <!-- TAB CONTENT FOR player's leaderboard-->
                 <div class="tab-pane fade" id="Pleaderboard">
                     <div class="panel-heading">
                         <h4>Player leaderboard</h4>
@@ -300,6 +307,25 @@
                             </thead>
 
                             <tbody id='playerLeaderboard'></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- TAB CONTENT FOR Team's leaderboard-->
+                <div class="tab-pane fade" id="Tleaderboard">
+                    <div class="panel-heading">
+                        <h4>Team leaderboard</h4>
+                    </div>
+                    <div id="table-teamleaderboard" class="table-responsive">
+                        <table class="table">
+                            <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Points</th>
+                            </tr>
+                            </thead>
+
+                            <tbody id='teamLeaderboard'></tbody>
                         </table>
                     </div>
                 </div>
@@ -347,7 +373,10 @@
     </div>
 </div>
 
-<div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5 col-sm-offset-2"></div>
+<!--
+<div id="notificationBox" class="col-md-5 col-sm-6 col-lg-6 col-md-offset-2 col-lg-offset-5
+col-sm-offset-2"></div>
+-->
 
 
 <!--------------------------------------------------------------------------------------------------------------------->
@@ -461,7 +490,7 @@ aria-hidden="true">
                         <input type="text" id="endDatePicker">
                     </p>
                     <button id="timeTravelTrigger" type="button" class="btn btn-danger">GO!</button>
-                    <div id='loader'><img src="assets/loader.gif"/></div>
+                    <div id='loader'><img src="assets/loader.gif" class="text-center"/></div>
                 <label class="text-secundary text-muted">After clicking 'Go' you can close the window, we'll do the work for you in the background (just please be patient)</label>
 
             </div>
@@ -473,8 +502,7 @@ aria-hidden="true">
 </div>
 <!-- END Modal for time travel panel -->
 
-<a class="top" href="#">Back to top</a>
-<footer class="col-md-12 col-sm-6 col-lg-12">
+<footer class="">
     last synchronization time: {{$lastsynctime}} <br />
     Copyright by Celfocus. Gamification page. All rights reserved.
 </footer>

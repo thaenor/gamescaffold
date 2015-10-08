@@ -43,28 +43,34 @@ class Kernel extends ConsoleKernel {
 		 * This function is executed every hour
 		 */
 		$schedule->call(function () {
-            try{
-	            $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
-	            $receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
-	            $count = 0;
-	            if( is_array($receivedTicketsResponse) ){
-		            foreach($receivedTicketsResponse['ticket'] as $element){
+			ini_set('memory_limit', '-1');
+			ini_set('max_execution_time', 0);
+	        $lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
+	        $receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
+	        $count = 0;
+	        if( is_array($receivedTicketsResponse) ){
+	            foreach($receivedTicketsResponse['ticket'] as $element){
+		            try{
 			            Ticket::insertTicket($element);
-			            $count++;
+		            } catch (Exception $e) {
+			            Log::warning('Caught exception recording ticket:'.$e->getMessage());
 		            }
-	            } else {
-		            Ticket::insertTicket($receivedTicketsResponse);
-		            $count ++;
+		            $count++;
 	            }
-	            //echo 'Webservice data transfer complete, total data received '.$count;
-	            Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
-	            //echo 'Webservice data transfer complete, total data received '.$count;
-            } catch(exception $e){
-                Log::warning('Something could be going wrong with the webservice communication - '.$e);
-            }
+	        } else {
+		        try{
+			        Ticket::insertTicket($receivedTicketsResponse);
+		        } catch (Exception $e) {
+			        Log::warning('Caught exception recording ticket:'.$e->getMessage());
+		        }
+	            $count ++;
+	        }
+	        Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
         })->hourly();
 
-		$schedule->call(function () {
+		/*$schedule->call(function () {
+			ini_set('memory_limit', '-1');
+			ini_set('max_execution_time', 0);
 			$startOfLastMonth = new Carbon('first day of last month');
 			$startOfLastMonth->hour = 0;
 			$startOfLastMonth->minute = 0;
@@ -75,22 +81,28 @@ class Kernel extends ConsoleKernel {
 			$receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
 			$count = 0;
 			if($receivedTicketsResponse != null){
-				$count = 0;
 				if( is_array($receivedTicketsResponse) ){
 					foreach($receivedTicketsResponse['ticket'] as $element){
-						Ticket::insertTicket($element);
+						try{
+							Ticket::insertTicket($element);
+						} catch (Exception $e) {
+							Log::warning('Caught exception recording ticket:'.$e->getMessage());
+						}
 						$count++;
 					}
 				} else {
-					Ticket::insertTicket($receivedTicketsResponse);
+					try{
+						Ticket::insertTicket($receivedTicketsResponse);
+					} catch (Exception $e) {
+						Log::warning('Caught exception recording ticket:'.$e->getMessage());
+					}
 					$count ++;
 				}
 			}else{
 				Log::warning('invalid response from webservices');
 			}
 			Storage::disk('local')->put('lastsynctime.txt', Carbon::now());
-			//Log::info ('Webservice data update complete, total data received '.$count);
-		})->hourly();
+		})->hourly();*/
 
 		/**
 		 * Every month points are reset in the permanent hall of fame (this corresponds to the default group table

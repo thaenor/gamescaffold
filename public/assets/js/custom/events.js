@@ -17,12 +17,6 @@
 
  function renderEvents() {
 
-    // Back to top
-     $('a.top').click(function () {
-         $(document.body).animate({scrollTop: 0}, 800);
-         return false;
-     });
-
     /**
      * Click event on next button in pagination
      * This code handles all "next" buttons
@@ -32,27 +26,27 @@
     $(".next").click(function (event) {
         event.preventDefault();
         _pagination[_pageTab]++;
-        updatePageNumber();
         switch (_pageTab) {
             case 'ticket':
-                if(_pagination[_pageTab] >= _maxPageOpenTickets){
+                if(_pagination[_pageTab] > _maxPageOpenTickets){
                     _pagination[_pageTab]--;
                     $.toaster({ priority : 'warning', title : 'Notice', message : 'no more pages to show'});
                 }
                 ticketPagination(_openTicketsData);
                 break;
             case 'groupLeaderBoard':
-                if(_pagination[_pageTab] >= _maxPagePlayerLeaderboard){
+                if(_pagination[_pageTab] > _maxPagePlayerLeaderboard){
                     _pagination[_pageTab]--;
                     $.toaster({ priority : 'warning', title : 'Notice', message : 'no more pages to show'});
                 }
-                _barGraphDesignJson = [];
+                //_barGraphDesignJson = [];
                 leaderBoardPagination(_groupJson);
-                drawMorrisBarGraph();
+                //drawMorrisBarGraph();
                 break;
             default:
                 console.error('invalid key in pagination');
         }
+        updatePageNumber();
     });
 
 
@@ -87,7 +81,7 @@
         _pageTab = "ticket";
         updatePageNumber();
     });
-    $('#groupLeaderboard-tab').click(function () {
+    $('#hofteams-tab').click(function () {
         _pageTab = "groupLeaderBoard";
         updatePageNumber();
     });
@@ -155,8 +149,8 @@
 
     /** set default time-travel values for last week */
     $("#setTimeWeek").click(function () {
-        $("#startDatePicker").val(moment().weekday(-7).format('YYYY[-]MM[-]D')); // last Monday
-        $('#endDatePicker').val(moment().weekday(-2).format('YYYY[-]MM[-]D')); //Last Friday
+        $("#startDatePicker").val(moment().weekday(-7).format('YYYY[-]MM[-]DD')); // last Monday
+        $('#endDatePicker').val(moment().weekday(-2).format('YYYY[-]MM[-]DD')); //Last Friday
         $('#timeTravelTrigger').prop('disabled', false);
     });
     /** set default time-travel values for last month */

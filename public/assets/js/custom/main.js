@@ -18,6 +18,15 @@ var allArticles;
 var _maxPageOpenTickets;
 var _maxPagePlayerLeaderboard;
 
+Array.prototype.clean = function(deleteValue) {
+    for (var i = 0; i < this.length; i++) {
+        if (this[i] == deleteValue) {
+            this.splice(i, 1);
+            i--;
+        }
+    }
+    return this;
+};
 
 $(document).ready(function () {
     jQuery.ajaxSetup({
@@ -29,7 +38,6 @@ $(document).ready(function () {
         },
         success: function() {}
     });
-    //$("body > *").not("body > #preloader").hide();
     welcome();
     getOpenTicketData();
     getGroupData();
@@ -52,8 +60,8 @@ $(document).ajaxStop(function () {
 	$.toaster({ priority : 'info', title : 'Notice', message : 'Information Refreshed'});
     var lenghtOfOpenTicketsArray = _openTicketsData.length;
     $('#ticketNumber').empty().append(lenghtOfOpenTicketsArray);
-    _maxPageOpenTickets = lenghtOfOpenTicketsArray / _recPerPage;
-    _maxPagePlayerLeaderboard = _groupJson.length/_recPerPage;
+    _maxPageOpenTickets = Math.ceil(lenghtOfOpenTicketsArray / _recPerPage);
+    _maxPagePlayerLeaderboard = Math.ceil(_groupJson.length/_recPerPage);
     drawMorrisDonnutChart();
 });
 

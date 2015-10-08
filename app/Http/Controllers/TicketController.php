@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use App\Commands\CalculatePoints;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\App;
@@ -10,6 +11,7 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Bus;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Queue;
 use Illuminate\Support\Facades\Storage;
 use PhpSpec\Exception\Exception;
 
@@ -46,37 +48,10 @@ class TicketController extends Controller {
         echo "sync done";
     }
 
-    /*public function calculatePoints(){
-        ini_set("memory_limit", "-1");
-        set_time_limit(0);
-        echo 'working...<hr/> <img src="http://media1.giphy.com/media/4bAEIAB84zPwc/giphy.gif"/><br/>';
-        try{
-            $lastid = Storage::disk('local')->get('lastIdToCalculate.txt');
-        } catch(exceptio $e){
-            Log::error('unable to read last id. Unable to calculate points');
-            exit(1);
-        }*/
-
-        /*$start = Carbon::createFromDate(2015,06,01, 'GMT');
-        $end = Carbon::now();
-        $tickets = Ticket::getAllTicketsBetween($start,$end);
-        foreach($tickets as $ticket){
-            $ticket->updateTicketPoints($ticket);
-            echo "ticket updated ".$ticket->id." | ".$ticket->points."<br/>";
-        }*/
-
-        /*$chunkSize = 1000;
-        $totalTickets = Ticket::where('id','>=',$lastid)->count();
-        $chunks = floor($totalTickets / $chunkSize);
-        for ($chunk = 0; $chunk < $chunks; $chunk++) {
-            $offset = $chunk * $chunkSize;
-            $tickets = Ticket::where('state','=',"closed")->skip($offset)->take($chunkSize)->get();
-            foreach($tickets as $ticket){
-                $ticket->updateTicketPoints($ticket);
-            }
-        }
-        return "done";
-    }*/
+    public function calculatePoints(){
+	    Queue::push(new CalculatePoints());
+	    return "queued point calculation";
+    }
     
 	/**
 	 * Display a listing of the resource.

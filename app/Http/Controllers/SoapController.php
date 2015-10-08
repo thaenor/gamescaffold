@@ -19,16 +19,26 @@ class SoapController extends Controller {
 
 	public function index()
 	{
+		ini_set('memory_limit', '-1');
+		ini_set('max_execution_time', 0);
 		$lastTicketId = Ticket::take(1)->orderBy('id','desc')->first()->id;
 		$receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
 		$count = 0;
 		if( is_array($receivedTicketsResponse) ){
 			foreach($receivedTicketsResponse['ticket'] as $element){
-				Ticket::insertTicket($element);
+				try{
+					Ticket::insertTicket($element);
+				} catch (Exception $e) {
+					Log::warning('Caught exception recording ticket:'.$e->getMessage());
+				}
 				$count++;
 			}
 		} else {
-			Ticket::insertTicket($receivedTicketsResponse);
+			try{
+				Ticket::insertTicket($receivedTicketsResponse);
+			} catch (Exception $e) {
+				Log::warning('Caught exception recording ticket:'.$e->getMessage());
+			}
 			$count ++;
 		}
 		//echo 'Webservice data transfer complete, total data received '.$count;
@@ -38,6 +48,8 @@ class SoapController extends Controller {
 
 	public function update()
 	{
+		ini_set('memory_limit', '-1');
+		ini_set('max_execution_time', 0);
 		$startOfLastMonth = new Carbon('first day of last month');
 		$startOfLastMonth->hour = 0;
 		$startOfLastMonth->minute = 0;
@@ -48,14 +60,21 @@ class SoapController extends Controller {
 		$receivedTicketsResponse = Ticket::requestGamificationWebservice($lastTicketId);
 		$count = 0;
 		if($receivedTicketsResponse != null){
-			$count = 0;
 			if( is_array($receivedTicketsResponse) ){
 				foreach($receivedTicketsResponse['ticket'] as $element){
-					Ticket::insertTicket($element);
+					try{
+						Ticket::insertTicket($element);
+					} catch (Exception $e) {
+						Log::warning('Caught exception recording ticket:'.$e->getMessage());
+					}
 					$count++;
 				}
 			} else {
-				Ticket::insertTicket($receivedTicketsResponse);
+				try{
+					Ticket::insertTicket($receivedTicketsResponse);
+				} catch (Exception $e) {
+					Log::warning('Caught exception recording ticket:'.$e->getMessage());
+				}
 				$count ++;
 			}
 		}else{
