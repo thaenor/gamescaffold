@@ -216,29 +216,49 @@ class Ticket extends Model {
 		//tries to locate the user. If it does not exist, the data is imported
 		$user = User::find($element->user_id);
 		if(!$user){
-            Log::warning('We received an unknown user with id- '.$element->user_id);
-            $user = "unknown";
-            //attempt to fall back to DEV server and retrieve data
-            /*try{
-                Ticket::fallbackUserImport($element->user_id);
-            } catch(exception $e){
-                return true;
-                throw new Exception('error inserting ticket, unknown user id '.$element->user_id);
-            }*/
+            $recoveredUsername = Ticket::requestGetTicketWSDL($element->id);
+			if($recoveredUsername != null){
+				$user = new User();
+				$user->id = $element->user_id;
+				$user->full_name = $recoveredUsername['user'];
+				$user->email= $recoveredUsername['user'] . "@novabase.com";
+				$user->league_id = 1;
+				$user->password = bcrypt('password');
+				$user->points = 0;
+				$user->health_points = 100;
+				$user->experience = 0;
+				$user->level = 1;
+				$user->save();
+				Log::warning('user imported '.$recoveredUsername['user']);
+				//attempt to fall back to DEV server and retrieve data
+				/*try{
+					Ticket::fallbackUserImport($element->user_id);
+				} catch(exception $e){
+					return true;
+					throw new Exception('error inserting ticket, unknown user id '.$element->user_id);
+				}*/
+			}
 		}
 		$ticket->assignedGroup_id = $element->group_id;
 		//tries to locate the group. If it does not exist, the data should be imported (pending wsdl server development)
 		$group = Group::find($element->group_id);
 		if(!$group){
-            Log::warning('We received an unknown user with id- '.$element->user_id);
-			$group = "unknown";
-            //attempt to fall back to DEV server and retrieve data
-            /*try{
-                Ticket::fallbackGroupImport($element->group_id);
-            } catch(exception $e){
-                return true;
-                throw new Exception('error inserting ticket, unknown user id '.$element->user_id);
-            }   */
+            if($recoveredUsername != null){
+	            Log::warning('We received an unknown user with id- '.$element->user_id);
+	            $group = new Group();
+	            $group->id=$element->group_id;
+	            $group->title = $recoveredUsername["team"];
+	            $group->points = 0;
+	            $group->save();
+	            Log::warning('group imported '.$recoveredUsername['team']);
+	            //attempt to fall back to DEV server and retrieve data
+	            /*try{
+					Ticket::fallbackGroupImport($element->group_id);
+				} catch(exception $e){
+					return true;
+					throw new Exception('error inserting ticket, unknown user id '.$element->user_id);
+				}   */
+            }
 		}
         $ticket->save();
 		$ticket->updateTicketPoints($ticket);
@@ -260,6 +280,7 @@ class Ticket extends Model {
 
     public static function requestGamificationWebservice($thresholdID)
     {
+	    $returnValue = null;
         //declaring SOAP client
         try{
             $client = new SoapClient(NULL,
@@ -284,18 +305,37 @@ class Ticket extends Model {
                 new SoapParam($sessionKey, "SessionID"),
                 new SoapParam($thresholdID,"TicketTresholdID")
             ));
+
+	        return $receivedTicketsResponse;
         }catch (exception $e){
             Log::warning("Connection to OTRS WSDL failed.");
         }
-        if($receivedTicketsResponse == null){
-            Log::warning("there was invalid response from the gamification webservices");
-            return null;
-        } else{
-            return $receivedTicketsResponse;
-        }
     }
 
-	public static function fallbackUserImport($id)
+	public static function requestGetTicketWSDL($ticketId)
+	{
+		$client = new SoapClient(NULL,
+			['location' => 'http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl',
+				'uri'=>"http://193.236.121.122/otrs/nph-genericinterface.pl/Webservice/GenericTicketConnector?wsdl"]);
+		//making soap call to SessionCreate, this returns the session for future calls
+		$sessionKey = $client->__soapCall("SessionCreate", array(
+			new SoapParam("gameon","UserLogin"),
+			new SoapParam("Celfocus2015","Password")
+		));
+		if($sessionKey == null){
+			//session key is missing sending to signify error
+			echo ("invalid response from the gamification webservices couldnt request session ID");
+		}
+		$ticketGet = $client->__soapCall("TicketGet", array(
+			new SoapParam($sessionKey,"SessionID"),
+			new SoapParam($ticketId,"TicketID")
+		));
+		$result["user"] = $ticketGet->Owner;
+		$result["team"] = $ticketGet->Service;
+		return $result;
+    }
+
+	/*public static function fallbackUserImport($id)
 	{
         $dbconn = pg_connect("host=10.200.10.54 port=5432 dbname=otrs user=otrsro password=otrs-ro123.");
         //$dbconn = pg_connect("host=localhost port=5432 dbname=postgres user=otrspg password=root")
@@ -328,9 +368,9 @@ class Ticket extends Model {
         }catch(exception $e){
             Log::warning("Connection to OTRS DEV server failed, make sure server(10.200.10.54) is up.");
         }
-	}
+	}*/
 
-	public static function fallbackGroupImport($id)
+	/*public static function fallbackGroupImport($id)
 	{
 
             $dbconn = pg_connect("host=10.200.10.54 port=5432 dbname=otrs user=otrsro password=otrs-ro123.");
@@ -356,5 +396,5 @@ class Ticket extends Model {
         }catch(exception $e){
             Log::warning("Connection to OTRS DEV server failed, make sure server(10.200.10.54) is up.");
         }
-	}
+	}*/
 }

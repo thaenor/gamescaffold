@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use App\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller {
 
@@ -20,8 +21,8 @@ class ArticleController extends Controller {
 	 */
 	public function index()
 	{
-		$articles = Article::all();
-
+		$articles = DB::table('articles')->paginate(15);
+		$articles->setPath('custom/url');;
 		return view('articles.index', compact('articles'));
 	}
 

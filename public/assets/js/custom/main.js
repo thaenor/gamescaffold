@@ -17,6 +17,15 @@ var _reopenedTicketsData;
 var allArticles;
 var _maxPageOpenTickets;
 var _maxPagePlayerLeaderboard;
+var calculatorPointSettings = {
+    p1: 10,
+    p2: 8,
+    p3: 3,
+    p4: 1,
+    inc: 7,
+    prob: 10,
+    serviceReq: 5
+};
 
 Array.prototype.clean = function(deleteValue) {
     for (var i = 0; i < this.length; i++) {
@@ -104,7 +113,8 @@ function welcome(){
 }
 
 function tabClicker(){
-    var tabbedArray = ["#ticket-tab", /*"#newsfeed-tab",*/ "#groupLeaderboard-tab", "#player-leaderboard-tab", "#graph-tab"];
+    var tabbedArray = ["#ticket-tab", /*"#newsfeed-tab",*/ /*"#groupLeaderboard-tab",*/ "#player-leaderboard-tab",
+     "#graph-tab", "#team-leaderboard-tab"];
     var selectedTabIndex = Math.floor((Math.random() * tabbedArray.length));
     var buttonToClick = tabbedArray[selectedTabIndex];
 $(buttonToClick).click();

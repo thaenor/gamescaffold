@@ -129,6 +129,7 @@
             _pagination["ticket"] = 1;
             _pagination["groupLeaderBoard"] = 1;
             updatePageNumber();
+            $("#donut-example").empty();
             getOpenTicketData(start, end);
             var link = generateLink('resolved',start, end);
             getAjaxData(link).done(function(data){
@@ -170,7 +171,39 @@
         } else {
             $.toaster({ priority : 'warning', title : 'Newsfeed', message : 'Please write something'});
         }
+        $('#writtenFeed').val("");
     });
+
+     /** point settings calculation modal event handling*/
+     $("#pointSettingSubmit").click(function(e){
+         e.preventDefault();
+         var p1 = $("#p1PointVal").val();
+         var p2 = $("#p2PointVal").val();
+         var p3 = $("#p3PointVal").val();
+         var p4 = $("#p4PointVal").val();
+
+         var inc = $("#incidentPointVal").val();
+         var problem = $("#problemPointVal").val();
+         var serviceReq = $("#serviceReqPointVal").val();
+         if(p1===""||p2===""||p3===""||p4===""||inc===""||problem===""||serviceReq === "") {
+             $.toaster({ priority : 'warning', title : 'point settings', message : 'you did not fill the entire' +
+             ' form'});
+             return true;
+         }
+         if(parseInt(p1)>0||parseInt(p2)>0||parseInt(p3)>0||parseInt(p4)>0||parseInt(inc)>0||parseInt(problem)>0||parseInt(serviceReq )>0) {
+             calculatorPointSettings.p1 = parseInt(p1);
+             calculatorPointSettings.p2 = parseInt(p2);
+             calculatorPointSettings.p3 = parseInt(p3);
+             calculatorPointSettings.p4 = parseInt(p4);
+             calculatorPointSettings.inc = parseInt(inc);
+             calculatorPointSettings.prob = parseInt(problem);
+             calculatorPointSettings.serviceReq = parseInt(serviceReq);
+             renderPlayerLeaderBoard(_resolvedTicketsData);
+             renderGroupLeaderBoard(_resolvedTicketsData);
+         }else{
+             $.toaster({ priority : 'warning', title : 'point settings', message : 'invalid fields'});
+         }
+     });
 
 
     /** Event that triggers modal with player points details. Attach a delegated event handler */

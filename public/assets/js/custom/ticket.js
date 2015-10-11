@@ -173,19 +173,19 @@ function renderDetailModal(data, pageList){
             switch (el.priority){
                 case '1 Critical':
                     criticalCount++;
-                    criticalPointCount += 10;
+                    criticalPointCount += calculatorPointSettings.p1;
                     break;
                 case '2 High':
                     highCount++;
-                    highPointCount += 8;
+                    highPointCount += calculatorPointSettings.p2;
                     break;
                 case '3 Medium':
                     mediumCount++;
-                    mediumPointCount += 3;
+                    mediumPointCount += calculatorPointSettings.p3
                     break;
                 case '4 Low':
                     lowCount++;
-                    lowPointCount += 1;
+                    lowPointCount += calculatorPointSettings.p4;
                     break;
                 default:
                     points += 0;
@@ -194,15 +194,15 @@ function renderDetailModal(data, pageList){
             switch(el.type) {
                 case "Incident":
                     incidentCount++;
-                    incidentPointCount += 7;
+                    incidentPointCount += calculatorPointSettings.inc;
                     break;
                 case "Service Request":
                     serviceRequestCount++;
-                    srPointCount += 5;
+                    srPointCount += calculatorPointSettings.serviceReq;
                     break;
                 case "Problem":
                     problemCount++;
-                    problemPointCount += 10;
+                    problemPointCount += calculatorPointSettings.prob;
                     break;
                 default:
                     points += 0;
@@ -246,16 +246,16 @@ function fooCalculator(ticket){
     var points = 0;
     switch (ticket.priority){
         case '1 Critical':
-            points += 10;
+            points += calculatorPointSettings.p1;
             break;
         case '2 High':
-            points += 8;
+            points += calculatorPointSettings.p2;
             break;
         case '3 Medium':
-            points += 3;
+            points += calculatorPointSettings.p3;
             break;
         case '4 Low':
-            points += 1;
+            points += calculatorPointSettings.p4;
             break;
         default:
             points += 0;
@@ -263,13 +263,13 @@ function fooCalculator(ticket){
     }
     switch(ticket.type) {
         case "Incident":
-            points += 7;
+            points += calculatorPointSettings.inc;
             break;
         case "Service Request":
-            points += 5;
+            points += calculatorPointSettings.serviceReq;
             break;
         case "Problem":
-            points += 10;
+            points += calculatorPointSettings.prob;
             break;
         default:
             points += 0;
@@ -299,7 +299,7 @@ function displayTicketPercentage(percentage){
 
 function renderTicketDetailsModal(ticketId){
     var ticket = findTicket(_openTicketsData,ticketId);
-    var timeToSolveInDays = parseInt(ticket.sla_time)/480; //1440 if you want whole days, not just office hours;
+    var timeToSolveInHours = parseInt(ticket.sla_time)/60;
     if( ticket != false){
         $("#ticketInfo").empty().append('<ul class="list-group">' +
         '<li class="list-group-item"> id: #'+ticket.id+'</li>' +
@@ -309,7 +309,8 @@ function renderTicketDetailsModal(ticketId){
         '<li class="list-group-item"> <b> priority: '+ticket.priority+'</b> </li>' +
         '<li class="list-group-item"> <b> sla: '+ticket.sla+' </b> <span class="badge">'+displayTicketPercentage(ticket.percentage)+'%</span> </li>' +
         '<li class="list-group-item"> <b> assigned to: '+ticket.user_id+' </b> </li>' +
-        '<li class="list-group-item"> total time to solve: '+timeToSolveInDays+' days ( '+ticket.sla_time+' minutes) </li>' +
+        '<li class="list-group-item"> total time to solve: '+timeToSolveInHours+'h ( '+ticket.sla_time+' minutes)' +
+            ' </li>' +
         '<li class="list-group-item"> team: '+ticket.assignedGroup_id+'</li>' +
         '<li class="list-group-item"> points: '+ticket.points+'</li>' +
         '<li class="list-group-item"> created at: '+ticket.created_at+'</li>' +

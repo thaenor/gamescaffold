@@ -1,5 +1,6 @@
 <?php namespace App\Http\Controllers;
 
+use Illuminate\Support\Facades\Blade;
 use Illuminate\Support\Facades\Storage;
 
 class HomeController extends Controller {
@@ -37,6 +38,8 @@ class HomeController extends Controller {
 		if($lastsynctime == null){
 			$lastsynctime = "waiting for first synchronization";
 		}
+		Blade::setContentTags('<%', '%>');        // for variables and all things Blade
+		Blade::setEscapedContentTags('<%%', '%%>');   // for escaped data
 		return view('home.landingPage',compact('lastsynctime'));
 	}
 

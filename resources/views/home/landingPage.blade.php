@@ -58,7 +58,7 @@
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                <li class="disabled"><a href="#"><i class="glyphicon glyphicon-user"></i> My stats</a></li>
+                <!--<li class="disabled"><a href="#"><i class="glyphicon glyphicon-user"></i> My stats</a></li>-->
                 <li class="dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Backend access <span class="caret"></span></a>
                     <ul class="dropdown-menu">
@@ -83,7 +83,7 @@
                     <ul class="dropdown-menu">
                         <li class="button"><a href="/auth/login">Login</a></li>
                         <li role="separator" class="divider"></li>
-                        <li class="disabled"><a href="/auth/login">Logout</a></li>
+                        <li class="disabled"><a href="/auth/logout">Logout</a></li>
                     </ul>
                 </li>
             </ul>
@@ -123,15 +123,23 @@
                                 </div>
                             </div>
                         </li>
+                        <li class="pull-right hidden-xs">
+                            <div class="noti-box">
+                                <span class="icon-box bg-color-red set-icon">
+                                    <i class="glyphicon glyphicon-cog" data-toggle="modal"
+                                       data-target="#settingsPointCalc"></i>
+                                </span>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>
             <ul class="nav nav-pills nav-justified" id="mainMenuNav">
                 <li class="active"><a id="ticket-tab" data-toggle="tab" href="#ticketDisplayScreen">Tickets</a></li>
-                <!--<li class="disabled"><a data-toggle="tab" href="#rewards">Rewards</a></li>-->
+                <li class=""><a data-toggle="tab" href="#rewards">Rewards</a></li>
                 <li class=""><a id="newsfeed-tab" data-toggle="tab" href="#newsfeed">Newsfeed</a></li>
-                <li class=""><a id="hofteams-tab" data-toggle="tab" href="#HoFleaderboard">Team's Hall
-                        of Fame</a></li>
+                <!--<li class="disabled"><a id="hofteams-tab" data-toggle="tab" href="#HoFleaderboard">Team's Hall
+                        of Fame</a></li>-->
                 <li class=""><a id="player-leaderboard-tab" data-toggle="tab" href="#Pleaderboard">Player Leaderboard</a></li>
                 <li class=""><a id="team-leaderboard-tab" data-toggle="tab" href="#Tleaderboard">Team
                         Leaderboard</a></li>
@@ -203,16 +211,56 @@
 
                 </div>
                 <!-- TAB CONTENT FOR rewards - in development-->
-<!--                <div class="tab-pane fade" id="rewards">
-                    <h4>Rewards</h4>
+                <div class="tab-pane fade well center" id="rewards" ng-app="todoApp">
+                    <h2>Reward</h2>
+                    <div ng-controller="TodoListController as todoList">
+                        <span>{{todoList.remaining()}} of {{todoList.todos.length}} remaining</span>
+                        [ <a href="" ng-click="todoList.archive()">archive</a> ]
+                        <ul class="unstyled">
+                            <li ng-repeat="todo in todoList.todos">
+                                <input type="checkbox" ng-model="todo.done">
+                                <span class="done-{{todo.done}}">{{todo.text}}</span>
+                            </li>
+                        </ul>
+                        <form ng-submit="todoList.addTodo()">
+                            <input type="text" ng-model="todoList.todoText"  size="30"
+                                   placeholder="add new reward here">
+                            <input class="btn-primary" type="submit" value="add">
+                        </form>
+                    </div>
+                    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.7/angular.min.js"></script>
+                    <script>
+    angular.module('todoApp', [])
+            .controller('TodoListController', function() {
+                var todoList = this;
+                todoList.todos = [
+                    {text:'Solve 50 tickets', done:false},
+                    {text:'Solve 3 Incidents', done:false}];
 
-                    <p class="text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
-                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in
-                        reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint
-                        occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est
-                        laborum.</p>
-                </div> -->
+                todoList.addTodo = function() {
+                    todoList.todos.push({text:todoList.todoText, done:false});
+                    todoList.todoText = '';
+                };
+
+                todoList.remaining = function() {
+                    var count = 0;
+                    angular.forEach(todoList.todos, function(todo) {
+                        count += todo.done ? 0 : 1;
+                    });
+                    return count;
+                };
+
+                todoList.archive = function() {
+                    var oldTodos = todoList.todos;
+                    todoList.todos = [];
+                    angular.forEach(oldTodos, function(todo) {
+                        if (!todo.done) todoList.todos.push(todo);
+                    });
+                };
+            });
+</script>
+
+                </div>
 
                 <!-- TAB CONTENT FOR newsfeed-->
                 <div class="tab-pane fade" id="newsfeed">
@@ -224,6 +272,7 @@
                                 <ul id="articleList" class="list-group">
                                 </ul>
                             </div>
+                            <br/>
                             <input type="text" class="form-control" id="writtenFeed"
                                    placeholder="What's on your mind...">
 
@@ -246,7 +295,8 @@
 
                         <div class="panel panel-default">
                             <div class="panel-heading" id="leaderboard">
-                                Team's Hall of Fame
+                                Team's Hall of Fame <br/>
+                                <em class="text-muted">(the hall of fame is immune to time travel)</em>
                             </div>
 
 
@@ -345,6 +395,9 @@
                                     <div class="panel-body">
                                         <div id="morris-bar-chart">
                                         </div>
+                                        <hr/>
+                                        <div id="morris-Teambar-chart">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -382,6 +435,62 @@ col-sm-offset-2"></div>
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
 <!--------------------------------------------------------------------------------------------------------------------->
+<!-- Modal With settings for point calculation -->
+<div class="modal fade" id="settingsPointCalc" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel">Point Calculation settings</h4>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="form-group">
+                        <label for="p1Critical">How many points is a P1 (Critical) ticket worth:</label>
+                        <input type="number" class="form-control" id="p1PointVal" name="quantity" min="1"
+                               max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="p2High">How many points is a P2 (High) ticket worth:</label>
+                        <input type="number" class="form-control" id="p2PointVal" name="quantity" min="1"
+                               max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="p3Medium">How many points is a P3 (Medium) ticket worth::</label>
+                        <input type="number" class="form-control" id="p3PointVal" name="quantity" min="1"
+                               max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="p4Low">How many points is a P4 (Low) ticket worth::</label>
+                        <input type="number" class="form-control" id="p4PointVal" name="quantity" min="1"
+                               max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="inc">How many points is an Incident ticket worth::</label>
+                        <input type="number" class="form-control" id="incidentPointVal" name="quantity" min="1"
+                               max="100">
+                    </div>
+                    <div class="form-group">
+                        <label for="problem">How many points is a problem ticket worth::</label>
+                        <input type="number" class="form-control" id="problemPointVal" name="quantity" min="1"
+                               max="100">
+                     </div>
+                    <div class="form-group">
+                        <label for="serviceRequest">How many points is a service request ticket worth::</label>
+                        <input type="number" class="form-control" id="serviceReqPointVal" name="quantity" min="1"
+                               max="100">
+                    </div>
+                    <button id="pointSettingSubmit" type="submit" class="btn btn-default">Submit</button>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- END Modal settings -->
+
 <!-- Modal for player info -->
 <div class="modal fade" id="playerInfo" tabindex="-1" role="dialog" aria-labelledby="playerModalLabel"
      aria-hidden="true">
@@ -503,7 +612,7 @@ aria-hidden="true">
 <!-- END Modal for time travel panel -->
 
 <footer class="">
-    last synchronization time: {{$lastsynctime}} <br />
+    last synchronization time: <%$lastsynctime%> <br />
     Copyright by Celfocus. Gamification page. All rights reserved.
 </footer>
 <!-- js includes before closing body -->

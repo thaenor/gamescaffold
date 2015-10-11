@@ -14,7 +14,6 @@ function getGroupData(start,end){
                 parseFloat(a.points)
         });
         leaderBoardPagination(_groupJson);
-        drawMorrisBarGraph();
         //$('#notificationBox').empty().append('<p></p>');
     }).fail(function (){
         $.toaster({ priority : 'danger', title : 'Internal Error', message : 'Getting team score blew up the server!'});
@@ -32,19 +31,35 @@ function removeEntriesWithZero(array){
 
 function renderGroupLeaderBoard(data) {
     var teamsArray = {}; //Dictionary like array, will contain [team name][team's points]... etc
+    var graphData = [];
     $.each(data, function (index, currentTicket) {
+        var obj={name:"", point:0};
         if (teamsArray[currentTicket.assignedGroup_id] == null) {
             teamsArray[currentTicket.assignedGroup_id] = 0;
+            obj.name=currentTicket.assignedGroup_id; obj.point=0; graphData.push(obj);
         }
         //if (currentTicket.points != fooCalculator(currentTicket)){
         //    console.log("ticket: "+currentTicket.points+" foo: "+fooCalculator(currentTicket)+" priority
         // "+currentTicket.priority+" sla "+ currentTicket.percentage+ " type "+currentTicket.type);
         //}
         teamsArray[currentTicket.assignedGroup_id] += fooCalculator(currentTicket);
+        for(var i=0;i<graphData.length;i++){
+            if(currentTicket.assignedGroup_id === obj.name){ obj.point += fooCalculator(currentTicket); }
+        }
     });
-    teamsArray ? reDisplayGroupLeaderBoard(teamsArray) : showGroupLeaderBoardError();
+    teamsArray ? (reDisplayGroupLeaderBoard(teamsArray),renderMorrisBar_Team(graphData)) : showGroupLeaderBoardError();
 }
 
+function renderMorrisBar_Team(dataArray){
+    $("#morris-Teambar-chart").empty();
+    Morris.Bar({
+        element: 'morris-Teambar-chart',
+        data: dataArray,
+        xkey: 'name',
+        ykeys: ['point'],
+        labels: ['points']
+    });
+}
 
 function reDisplayGroupLeaderBoard(array) {
     $('#teamLeaderboard').empty();
@@ -52,7 +67,6 @@ function reDisplayGroupLeaderBoard(array) {
     var orderedTeams = sortByPoints(array);
     $.each(orderedTeams, function (index, el) {
         $('#teamLeaderboard').append('<tr> <td class="success"> <a data-toggle="modal" data-target="#TeamInfo">' + el[0] + '</a></td>' + '<td class="info">' + el[1] + '</td> </tr>');
-        fillBarGraphData(el[0], el[1]);
     });
     //$('#groupLeaderBoardNav').hide();
 }
@@ -80,7 +94,6 @@ function leaderBoardPagination(groups) {
         //$('#grouplist').append('<li>'+ '<a href="#profile"" data-toggle="tab">'+ currentGroup.title + '</a>' +'</li>'); print names in list
         //draws has table. Column "variant name" is hidden on smaller screens
         $('#grouplist').append('<tr> <td class="success">' + currentGroup.title + '</td>' + '<td class="info hidden-xs hidden-sm">' + currentGroup.variant_name + '</td>' + '<td class="warning">' + currentGroup.points + '</td> </tr>');
-        fillBarGraphData(currentGroup.title, currentGroup.points);
     });
 }
 
@@ -100,8 +113,9 @@ function findTeamTickets(array, teamToFind){
  * Each time a new page is opened the old graphs aren't removed, to do that you'd have to either remove them
  * Or supply a copy of _barGraphDesignJson with only the desired data
  * */
-function drawMorrisBarGraph() {
+function drawMorrisBarGraph_Team() {
     $('#morris-bar-chart').empty();
+
     Morris.Bar({
         element: 'morris-bar-chart',
         data: _barGraphDesignJson,

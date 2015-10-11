@@ -60,14 +60,10 @@ class TicketController extends Controller {
 	 */
 	public function index()
 	{
-        $time = new DateTime('first day of this month');
-        $start = Carbon::instance($time);
-        $end = Carbon::now();
-        $tickets = Ticket::getAllTicketsBetween($start,$end);
-        if($tickets == []){
-            return ('There are no tickets to view this month. Please use the dashboard (time travel) to browse information');
-        }
-		return view('tickets.index', compact('tickets'));
+		//to view a specific page go to localhost:8000/ticket?page=X
+		$ticket = DB::table('tickets')->paginate(15);
+		$ticket->setPath('custom/url');
+		return view('tickets.index', ['tickets' => $ticket]);
     }
 
 	/**

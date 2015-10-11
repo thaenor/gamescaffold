@@ -7,10 +7,13 @@
 function renderPlayerLeaderBoard() {
     var playerArray = {}; //Dictionary like array, will contain [player name][player's points]... etc
     var playerCounter = 0;
+    var graphData = [];
 
     $.each(_resolvedTicketsData, function(index, currentTicket) {
+        var obj={name:"", point:0};
         if(playerArray[currentTicket.user_id] === undefined){
             playerArray[currentTicket.user_id] = 0;
+            obj.name=currentTicket.user_id; obj.point=0; graphData.push(obj);
             playerCounter++;
         }
         //if (currentTicket.points != fooCalculator(currentTicket)){
@@ -18,9 +21,23 @@ function renderPlayerLeaderBoard() {
         // "+currentTicket.priority+" sla "+ currentTicket.percentage+ " type "+currentTicket.type);
         //}
         playerArray[currentTicket.user_id] += fooCalculator(currentTicket);
+        for(var i=0;i<graphData.length;i++){
+            if(currentTicket.user_id === obj.name){ obj.point += fooCalculator(currentTicket); }
+        }
         //console.log("player: "+currentTicket.user_id+" solved ticket with "+currentTicket.points+" priority"+currentTicket.priority+" type"+currentTicket.type+" sla "+currentTicket.sla_time+"%");
     });
-    playerArray ? (showPlayerLeaderBoard(playerArray), countPlayers(playerCounter)) : $.toaster({ priority : 'danger', title : 'Warning', message : 'no players exist'});
+    playerArray ? (showPlayerLeaderBoard(playerArray), countPlayers(playerCounter),renderMorrisBar_player(graphData)) : $.toaster({ priority : 'danger', title : 'Warning', message : 'no players exist'});
+}
+
+function renderMorrisBar_player(dataArray){
+    $("#morris-bar-chart").empty();
+    Morris.Bar({
+        element: 'morris-bar-chart',
+        data: dataArray,
+        xkey: 'name',
+        ykeys: ['point'],
+        labels: ['points']
+    });
 }
 
 function countPlayers(size){
